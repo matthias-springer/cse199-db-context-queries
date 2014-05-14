@@ -10,25 +10,32 @@ namespace count_context_query
     
     vector<DOMAIN_TYPE> *documents_in_context(vector<DOMAIN_TYPE> *context)
     {
-        info("Context size is " << context->size() << ".");
+        show_info("Reading terms file as storage type bit vector.");
+        show_info("Context size is " << context->size() << ".");
         
-        storage *s = storage::load("term", context->at(0));
+        storage *s = storage::load("term", context->at(0), STORAGE_TYPE_BITVECTOR);
         
         for (int i = 1; i < context->size(); ++i)
         {
-            s->intersect(*storage::load("term", context->at(i)));
+            storage *next_s = storage::load("term", context->at(i));
+            s->intersect(*next_s);
+            delete next_s;
         }
         
-        info("Context contains " << s->count() << " documents.");
-        return s->elements();
+        show_info("Context contains " << s->count() << " documents.");
+        
+        vector<DOMAIN_TYPE> *result = s->elements();
+        delete s;
+        
+        return result;
     }
     
     void stdin_documents_in_context()
     {
-        info("Running query documents_in_context. Waiting for context size.");
+        show_info("Running query documents_in_context. Waiting for context size.");
         DOMAIN_TYPE count = input::read_value();
         
-        info("Waiting for " << count << " terms.");
+        show_info("Waiting for " << count << " terms.");
         vector<DOMAIN_TYPE> context;
         
         for (int i = 0; i < count; ++i)
@@ -36,6 +43,7 @@ namespace count_context_query
             context.push_back(input::read_value());
         }
         
-        documents_in_context(&context);
+        vector<DOMAIN_TYPE> *result = documents_in_context(&context);
+        delete result;
     }
 }

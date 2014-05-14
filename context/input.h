@@ -9,6 +9,7 @@ namespace input
     extern FILE *input_file;
     extern int storage_type;
     extern int debug;
+    extern bool stats_visible;
     
     void store(string name);
     void store(string name, DOMAIN_TYPE id);

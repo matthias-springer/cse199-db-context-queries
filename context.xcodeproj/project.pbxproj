@@ -21,6 +21,9 @@
 		39C35CDE1921B474009BD0DD /* count_context_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CDC1921B474009BD0DD /* count_context_query.cpp */; };
 		39C35CE11921C709009BD0DD /* top_k_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CDF1921C709009BD0DD /* top_k_query.cpp */; };
 		39C35CE51921EDED009BD0DD /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CE31921EDED009BD0DD /* input.cpp */; };
+		39C35CE91923CECE009BD0DD /* self_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CE71923CECE009BD0DD /* self_test.cpp */; };
+		39C35CEC1923DF75009BD0DD /* top_k_tf_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CEA1923DF75009BD0DD /* top_k_tf_query.cpp */; };
+		39C35CEF1923E63D009BD0DD /* count_context_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +70,12 @@
 		39C35CE01921C709009BD0DD /* top_k_query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top_k_query.h; sourceTree = "<group>"; };
 		39C35CE31921EDED009BD0DD /* input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
 		39C35CE41921EDED009BD0DD /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		39C35CE71923CECE009BD0DD /* self_test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = self_test.cpp; sourceTree = "<group>"; };
+		39C35CE81923CECE009BD0DD /* self_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = self_test.h; sourceTree = "<group>"; };
+		39C35CEA1923DF75009BD0DD /* top_k_tf_query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top_k_tf_query.cpp; sourceTree = "<group>"; };
+		39C35CEB1923DF75009BD0DD /* top_k_tf_query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top_k_tf_query.h; sourceTree = "<group>"; };
+		39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = count_context_benchmark.cpp; sourceTree = "<group>"; };
+		39C35CEE1923E63D009BD0DD /* count_context_benchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = count_context_benchmark.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +108,7 @@
 		3900F8F0191EFF9D0097C373 /* context */ = {
 			isa = PBXGroup;
 			children = (
+				39C35CE61923CEBC009BD0DD /* benchmark */,
 				39C35CE21921ED0C009BD0DD /* input */,
 				39C35CDB1921B45B009BD0DD /* query */,
 				3900F91019206FDC0097C373 /* aggregation */,
@@ -151,6 +161,8 @@
 				39C35CDD1921B474009BD0DD /* count_context_query.h */,
 				39C35CDF1921C709009BD0DD /* top_k_query.cpp */,
 				39C35CE01921C709009BD0DD /* top_k_query.h */,
+				39C35CEA1923DF75009BD0DD /* top_k_tf_query.cpp */,
+				39C35CEB1923DF75009BD0DD /* top_k_tf_query.h */,
 			);
 			name = query;
 			sourceTree = "<group>";
@@ -162,6 +174,17 @@
 				39C35CE41921EDED009BD0DD /* input.h */,
 			);
 			name = input;
+			sourceTree = "<group>";
+		};
+		39C35CE61923CEBC009BD0DD /* benchmark */ = {
+			isa = PBXGroup;
+			children = (
+				39C35CE71923CECE009BD0DD /* self_test.cpp */,
+				39C35CE81923CECE009BD0DD /* self_test.h */,
+				39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */,
+				39C35CEE1923E63D009BD0DD /* count_context_benchmark.h */,
+			);
+			name = benchmark;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +241,8 @@
 				3900F91319206FEE0097C373 /* aggregation.cpp in Sources */,
 				39C35CDE1921B474009BD0DD /* count_context_query.cpp in Sources */,
 				3900F905191F08BC0097C373 /* output.cpp in Sources */,
+				39C35CEF1923E63D009BD0DD /* count_context_benchmark.cpp in Sources */,
+				39C35CE91923CECE009BD0DD /* self_test.cpp in Sources */,
 				3900F90B191F30DC0097C373 /* bit_storage.cpp in Sources */,
 				3900F8FE191F04250097C373 /* offset.cpp in Sources */,
 				3900F9161920707E0097C373 /* array_aggregration.cpp in Sources */,
@@ -228,6 +253,7 @@
 				39C35CE51921EDED009BD0DD /* input.cpp in Sources */,
 				3900F90E191F310A0097C373 /* list_storage.cpp in Sources */,
 				3900F901191F046B0097C373 /* file.cpp in Sources */,
+				39C35CEC1923DF75009BD0DD /* top_k_tf_query.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

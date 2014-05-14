@@ -6,13 +6,13 @@ namespace offset
 {
     long offset_begin(string name, DOMAIN_TYPE id)
     {
-        debug("returns " << offsets_for(name)[2 * (id + 1)]);
+        //debug("returns " << offsets_for(name)[2 * (id + 1)]);
         return offsets_for(name)[2 * (id + 1)];
     }
     
     long offset_length(string name, DOMAIN_TYPE id)
     {
-        debug("returns " << offsets_for(name)[2 * (id + 1) + 1]);
+        //debug("returns " << offsets_for(name)[2 * (id + 1) + 1]);
         return offsets_for(name)[2 * (id + 1) + 1];
     }
     
@@ -49,7 +49,7 @@ namespace offset
     {
         for (map<string, int>::iterator iter = offset_files.begin(); iter != offset_files.end(); iter++)
         {
-            info("Closing offset file for " << iter->first << ".");
+            show_info("Closing offset file for " << iter->first << ".");
             
             munmap(offsets[iter->first], OFFSETS_FILE_SIZE);
             close(iter->second);
@@ -58,7 +58,7 @@ namespace offset
         offset_files.clear();
         offsets.clear();
         
-        info("Closed all offset files.");
+        show_info("Closed all offset files.");
     }
     
     long next_offset_for(string name)

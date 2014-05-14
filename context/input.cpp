@@ -7,19 +7,20 @@ namespace input
     FILE *input_file;
     int storage_type;
     int debug;
+    bool stats_visible;
     
     void store(string name)
     {
-        info("Input number id and number of values.");
+        show_info("Input number id and number of values.");
         store(name, read_value());
     }
     
     void store(string name, DOMAIN_TYPE id)
     {
-        info("Input data for " << name << ":" << id << ". Waiting for count.");
+        show_info("Input data for " << name << ":" << id << ". Waiting for count.");
         
         DOMAIN_TYPE count = read_value();
-        info("Waiting for " << count << " values.");
+        show_info("Waiting for " << count << " values.");
         
         storage *s = storage::new_instance();
         

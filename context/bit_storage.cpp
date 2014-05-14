@@ -4,9 +4,11 @@
 void bit_storage::load_from_file(string name, long offset, long length)
 {
     output::start_timer("io/load_bitstorage");
-    
+ 
     int fdes = open(storage_data_file_name(name).c_str(), O_RDONLY);
     ibis::array_t<word_t> arr = ibis::array_t<word_t>(fdes, offset, offset + length);
+    
+    delete data;
     data = new ibis::bitvector(arr);
     close(fdes);
     
@@ -34,6 +36,9 @@ long bit_storage::save_to_file(string name, pair<long, long> &position)
     
     position = make_pair(write_pos, bytes_written);
     output::stop_timer("io/save_bitstorage");
+    output::increment_stat("io-bytes/bitvector-written-uncompressed", data->size()/8);
+    output::increment_stat("io-bytes/bitvector-written-compressed", data->getSerialSize());
+    
     return bytes_written;
 }
 
@@ -41,6 +46,11 @@ bit_storage::bit_storage()
 {
     type = STORAGE_TYPE_BITVECTOR;
     data = new ibis::bitvector();
+}
+
+bit_storage::~bit_storage()
+{
+    delete data;
 }
 
 void bit_storage::intersect(storage &another_storage)

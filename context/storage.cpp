@@ -29,6 +29,11 @@ storage* storage::load(string name, DOMAIN_TYPE id)
     return new_from_file(name, offset::offset_begin(name, id), offset::offset_length(name, id), input::storage_type);
 }
 
+storage* storage::load(string name, DOMAIN_TYPE id, int type)
+{
+    return new_from_file(name, offset::offset_begin(name, id), offset::offset_length(name, id), type);
+}
+
 storage* storage::new_instance()
 {
     switch (input::storage_type)
@@ -54,4 +59,9 @@ void storage::print_elements()
     }
     
     cout << "\n";
+}
+
+storage::~storage()
+{
+    
 }

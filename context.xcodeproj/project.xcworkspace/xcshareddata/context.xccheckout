@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>39DA8181-EA12-449B-85A3-AF12A3CD8F95</string>
+	<key>IDESourceControlProjectName</key>
+	<string>context</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>63728E36-DA3A-430A-A8A2-6B689289109B</key>
+		<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>context.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>63728E36-DA3A-430A-A8A2-6B689289109B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>63728E36-DA3A-430A-A8A2-6B689289109B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>63728E36-DA3A-430A-A8A2-6B689289109B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>context</string>
+		</dict>
+	</array>
+</dict>
+</plist>

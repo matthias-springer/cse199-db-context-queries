@@ -15,6 +15,7 @@ public:
     ibis::bitvector *data;
     
     bit_storage();
+    virtual ~bit_storage();
     virtual void intersect(storage& another_storage);
     virtual void load_from_file(string name, long offset, long length);
     virtual long save_to_file(string name, pair<long, long> &position);

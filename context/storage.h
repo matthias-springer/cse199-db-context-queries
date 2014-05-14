@@ -25,9 +25,11 @@ public:
     virtual vector<DOMAIN_TYPE> *elements() = 0;
     virtual void add(DOMAIN_TYPE item) = 0;
     void print_elements();
+    virtual ~storage();
     
     static storage* new_from_file(string name, long offset, long length, int type);
     static storage* load(string name, DOMAIN_TYPE id);
+    static storage* load(string name, DOMAIN_TYPE id, int type);
     static storage* new_instance();
 };
 

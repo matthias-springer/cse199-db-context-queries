@@ -1,17 +1,17 @@
-#include "top_k_query.h"
+#include "top_k_tf_query.h"
 #include "input.h"
 #include "map_aggregation.h"
 #include "count_context_query.h"
 
-namespace top_k_query
+namespace top_k_tf_query
 {
-    vector<DOMAIN_TYPE> *top_k_in_context(vector<DOMAIN_TYPE> *context, int k)
+    vector<DOMAIN_TYPE> *top_k_tf_in_context(vector<DOMAIN_TYPE> *context, int k)
     {
         vector<DOMAIN_TYPE> *documents = count_context_query::documents_in_context(context);
-        return top_k_in_documents(documents, k);
+        return top_k_tf_in_documents(documents, k);
     }
     
-    vector<DOMAIN_TYPE> *top_k_in_documents(vector<DOMAIN_TYPE> *documents, int k)
+    vector<DOMAIN_TYPE> *top_k_tf_in_documents(vector<DOMAIN_TYPE> *documents, int k)
     {
         show_info("Number of documents is " << documents->size() << ".");
         
@@ -19,16 +19,16 @@ namespace top_k_query
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {
-            storage *s = storage::load("document", *iter);
+            storage *s = storage::load("document_tf", *iter);
             vector<DOMAIN_TYPE> *terms = s->elements();
             
             for (vector<DOMAIN_TYPE>::iterator term_iter = terms->begin(); term_iter != terms->end(); ++term_iter)
             {
-                aggr->add(*term_iter, 1);
+                aggr->add(*term_iter, *(++term_iter));
             }
         }
         
-        show_info("Printing top-" << k << " documents:");
+        show_info("Printing top-" << k << " documents with term frequency:");
         
         vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *top_k = aggr->top_k(k);
         for (vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>>::iterator iter = top_k->begin(); iter != top_k->end(); ++iter)
@@ -39,9 +39,9 @@ namespace top_k_query
         return NULL;
     }
     
-    void stdin_top_k_in_context()
+    void stdin_top_k_tf_in_context()
     {
-        show_info("Running query top_k_in_context. Waiting for context size.");
+        show_info("Running query top_k_tf_in_context. Waiting for context size.");
         DOMAIN_TYPE count = input::read_value();
         
         show_info("Waiting for " << count << " terms.");
@@ -53,12 +53,12 @@ namespace top_k_query
         }
         
         show_info("Waiting for k.");
-        top_k_in_context(&context, input::read_value());
+        top_k_tf_in_context(&context, input::read_value());
     }
     
-    void stdin_top_k_in_documents()
+    void stdin_top_k_tf_in_documents()
     {
-        show_info("Running query top_k_in_documents. Waiting for number of documents.");
+        show_info("Running query top_k_tf_in_documents. Waiting for number of documents.");
         DOMAIN_TYPE count = input::read_value();
         
         show_info("Waiting for " << count << " documents.");
@@ -70,6 +70,6 @@ namespace top_k_query
         }
         
         show_info("Waiting for k.");
-        top_k_in_documents(&documents, input::read_value());
+        top_k_tf_in_documents(&documents, input::read_value());
     }
 }
