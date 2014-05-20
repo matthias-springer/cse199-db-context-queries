@@ -8,6 +8,7 @@ namespace input
     int storage_type;
     int debug;
     bool stats_visible;
+    bool no_generate_benchmark_data;
     
     void store(string name)
     {

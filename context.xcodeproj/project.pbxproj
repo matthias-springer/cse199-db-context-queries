@@ -18,6 +18,8 @@
 		3900F91319206FEE0097C373 /* aggregation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3900F91119206FEE0097C373 /* aggregation.cpp */; };
 		3900F9161920707E0097C373 /* array_aggregration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3900F9141920707E0097C373 /* array_aggregration.cpp */; };
 		3900F919192071730097C373 /* map_aggregation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3900F917192071730097C373 /* map_aggregation.cpp */; };
+		3924285919240B1F00F3728C /* top_k_query_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3924285719240B1F00F3728C /* top_k_query_benchmark.cpp */; };
+		398253E9192B27B6007EF747 /* top_k_query_tf_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 398253E7192B27B6007EF747 /* top_k_query_tf_benchmark.cpp */; };
 		39C35CDE1921B474009BD0DD /* count_context_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CDC1921B474009BD0DD /* count_context_query.cpp */; };
 		39C35CE11921C709009BD0DD /* top_k_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CDF1921C709009BD0DD /* top_k_query.cpp */; };
 		39C35CE51921EDED009BD0DD /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CE31921EDED009BD0DD /* input.cpp */; };
@@ -64,6 +66,11 @@
 		3900F9151920707E0097C373 /* array_aggregration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = array_aggregration.h; sourceTree = "<group>"; };
 		3900F917192071730097C373 /* map_aggregation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map_aggregation.cpp; sourceTree = "<group>"; };
 		3900F918192071730097C373 /* map_aggregation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map_aggregation.h; sourceTree = "<group>"; };
+		3924285719240B1F00F3728C /* top_k_query_benchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top_k_query_benchmark.cpp; sourceTree = "<group>"; };
+		3924285819240B1F00F3728C /* top_k_query_benchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top_k_query_benchmark.h; sourceTree = "<group>"; };
+		3924285E1925CE9700F3728C /* map_column_storage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map_column_storage.h; sourceTree = "<group>"; };
+		398253E7192B27B6007EF747 /* top_k_query_tf_benchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top_k_query_tf_benchmark.cpp; sourceTree = "<group>"; };
+		398253E8192B27B6007EF747 /* top_k_query_tf_benchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top_k_query_tf_benchmark.h; sourceTree = "<group>"; };
 		39C35CDC1921B474009BD0DD /* count_context_query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = count_context_query.cpp; sourceTree = "<group>"; };
 		39C35CDD1921B474009BD0DD /* count_context_query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = count_context_query.h; sourceTree = "<group>"; };
 		39C35CDF1921C709009BD0DD /* top_k_query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = top_k_query.cpp; sourceTree = "<group>"; };
@@ -137,6 +144,7 @@
 				3900F90A191F30DC0097C373 /* bit_storage.h */,
 				3900F90C191F310A0097C373 /* list_storage.cpp */,
 				3900F90D191F310A0097C373 /* list_storage.h */,
+				3924285E1925CE9700F3728C /* map_column_storage.h */,
 			);
 			name = storage;
 			sourceTree = "<group>";
@@ -183,6 +191,10 @@
 				39C35CE81923CECE009BD0DD /* self_test.h */,
 				39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */,
 				39C35CEE1923E63D009BD0DD /* count_context_benchmark.h */,
+				3924285719240B1F00F3728C /* top_k_query_benchmark.cpp */,
+				3924285819240B1F00F3728C /* top_k_query_benchmark.h */,
+				398253E7192B27B6007EF747 /* top_k_query_tf_benchmark.cpp */,
+				398253E8192B27B6007EF747 /* top_k_query_tf_benchmark.h */,
 			);
 			name = benchmark;
 			sourceTree = "<group>";
@@ -245,9 +257,11 @@
 				39C35CE91923CECE009BD0DD /* self_test.cpp in Sources */,
 				3900F90B191F30DC0097C373 /* bit_storage.cpp in Sources */,
 				3900F8FE191F04250097C373 /* offset.cpp in Sources */,
+				3924285919240B1F00F3728C /* top_k_query_benchmark.cpp in Sources */,
 				3900F9161920707E0097C373 /* array_aggregration.cpp in Sources */,
 				39C35CE11921C709009BD0DD /* top_k_query.cpp in Sources */,
 				3900F908191F2DEE0097C373 /* storage.cpp in Sources */,
+				398253E9192B27B6007EF747 /* top_k_query_tf_benchmark.cpp in Sources */,
 				3900F8F2191EFF9D0097C373 /* main.cpp in Sources */,
 				3900F919192071730097C373 /* map_aggregation.cpp in Sources */,
 				39C35CE51921EDED009BD0DD /* input.cpp in Sources */,

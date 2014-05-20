@@ -2,15 +2,18 @@
 #define __context__map_aggregation__
 
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include "aggregation.h"
+
+// unordered_map implementation: hash table
+// map implementation: LLRB (left leaning red black tree)
 
 using namespace std;
 
 class map_aggregation : public aggregation
 {
 private:
-    map<DOMAIN_TYPE, DOMAIN_TYPE> *data;
+    unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> *data;
     
 public:
     map_aggregation();

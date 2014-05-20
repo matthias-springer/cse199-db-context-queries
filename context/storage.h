@@ -7,6 +7,7 @@
 
 #define STORAGE_TYPE_BITVECTOR      0
 #define STORAGE_TYPE_LIST           1
+#define STORAGE_TYPE_MAP_COLUMN     2
 
 using namespace std;
 

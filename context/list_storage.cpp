@@ -3,6 +3,8 @@
 
 void list_storage::load_from_file(string name, long offset, long length)
 {
+    output::start_timer("io/load_list");
+    
     long cnt_elements = length / sizeof(DOMAIN_TYPE);
     DOMAIN_TYPE *read_buffer = new DOMAIN_TYPE[cnt_elements];
     
@@ -10,13 +12,19 @@ void list_storage::load_from_file(string name, long offset, long length)
     fseek(data_file, offset, 0);
     fread(read_buffer, sizeof(DOMAIN_TYPE), cnt_elements, data_file);
     
+    delete data;
     data = new vector<DOMAIN_TYPE>(read_buffer, read_buffer + cnt_elements);
+    delete read_buffer;
     
     fclose(data_file);
+    
+    output::stop_timer("io/load_list");
 }
 
 long list_storage::save_to_file(string name, pair<long, long> &position)
 {
+    output::start_timer("io/save_list");
+    
     long write_pos = offset::next_offset_for(name);
     FILE *file = fopen(storage_data_file_name(name).c_str(), "a");
     
@@ -29,6 +37,10 @@ long list_storage::save_to_file(string name, pair<long, long> &position)
     fclose(file);
     
     position = make_pair(write_pos, bytes_written);
+    
+    output::increment_stat("io-bytes/list-written", (int) bytes_written);
+    output::stop_timer("io/save_list");
+    
     return bytes_written;
 }
 
@@ -38,8 +50,15 @@ list_storage::list_storage()
     data = new vector<DOMAIN_TYPE>;
 }
 
+list_storage::~list_storage()
+{
+    delete data;
+}
+
 ibis::bitvector *list_storage::to_bit_vector()
 {
+    output::start_timer("io/list_to_bitvector");
+    
     ibis::bitvector *v = new ibis::bitvector();
     
     for (vector<DOMAIN_TYPE>::iterator iter = data->begin(); iter != data->end(); ++iter)
@@ -47,11 +66,15 @@ ibis::bitvector *list_storage::to_bit_vector()
         v->setBit(*iter, 1);
     }
     
+    output::stop_timer("io/list_to_bitvector");
+    
     return v;
 }
 
 void list_storage::intersect(storage &another_storage)
 {
+    output::start_timer("run/intersect_list");
+    
     if (another_storage.type == STORAGE_TYPE_BITVECTOR)
     {
         ibis::bitvector *v = static_cast<bit_storage*>(&another_storage)->data;
@@ -76,6 +99,8 @@ void list_storage::intersect(storage &another_storage)
             }
         }
     }
+    
+    output::stop_timer("run/intersect_list");
 }
 
 long list_storage::count()

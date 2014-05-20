@@ -11,4 +11,6 @@ string storage_base_path();
 string storage_data_file_name(string name);
 string storage_offset_file_name(string name);
 
+extern string storage_path;
+
 #endif

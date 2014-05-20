@@ -8,6 +8,8 @@
 #include "top_k_tf_query.h"
 #include "self_test.h"
 #include "count_context_benchmark.h"
+#include "top_k_query_benchmark.h"
+#include "top_k_query_tf_benchmark.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,8 +29,10 @@ int main(int argc, char ** argv)
     input::input_file = stdin;
     input::storage_type = STORAGE_TYPE_BITVECTOR;
     input::debug = 0;
+    input::no_generate_benchmark_data = false;
+    storage_path = "/Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database";
     
-    char *help = "usage: %s [-h] [-r] [-p] [-f file] [-s] [-i id] [-n name] [-q id] [-t type] [-d] \n\n"
+    char *help = "usage: %s [-hrpsdz] [-f file] [-i id] [-n name] [-q id] [-t type] [-w path] \n\n"
         "-h\tShow list of parameters.\n"
         "-r\tRead data for name from stdin.\n"
         "-p\tPrint storage to stdout.\n"
@@ -38,6 +42,8 @@ int main(int argc, char ** argv)
         "-n name\tSpecifies a name. Required for some actions.\n"
         "-q id\tRuns query id (see below).\n"
         "-t type\tSpecifies the storage type (see below).\n"
+        "-z\tDo not generate benchmark data, reuse existing data.\n"
+        "-w path\tUse path as the working directory containing all data.\n"
         "-d\tEnables debug mode.\n\n"
         "List of queries/benchmarks:\n"
         "[1]\tCount number of documents in context.\n"
@@ -46,12 +52,14 @@ int main(int argc, char ** argv)
         "[4]\tSelf test\n"
         "[5]\tRetrieve top-k terms in documents with term frequency.\n"
         "[6]\tRetrieve top-k terms in context with term frequency.\n"
-        "[7]\tBenchmark for query 1.\n\n"
+        "[7]\tBenchmark for query 1.\n"
+        "[8]\tBenchmark for query 2.\n"
+        "[9]\tBenchmark for query 5.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
     
-    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:d")) != -1)
+    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:dzw:")) != -1)
     {
         switch (c)
         {
@@ -100,6 +108,12 @@ int main(int argc, char ** argv)
             case 'd':
                 input::debug = 1;
                 break;
+            case 'z':
+                input::no_generate_benchmark_data = true;
+                break;
+            case 'w':
+                storage_path = optarg;
+                break;
         }
     }
     
@@ -141,6 +155,12 @@ int main(int argc, char ** argv)
                     break;
                 case 7:
                     benchmark::run_count_context();
+                    break;
+                case 8:
+                    benchmark::run_top_k();
+                    break;
+                case 9:
+                    benchmark::run_top_k_tf();
                     break;
             }
             break;

@@ -10,6 +10,7 @@ namespace input
     extern int storage_type;
     extern int debug;
     extern bool stats_visible;
+    extern bool no_generate_benchmark_data;
     
     void store(string name);
     void store(string name, DOMAIN_TYPE id);

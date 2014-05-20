@@ -63,7 +63,9 @@ void bit_storage::intersect(storage &another_storage)
     }
     else if (another_storage.type == STORAGE_TYPE_LIST)
     {
-        *data &= *static_cast<list_storage*>(&another_storage)->to_bit_vector();
+        ibis::bitvector *other_bv = static_cast<list_storage*>(&another_storage)->to_bit_vector();
+        *data &= *other_bv;
+        delete other_bv;
     }
     
     output::stop_timer("run/intersect_bitstorage");

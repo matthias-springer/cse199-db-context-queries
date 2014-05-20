@@ -13,7 +13,7 @@
 #include <sys/mman.h>
 #include "compile_options.h"
 
-#define OFFSETS_FILE_SIZE sizeof(long) * 2 * 25000
+#define OFFSETS_FILE_SIZE sizeof(long) * 2 * 200000005 //1400000
 
 using namespace std;
 

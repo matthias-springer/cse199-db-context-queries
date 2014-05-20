@@ -5,7 +5,7 @@
 #include "count_context_query.h"
 
 #define NUM_TERMS               24999
-#define DOCUMENTS_PER_TERM      50000
+#define DOCUMENTS_PER_TERM      50
 #define MAX_DOCUMENT            2000000
 
 namespace benchmark
@@ -15,30 +15,33 @@ namespace benchmark
         show_info("Running benchmark for counting documents in context.");
         show_info("NUM_TERMS=" << NUM_TERMS << ", DOCUMENTS_PER_TERM=" << DOCUMENTS_PER_TERM << ", MAX_DOCUMENT=" << MAX_DOCUMENT);
         
-        show_info("Generating term files.");
-        
-        for (int i = 0; i < NUM_TERMS; ++i)
+        if (!input::no_generate_benchmark_data)
         {
-            storage *s = storage::new_instance();
-            pair<long, long> position;
+            show_info("Generating term files.");
             
-            for (int j = 0; j < DOCUMENTS_PER_TERM; ++j)
+            for (int i = 0; i < NUM_TERMS; ++i)
             {
-                s->add(rand() % MAX_DOCUMENT);
+                storage *s = storage::new_instance();
+                pair<long, long> position;
+                
+                for (int j = 0; j < DOCUMENTS_PER_TERM; ++j)
+                {
+                    s->add(rand() % MAX_DOCUMENT);
+                }
+                
+                s->save_to_file("term", position);
+                offset::set_offsets_for("term", i, position.first, position.second);
+                
+                delete s;
+                if (i % (NUM_TERMS/1000) == 0) debug_n("  " << i*100.0/NUM_TERMS << " % complete.    ");
             }
+            debug_n("  " << 100 << " % complete.    \n")
             
-            s->save_to_file("term", position);
-            offset::set_offsets_for("term", i, position.first, position.second);
+            offset::close_offset_files();
             
-            delete s;
-            if (i % (NUM_TERMS/1000) == 0) debug_n("  " << i*100.0/NUM_TERMS << " % complete.    ");
+            output::show_stats();
+            output::clear_stats();
         }
-        debug_n("  " << 100 << " % complete.    \n")
-        
-        offset::close_offset_files();
-        
-        output::show_stats();
-        output::clear_stats();
         
         int context_size[7] = {1, 10, 100, 1000, 10000, 100000, 1000000};
         for (int i = 0; i < 7; ++i)

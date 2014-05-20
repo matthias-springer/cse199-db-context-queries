@@ -2,9 +2,12 @@
 
 using namespace std;
 
+string storage_path;
+
 string storage_base_path()
 {
-    return "/Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database";
+    //return "/Volumes/4 TB External/context";
+    return storage_path;
 }
 
 string storage_data_file_name(string name)

@@ -2,6 +2,7 @@
 #include "input.h"
 #include "map_aggregation.h"
 #include "count_context_query.h"
+#include "map_column_storage.h"
 
 namespace top_k_tf_query
 {
@@ -15,27 +16,39 @@ namespace top_k_tf_query
     {
         show_info("Number of documents is " << documents->size() << ".");
         
+        output::start_timer("run/top_k_tf_in_documents_complete");
+        output::start_timer("run/top_k_tf_in_documents_aggregation_and_load");
+        
         aggregation *aggr = new map_aggregation();
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {
-            storage *s = storage::load("document_tf", *iter);
-            vector<DOMAIN_TYPE> *terms = s->elements();
+            output::start_timer("run/top_k_tf_in_documents_load");
+            map_column_storage<DOMAIN_TYPE> *s = map_column_storage<DOMAIN_TYPE>::load("document_tf", *iter);
+            output::stop_timer("run/top_k_tf_in_documents_load");
             
-            for (vector<DOMAIN_TYPE>::iterator term_iter = terms->begin(); term_iter != terms->end(); ++term_iter)
+            unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> *terms = s->elements_with_columns();
+            
+            for (auto term_iter = terms->begin(); term_iter != terms->end(); ++term_iter)
             {
-                aggr->add(*term_iter, *(++term_iter));
+                aggr->add(term_iter->first, term_iter->second);
             }
         }
         
+        output::stop_timer("run/top_k_tf_in_documents_aggregation_and_load");
+        
         show_info("Printing top-" << k << " documents with term frequency:");
         
+        output::start_timer("run/top_k_tf_in_documents_extract_top_k");
         vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *top_k = aggr->top_k(k);
+        output::stop_timer("run/top_k_tf_in_documents_extract_top_k");
+        
         for (vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>>::iterator iter = top_k->begin(); iter != top_k->end(); ++iter)
         {
             show_info("  [" << (*iter).first << "]  " << (*iter).second);
         }
         
+        output::stop_timer("run/top_k_tf_in_documents_complete");
         return NULL;
     }
     

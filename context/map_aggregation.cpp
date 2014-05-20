@@ -9,7 +9,7 @@ void map_aggregation::add(DOMAIN_TYPE key, DOMAIN_TYPE increment)
 
 map_aggregation::map_aggregation()
 {
-    data = new map<DOMAIN_TYPE, DOMAIN_TYPE>();
+    data = new unordered_map<DOMAIN_TYPE, DOMAIN_TYPE>(25000);
 }
 
 vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *map_aggregation::top_k(int k)
