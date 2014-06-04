@@ -8,6 +8,7 @@
 #define STORAGE_TYPE_BITVECTOR      0
 #define STORAGE_TYPE_LIST           1
 #define STORAGE_TYPE_MAP_COLUMN     2
+#define STORAGE_TYPE_COLUMN_LIST    3
 
 using namespace std;
 
@@ -21,6 +22,7 @@ public:
     
     virtual void intersect(storage& another_storage) = 0;
     virtual void load_from_file(string name, long offset, long length) = 0;
+    virtual void generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value) = 0;
     virtual long save_to_file(string name, pair<long, long> &position) = 0;
     virtual long count() = 0;
     virtual vector<DOMAIN_TYPE> *elements() = 0;

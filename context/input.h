@@ -11,6 +11,16 @@ namespace input
     extern int debug;
     extern bool stats_visible;
     extern bool no_generate_benchmark_data;
+    extern bool omit_io;
+    
+    extern DOMAIN_TYPE b_NUM_TERMS;
+    extern DOMAIN_TYPE b_DOCUMENTS_PER_TERM;
+    extern DOMAIN_TYPE b_MAX_DOCUMENT;
+    extern DOMAIN_TYPE b_NUM_DOCUMENTS;
+    extern DOMAIN_TYPE b_TERMS_PER_DOCUMENT;
+    extern DOMAIN_TYPE b_MAX_TERM;
+    extern DOMAIN_TYPE b_MAX_FREQUENCY;
+    extern DOMAIN_TYPE b_K;
     
     void store(string name);
     void store(string name, DOMAIN_TYPE id);

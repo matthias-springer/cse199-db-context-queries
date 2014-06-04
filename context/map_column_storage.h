@@ -17,6 +17,22 @@ public:
         data = new unordered_map<DOMAIN_TYPE, TAttribute>();
     }
     
+    virtual void generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_key, TAttribute max_value)
+    {
+#if TAttribute == DOMAIN_TYPE
+        output::start_timer("io/generate_map_column_storage");
+        
+        for (DOMAIN_TYPE i = 0; i < count; ++i)
+        {
+            (*data)[rand() % max_key] = rand() % max_value;
+        }
+        
+        output::stop_timer("io/generate_map_column_storage");
+#else
+        error("Generate randomly not implemented.");
+#endif
+    }
+    
     virtual ~map_column_storage()
     {
         delete data;
@@ -25,6 +41,11 @@ public:
     virtual void intersect(storage& another_storage)
     {
         error("Intersect not implemented.");
+    }
+    
+    void generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value)
+    {
+        error("Generate randomly not implemented.");
     }
     
     virtual void load_from_file(string name, long offset, long length)

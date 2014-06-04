@@ -18,6 +18,7 @@ public:
     virtual ~bit_storage();
     virtual void intersect(storage& another_storage);
     virtual void load_from_file(string name, long offset, long length);
+    virtual void generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value);
     virtual long save_to_file(string name, pair<long, long> &position);
     virtual long count();
     virtual vector<DOMAIN_TYPE> *elements();

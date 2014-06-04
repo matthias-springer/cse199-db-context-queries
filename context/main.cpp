@@ -10,6 +10,7 @@
 #include "count_context_benchmark.h"
 #include "top_k_query_benchmark.h"
 #include "top_k_query_tf_benchmark.h"
+#include "top_k_query_tf_dual_list_benchmark.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,13 +27,14 @@ int main(int argc, char ** argv)
     int query = 0;
     DOMAIN_TYPE id = -1;
     
+    input::omit_io = false;
     input::input_file = stdin;
     input::storage_type = STORAGE_TYPE_BITVECTOR;
     input::debug = 0;
     input::no_generate_benchmark_data = false;
     storage_path = "/Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database";
     
-    char *help = "usage: %s [-hrpsdz] [-f file] [-i id] [-n name] [-q id] [-t type] [-w path] \n\n"
+    char *help = "usage: %s [-hrpsdzo] [-f file] [-i id] [-n name] [-q id] [-t type] [-w path] \n\n"
         "-h\tShow list of parameters.\n"
         "-r\tRead data for name from stdin.\n"
         "-p\tPrint storage to stdout.\n"
@@ -44,6 +46,7 @@ int main(int argc, char ** argv)
         "-t type\tSpecifies the storage type (see below).\n"
         "-z\tDo not generate benchmark data, reuse existing data.\n"
         "-w path\tUse path as the working directory containing all data.\n"
+        "-o\tOmit IO in benchmarks.\n"
         "-d\tEnables debug mode.\n\n"
         "List of queries/benchmarks:\n"
         "[1]\tCount number of documents in context.\n"
@@ -55,11 +58,12 @@ int main(int argc, char ** argv)
         "[7]\tBenchmark for query 1.\n"
         "[8]\tBenchmark for query 2.\n"
         "[9]\tBenchmark for query 5.\n"
+        "[10]\tBenchmark for query 5 with dual lists.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
     
-    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:dzw:")) != -1)
+    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:dzw:o")) != -1)
     {
         switch (c)
         {
@@ -114,6 +118,9 @@ int main(int argc, char ** argv)
             case 'w':
                 storage_path = optarg;
                 break;
+            case 'o':
+                input::omit_io = true;
+                break;
         }
     }
     
@@ -161,6 +168,9 @@ int main(int argc, char ** argv)
                     break;
                 case 9:
                     benchmark::run_top_k_tf();
+                    break;
+                case 10:
+                    benchmark::run_top_k_tf_dual_list();
                     break;
             }
             break;

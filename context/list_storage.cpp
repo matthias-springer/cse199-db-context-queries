@@ -1,6 +1,18 @@
 #include "list_storage.h"
 #include "bit_storage.h"
 
+void list_storage::generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value)
+{
+    output::start_timer("io/generate_liststorage");
+    
+    for (DOMAIN_TYPE i = 0; i < count; ++i)
+    {
+        data->push_back(rand() % max_value);
+    }
+    
+    output::stop_timer("io/generate_liststorage");
+}
+
 void list_storage::load_from_file(string name, long offset, long length)
 {
     output::start_timer("io/load_list");

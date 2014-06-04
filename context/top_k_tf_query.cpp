@@ -23,8 +23,20 @@ namespace top_k_tf_query
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {
+            map_column_storage<DOMAIN_TYPE> *s;
+            
             output::start_timer("run/top_k_tf_in_documents_load");
-            map_column_storage<DOMAIN_TYPE> *s = map_column_storage<DOMAIN_TYPE>::load("document_tf", *iter);
+            
+            if (input::omit_io)
+            {
+                s = new map_column_storage<DOMAIN_TYPE>();
+                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM, input::b_MAX_FREQUENCY);
+            }
+            else
+            {
+                s = map_column_storage<DOMAIN_TYPE>::load("document_tf", *iter);
+            }
+            
             output::stop_timer("run/top_k_tf_in_documents_load");
             
             unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> *terms = s->elements_with_columns();

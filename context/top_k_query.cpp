@@ -3,6 +3,7 @@
 #include "map_aggregation.h"
 #include "array_aggregration.h"
 #include "count_context_query.h"
+#include "list_storage.h"
 
 namespace top_k_query
 {
@@ -20,12 +21,24 @@ namespace top_k_query
         output::start_timer("run/top_k_in_documents_aggregation_and_load");
         
         aggregation *aggr = new map_aggregation();
-        //aggregation *aggr = new array_aggregation(25000);
+        //aggregation *aggr = new array_aggregation(50001);
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {
+            storage *s;
+            
             output::start_timer("run/top_k_in_documents_load");
-            storage *s = storage::load("document", *iter, STORAGE_TYPE_LIST);
+            
+            if (input::omit_io)
+            {
+                s = new list_storage();
+                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM);
+            }
+            else
+            {
+                s = storage::load("document", *iter, STORAGE_TYPE_LIST);
+            }
+            
             output::stop_timer("run/top_k_in_documents_load");
             
             vector<DOMAIN_TYPE> *terms = s->elements();
