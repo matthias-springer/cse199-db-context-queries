@@ -11,6 +11,7 @@
 #include "top_k_query_benchmark.h"
 #include "top_k_query_tf_benchmark.h"
 #include "top_k_query_tf_dual_list_benchmark.h"
+#include "top_k_tf_column_db_query_benchmark.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,6 +60,7 @@ int main(int argc, char ** argv)
         "[8]\tBenchmark for query 2.\n"
         "[9]\tBenchmark for query 5.\n"
         "[10]\tBenchmark for query 5 with dual lists.\n"
+        "[11]\tBenchmark for query 3 with column database.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -171,6 +173,9 @@ int main(int argc, char ** argv)
                     break;
                 case 10:
                     benchmark::run_top_k_tf_dual_list();
+                    break;
+                case 11:
+                    benchmark::run_top_k_tf_column_db_query();
                     break;
             }
             break;

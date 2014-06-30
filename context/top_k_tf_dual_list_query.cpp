@@ -20,8 +20,8 @@ namespace top_k_tf_dual_list_query
         output::start_timer("run/top_k_tf_dual_list_in_documents_complete");
         output::start_timer("run/ttop_k_tf_dual_list_in_documents_aggregation_and_load");
         
-        aggregation *aggr = new map_aggregation();
-        //aggregation *aggr = new array_aggregation(50001);
+        //aggregation *aggr = new map_aggregation();
+        aggregation *aggr = new array_aggregation(input::b_MAX_TERM + 1);
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {

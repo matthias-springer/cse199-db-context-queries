@@ -16,7 +16,7 @@ void array_aggregation::add(DOMAIN_TYPE key, DOMAIN_TYPE increment)
 array_aggregation::array_aggregation(DOMAIN_TYPE size)
 {
     debug("Creating new array aggregation of size " << size << ".");
-    data = new DOMAIN_TYPE[size];
+    data = new DOMAIN_TYPE[size]();
     this->size = size;
 }
 

@@ -21,6 +21,7 @@ namespace input
     extern DOMAIN_TYPE b_MAX_TERM;
     extern DOMAIN_TYPE b_MAX_FREQUENCY;
     extern DOMAIN_TYPE b_K;
+    extern long b_NUM_TUPLES;
     
     void store(string name);
     void store(string name, DOMAIN_TYPE id);

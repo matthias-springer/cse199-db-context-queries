@@ -46,8 +46,8 @@ namespace benchmark
             output::clear_stats();
         }
         
-        int docs_size[7] = {1, 10, 100, 1000, 10000, 100000, 1000000};
-        for (int i = 0; i < 7; ++i)
+        int docs_size[8] = {1, 10, 100, 1000, 10000, 50000, 100000, 1000000};
+        for (int i = 0; i < 8; ++i)
         {
             show_info("Running top_k_tf_dual_list_in_documents_tf with number of documents " << docs_size[i] << ".");
             vector<DOMAIN_TYPE> *documents = new vector<DOMAIN_TYPE>;
