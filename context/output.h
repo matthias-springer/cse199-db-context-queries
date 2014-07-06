@@ -21,6 +21,7 @@ namespace output
 {
     void start_timer(string name);
     void stop_timer(string name);
+    void timer_reps(string name, int reps);
     string timer_statistics();
     void increment_stat(string name, int increment);
     void clear_stats();

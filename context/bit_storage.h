@@ -22,7 +22,8 @@ public:
     virtual long save_to_file(string name, pair<long, long> &position);
     virtual long count();
     virtual vector<DOMAIN_TYPE> *elements();
-    virtual void add(DOMAIN_TYPE item) ;
+    virtual void add(DOMAIN_TYPE item);
+    virtual storage* copy();
 };
 
 #endif

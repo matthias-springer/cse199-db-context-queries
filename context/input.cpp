@@ -11,15 +11,16 @@ namespace input
     bool no_generate_benchmark_data;
     bool omit_io;
     
-    DOMAIN_TYPE b_NUM_TERMS = 50000;
-    DOMAIN_TYPE b_DOCUMENTS_PER_TERM = 100000;
-    DOMAIN_TYPE b_MAX_DOCUMENT = 10000000;
-    DOMAIN_TYPE b_NUM_DOCUMENTS = 1000000;
+    DOMAIN_TYPE b_NUM_TERMS = 9000;
+    DOMAIN_TYPE b_DOCUMENTS_PER_TERM = 50000;
+    DOMAIN_TYPE b_MAX_DOCUMENT = 4500000;
+    DOMAIN_TYPE b_NUM_DOCUMENTS = 4500000;
     DOMAIN_TYPE b_TERMS_PER_DOCUMENT = 100;
-    DOMAIN_TYPE b_MAX_TERM = 10000000;
+    DOMAIN_TYPE b_MAX_TERM = 9000;
     DOMAIN_TYPE b_MAX_FREQUENCY = 40;
     DOMAIN_TYPE b_K = 5;
-    long b_NUM_TUPLES = 50000000;
+    long b_NUM_TUPLES =     450000000; //50000000;
+    //                      447392426
     
     void store(string name)
     {

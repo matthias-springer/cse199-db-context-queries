@@ -39,20 +39,32 @@ namespace benchmark
             output::clear_stats();
         }
         
-        int context_size[7] = {1, 10, 100, 1000, 10000, 100000, 1000000};
-        for (int i = 0; i < 7; ++i)
+        if (input::omit_io)
         {
-            show_info("Running count_context_query with context size " << context_size[i] << ".");
-            vector<DOMAIN_TYPE> *context = new vector<DOMAIN_TYPE>;
+            count_context_query::randomly_generate_vectors();
+        }
+        
+        int context_size[11] = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024};
+        for (int i = 0; i < 11; ++i)
+        {
+            int r = 0;
             
-            for (int j = 0; j < context_size[i]; ++j)
+            for (r = 0; r < 500; ++r)
             {
-                context->push_back(rand() % input::b_NUM_TERMS);
+                show_info("Running count_context_query with context size " << context_size[i] << ".");
+                vector<DOMAIN_TYPE> *context = new vector<DOMAIN_TYPE>;
+                
+                for (int j = 0; j < context_size[i]; ++j)
+                {
+                    context->push_back(rand() % input::b_NUM_TERMS);
+                }
+                
+                vector<DOMAIN_TYPE> *result = count_context_query::documents_in_context(context);
+                delete result;
+                delete context;
             }
             
-            vector<DOMAIN_TYPE> *result = count_context_query::documents_in_context(context);
-            delete result;
-            delete context;
+            debug("Statistics for " << r << " repititions.");
             
             output::show_stats();
             output::clear_stats();

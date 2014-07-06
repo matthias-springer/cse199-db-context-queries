@@ -27,6 +27,7 @@ public:
     virtual long count() = 0;
     virtual vector<DOMAIN_TYPE> *elements() = 0;
     virtual void add(DOMAIN_TYPE item) = 0;
+    virtual storage* copy();
     void print_elements();
     virtual ~storage();
     

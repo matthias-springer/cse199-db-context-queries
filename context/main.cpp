@@ -60,7 +60,9 @@ int main(int argc, char ** argv)
         "[8]\tBenchmark for query 2.\n"
         "[9]\tBenchmark for query 5.\n"
         "[10]\tBenchmark for query 5 with dual lists.\n"
-        "[11]\tBenchmark for query 3 with column database.\n"
+        "[11]\tBenchmark for query 6 with column database.\n"
+        "[12]\tBenchmark for query 5 with column database.\n"
+        "[13]\tBenchmark for query 1 with column database.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -176,6 +178,12 @@ int main(int argc, char ** argv)
                     break;
                 case 11:
                     benchmark::run_top_k_tf_column_db_query();
+                    break;
+                case 12:
+                    benchmark::run_top_k_tf_in_docs_column_db_query();
+                    break;
+                case 13:
+                    benchmark::run_docs_in_context_column_db_query();
                     break;
             }
             break;

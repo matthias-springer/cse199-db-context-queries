@@ -1,5 +1,6 @@
 #include "bit_storage.h"
 #include "list_storage.h"
+#include "input.h"
 
 void bit_storage::generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value)
 {
@@ -126,3 +127,12 @@ void bit_storage::add(DOMAIN_TYPE item)
     data->setBit(item, 1);
 }
 
+storage* bit_storage::copy()
+{
+    bit_storage *result = new bit_storage();
+    
+    delete result->data;
+    result->data = new ibis::bitvector(*data);
+    
+    return result;
+}

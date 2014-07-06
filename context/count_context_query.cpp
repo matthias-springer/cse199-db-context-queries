@@ -4,6 +4,22 @@
 
 namespace count_context_query
 {
+    bit_storage **bit_vectors_in_ram;
+    
+    void randomly_generate_vectors()
+    {
+        debug("Generating " << input::b_MAX_TERM << " bit vectors.");
+        bit_vectors_in_ram = new bit_storage*[input::b_MAX_TERM];
+        
+        for (int i = 0; i < input::b_MAX_TERM; ++i)
+        {
+            bit_vectors_in_ram[i] = new bit_storage();
+            bit_vectors_in_ram[i]->generate_randomly(input::b_DOCUMENTS_PER_TERM, input::b_MAX_DOCUMENT);
+        }
+        
+        debug("Done.");
+    }
+    
     long size_of_context(vector<DOMAIN_TYPE> *context)
     {
         return documents_in_context(context)->size();
@@ -18,13 +34,14 @@ namespace count_context_query
         
         if (input::omit_io)
         {
-            s = new bit_storage();
-            s->generate_randomly(input::b_DOCUMENTS_PER_TERM, input::b_MAX_DOCUMENT);
+            s = bit_vectors_in_ram[context->at(0)]->copy();
         }
         else
         {
             s = storage::load("term", context->at(0), STORAGE_TYPE_BITVECTOR);
         }
+        
+        output::start_timer("run/count_context_query");
         
         for (int i = 1; i < context->size(); ++i)
         {
@@ -32,8 +49,7 @@ namespace count_context_query
             
             if (input::omit_io)
             {
-                next_s = new bit_storage();
-                next_s->generate_randomly(input::b_DOCUMENTS_PER_TERM, input::b_MAX_DOCUMENT);
+                next_s = bit_vectors_in_ram[context->at(i)];
             }
             else
             {
@@ -41,13 +57,21 @@ namespace count_context_query
             }
             
             s->intersect(*next_s);
-            delete next_s;
+            
+            if (!input::omit_io)
+            {
+                delete next_s;
+            }
         }
         
         show_info("Context contains " << s->count() << " documents.");
         
         vector<DOMAIN_TYPE> *result = s->elements();
+        
         delete s;
+        
+        
+        output::stop_timer("run/count_context_query");
         
         return result;
     }

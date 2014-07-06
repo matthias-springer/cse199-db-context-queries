@@ -65,3 +65,8 @@ storage::~storage()
 {
     
 }
+
+storage* storage::copy()
+{
+    error("Copy not implemented for this storage.");
+}

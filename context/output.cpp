@@ -83,6 +83,11 @@ namespace output
         timer_runtime[name] += diff_val.tv_sec*1000000000 + diff_val.tv_nsec;
     }
   
+    void timer_reps(string name, int reps)
+    {
+        timer_runtime[name] /= (float)reps;
+    }
+    
     string timer_statistics()
     {
         stringstream s;
