@@ -95,6 +95,7 @@ namespace output
         for (auto iter = timer_runtime.begin(); iter != timer_runtime.end(); ++iter)
         {
             s << "  (" << iter->first << ")\t" << iter->second/1000000000.0 << "\n";
+            s << " U(" << iter->first << ")\t" << iter->second << "\n";
         }
         
         if (timer_runtime["io-bytes/bitvector-written-uncompressed"] != 0)

@@ -7,6 +7,7 @@
 
 namespace top_k_tf_dual_list_query
 {
+    void generate_random_data();
     vector<DOMAIN_TYPE> *top_k_tf_in_context(vector<DOMAIN_TYPE> *context, int k);
     vector<DOMAIN_TYPE> *top_k_tf_in_documents(vector<DOMAIN_TYPE> *documents, int k);
 }

@@ -44,7 +44,7 @@ namespace benchmark
         {
             int r = 0;
             
-            for (r = 0; r < 50; ++r)
+            for (r = 0; r < 25; ++r)
             {
                 show_info("Running top_k_in_documents_tf with number of terms " << terms_size[i] << ".");
                 vector<DOMAIN_TYPE> *terms = new vector<DOMAIN_TYPE>;
@@ -71,17 +71,22 @@ namespace benchmark
         
         for (int i = 0; i < 8; ++i)
         {
-            show_info("Running run_top_k_tf_in_docs_column_db_query with number of documents " << docs_size[i] << ".");
-            unordered_set<DOMAIN_TYPE> *documents = new unordered_set<DOMAIN_TYPE>();
-            
-            for (int j = 0; j < docs_size[i]; ++j)
+            int r = 0;
+            for (r = 0; r < 25; ++r)
             {
-                documents->insert(rand() % input::b_MAX_DOCUMENT);
+                show_info("Running run_top_k_tf_in_docs_column_db_query with number of documents " << docs_size[i] << ".");
+                unordered_set<DOMAIN_TYPE> *documents = new unordered_set<DOMAIN_TYPE>();
+                
+                for (int j = 0; j < docs_size[i]; ++j)
+                {
+                    documents->insert(rand() % input::b_MAX_DOCUMENT);
+                }
+                
+                vector<DOMAIN_TYPE> *result = top_k_tf_column_db_query::top_k_tf_in_documents(documents, input::b_K);
+                delete documents;
             }
             
-            vector<DOMAIN_TYPE> *result = top_k_tf_column_db_query::top_k_tf_in_documents(documents, input::b_K);
-            delete documents;
-            
+            debug("Statistics for " << r << " runs.");
             output::show_stats();
             output::clear_stats();
         }

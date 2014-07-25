@@ -13,10 +13,11 @@ DOMAIN_TYPE *c_freq;
 #define S_UNOPTIMIZED 0
 #define S_BINARY_SEARCH 2
 
-int sorted_by_term = S_CLUSTERED;
-bool sorted_by_doc = false;
+int sorted_by_term = S_UNOPTIMIZED;
+int sorted_by_doc = S_BINARY_SEARCH;
 
 long *term_offsets;
+long *doc_offsets;
 
 namespace top_k_tf_column_db_query
 {
@@ -30,10 +31,16 @@ namespace top_k_tf_column_db_query
         c_doc = new DOMAIN_TYPE[input::b_NUM_TUPLES];
         c_freq = new DOMAIN_TYPE[input::b_NUM_TUPLES];
         
-        if (sorted_by_term)
+        if (sorted_by_term != S_UNOPTIMIZED)
         {
             term_offsets = new long[input::b_MAX_TERM + 1];
             for (DOMAIN_TYPE i = 0; i < input::b_MAX_TERM + 1; ++i) term_offsets[i] = 20000000000L;
+        }
+        
+        if (sorted_by_doc != S_UNOPTIMIZED)
+        {
+            doc_offsets = new long[input::b_MAX_DOCUMENT + 1];
+            for (DOMAIN_TYPE i = 0; i < input::b_MAX_DOCUMENT + 1; ++i) doc_offsets[i] = 200000000000L;
         }
         
         for (long i = 0; i < input::b_NUM_TUPLES; ++i)
@@ -50,7 +57,17 @@ namespace top_k_tf_column_db_query
                 term_offsets[c_term[i]] = MIN(term_offsets[c_term[i]], i);
             }
             
-            c_doc[i] = rand() % input::b_MAX_DOCUMENT;
+            if (sorted_by_doc == S_UNOPTIMIZED)
+            {
+                c_doc[i] = rand() % input::b_MAX_DOCUMENT;
+            }
+            else
+            {
+                c_doc[i] = (int) ((i * 1.0) / input::b_NUM_TUPLES * input::b_MAX_DOCUMENT);
+                doc_offsets[c_doc[i]] = MIN(doc_offsets[c_doc[i]], i);
+                
+            }
+            
             c_freq[i] = rand() % input::b_MAX_FREQUENCY;
         }
         
@@ -206,13 +223,78 @@ namespace top_k_tf_column_db_query
         output::start_timer("run/top_k_column_db_tf_in_documents");
         
         aggregation *aggr = new map_aggregation();
+        long read_tuples = 0;
         
-        for (int row = 0; row < input::b_NUM_TUPLES; ++row)
+        if (sorted_by_doc == S_CLUSTERED)
         {
-            if (documents->end() != documents->find(c_doc[row]))
+            for (auto doc_iter = documents->begin(); documents->end() != doc_iter; ++doc_iter)
             {
-                // this document is in the list
-                aggr->add(c_term[row], c_freq[row]);
+                long index = doc_offsets[*doc_iter];
+                
+                while (c_doc[index] == *doc_iter && index < input::b_NUM_TUPLES)
+                {
+                    aggr->add(c_term[index], c_freq[index]);
+                    index++;
+                    read_tuples++;
+                }
+            }
+            
+            debug("Read " << read_tuples << " (clustered).");
+        }
+        else if (sorted_by_doc == S_BINARY_SEARCH)
+        {
+            for (auto doc_iter = documents->begin(); documents->end() != doc_iter; ++doc_iter)
+            {
+                // search for doc - 1
+                long index = 0;
+                long range = input::b_NUM_TUPLES;
+                
+                while (range > 0)
+                {
+                    read_tuples++;
+                    
+                    if (c_doc[index + range / 2] < *doc_iter - 1)
+                    {
+                        index += range / 2;
+                        range /= 2;
+                    }
+                    else if (c_doc[index + range / 2] == *doc_iter - 1)
+                    {
+                        index += range / 2;
+                        break;
+                    }
+                    else
+                    {
+                        range /= 2;
+                    }
+                }
+                
+                // found starting point for binary search
+                // debug("Starting row for " << term << " is " << index << ".");
+                
+                while (c_doc[index] <= *doc_iter && index < input::b_NUM_TUPLES)
+                {
+                    if (c_doc[index] == *doc_iter)
+                    {
+                        aggr->add(c_term[index], c_freq[index]);
+                    }
+                    
+                    index++;
+                    read_tuples++;
+                }
+            }
+            
+            debug("Read " << read_tuples << " (binary search).");
+        }
+        else
+        {
+            for (int row = 0; row < input::b_NUM_TUPLES; ++row)
+            {
+                if (documents->end() != documents->find(c_doc[row]))
+                {
+                    // this document is in the list
+                    aggr->add(c_term[row], c_freq[row]);
+                }
             }
         }
         

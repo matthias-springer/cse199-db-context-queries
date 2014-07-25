@@ -7,6 +7,26 @@
 
 namespace top_k_tf_dual_list_query
 {
+    list_storage** pre_terms;
+    list_storage** pre_freqs;
+    
+    void generate_random_data()
+    {
+        debug("Generating random data for " << input::b_MAX_DOCUMENT << " documents.");
+        pre_terms = new list_storage*[input::b_MAX_DOCUMENT];
+        pre_freqs = new list_storage*[input::b_MAX_DOCUMENT];
+        
+        for (long l = 0; l < input::b_MAX_DOCUMENT; ++l)
+        {
+            pre_terms[l] = new list_storage();
+            pre_terms[l]->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM);
+            pre_freqs[l] = new list_storage();
+            pre_freqs[l]->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_FREQUENCY);
+        }
+        
+        debug("Done.");
+    }
+    
     vector<DOMAIN_TYPE> *top_k_tf_in_context(vector<DOMAIN_TYPE> *context, int k)
     {
         vector<DOMAIN_TYPE> *documents = count_context_query::documents_in_context(context);
@@ -20,8 +40,8 @@ namespace top_k_tf_dual_list_query
         output::start_timer("run/top_k_tf_dual_list_in_documents_complete");
         output::start_timer("run/ttop_k_tf_dual_list_in_documents_aggregation_and_load");
         
-        //aggregation *aggr = new map_aggregation();
-        aggregation *aggr = new array_aggregation(input::b_MAX_TERM + 1);
+        aggregation *aggr = new map_aggregation();
+        //aggregation *aggr = new array_aggregation(input::b_MAX_TERM + 1);
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {
@@ -31,8 +51,7 @@ namespace top_k_tf_dual_list_query
             
             if (input::omit_io)
             {
-                s = new list_storage();
-                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM);
+                s = pre_terms[*iter];
             }
             else
             {
@@ -41,8 +60,7 @@ namespace top_k_tf_dual_list_query
             
             if (input::omit_io)
             {
-                s_counts = new list_storage();
-                s_counts->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_FREQUENCY);
+                s_counts = pre_freqs[*iter];
             }
             else
             {

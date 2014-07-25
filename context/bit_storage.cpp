@@ -11,6 +11,11 @@ void bit_storage::generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value)
         data->setBit(rand() % max_value, 1);
     }
     
+    data->compress();
+    
+    output::increment_stat("io-bytes/bitvectors-uncompressed", data->size()/8);
+    output::increment_stat("io-bytes/bitvectors-compressed", data->getSerialSize());
+    
     output::stop_timer("io/generate_bitstorage");
 }
 

@@ -46,20 +46,31 @@ namespace benchmark
             output::clear_stats();
         }
         
+        if (input::omit_io)
+        {
+            top_k_tf_dual_list_query::generate_random_data();
+        }
+        
         int docs_size[8] = {1, 10, 100, 1000, 10000, 50000, 100000, 1000000};
         for (int i = 0; i < 8; ++i)
         {
-            show_info("Running top_k_tf_dual_list_in_documents_tf with number of documents " << docs_size[i] << ".");
-            vector<DOMAIN_TYPE> *documents = new vector<DOMAIN_TYPE>;
-            
-            for (int j = 0; j < docs_size[i]; ++j)
+            int r = 0;
+            for (r = 0; r < 25; ++r)
             {
-                documents->push_back(rand() % input::b_NUM_DOCUMENTS);
+                show_info("Running top_k_tf_dual_list_in_documents_tf with number of documents " << docs_size[i] << ".");
+                vector<DOMAIN_TYPE> *documents = new vector<DOMAIN_TYPE>;
+                
+                for (int j = 0; j < docs_size[i]; ++j)
+                {
+                    documents->push_back(rand() % input::b_NUM_DOCUMENTS);
+                }
+                
+                vector<DOMAIN_TYPE> *result = top_k_tf_dual_list_query::top_k_tf_in_documents(documents, input::b_K);
+                delete result;
+                delete documents;
             }
             
-            vector<DOMAIN_TYPE> *result = top_k_tf_dual_list_query::top_k_tf_in_documents(documents, input::b_K);
-            delete result;
-            delete documents;
+            debug("Statistics for " << r << " runs.");
             
             output::show_stats();
             output::clear_stats();
