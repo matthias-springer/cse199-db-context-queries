@@ -53,11 +53,18 @@ void calculate_huffman_encoded_size()
         result->counter = left->counter + right->counter;
         nodes.push(result);
         
+        delete left;
+        delete right;
+        
         for (auto it = terms->begin(); terms->end() != it; ++it)
         {
             term_bit_counter[*it]++;
         }
     }
+    
+    show_info(term_bit_counter.size());
+    
+    map<int, int> bit_len_counter;
     
     // calculate new size
     long compressed_bits = 0;
@@ -67,7 +74,14 @@ void calculate_huffman_encoded_size()
     {
         int freq = pubmed::get_group_by_term(i);
         uncompressed_bits += freq * 16;     // assuming 16 bit shorts
-        compressed_bits += freq * term_bit_counter[freq];
+        compressed_bits += freq * term_bit_counter[i];
+        
+        bit_len_counter[term_bit_counter[i]]++;
+    }
+    
+    for (auto it = bit_len_counter.begin(); bit_len_counter.end() != it; ++it)
+    {
+        show_info(it->first << " bits: " << it->second << " times.");
     }
     
     show_info("Uncompressed size: " << uncompressed_bits << " bits.");
