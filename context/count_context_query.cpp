@@ -1,6 +1,7 @@
 #include "count_context_query.h"
 #include "input.h"
 #include "bit_storage.h"
+#include "pubmed.h"
 
 namespace count_context_query
 {
@@ -14,10 +15,18 @@ namespace count_context_query
         for (int i = 0; i < input::b_MAX_TERM; ++i)
         {
             bit_vectors_in_ram[i] = new bit_storage();
-            bit_vectors_in_ram[i]->generate_randomly(input::b_DOCUMENTS_PER_TERM, input::b_MAX_DOCUMENT);
+            
+            debug(i);
+            //double docs = pubmed::get_random_group_by_term_count();
+            //docs = docs / D_PM * input::b_NUM_DOCUMENTS;
+            double docs = pubmed::get_group_by_term(i);
+            bit_vectors_in_ram[i]->generate_randomly((int) docs, input::b_MAX_DOCUMENT);
+            
+            delete bit_vectors_in_ram[i];
         }
         
         debug("Done.");
+        output::show_stats();
     }
     
     long size_of_context(vector<DOMAIN_TYPE> *context)

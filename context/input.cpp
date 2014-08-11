@@ -1,6 +1,7 @@
 #include "input.h"
 #include "bit_storage.h"
 #include "offset.h"
+#include "pubmed.h"
 
 namespace input
 {
@@ -11,12 +12,12 @@ namespace input
     bool no_generate_benchmark_data;
     bool omit_io;
     
-    DOMAIN_TYPE b_NUM_TERMS = 9000;
+    DOMAIN_TYPE b_NUM_TERMS = T_PM; //9000;
+    DOMAIN_TYPE b_MAX_TERM = T_PM; //9000;
     DOMAIN_TYPE b_DOCUMENTS_PER_TERM = 50000;
-    DOMAIN_TYPE b_MAX_DOCUMENT = 4500000;
-    DOMAIN_TYPE b_NUM_DOCUMENTS = 4500000;
+    DOMAIN_TYPE b_MAX_DOCUMENT = D_PM; //4500000;
+    DOMAIN_TYPE b_NUM_DOCUMENTS = D_PM; //4500000;
     DOMAIN_TYPE b_TERMS_PER_DOCUMENT = 100;
-    DOMAIN_TYPE b_MAX_TERM = 9000;
     DOMAIN_TYPE b_MAX_FREQUENCY = 40;
     DOMAIN_TYPE b_K = 5;
     long b_NUM_TUPLES =     450000000; //50000000;

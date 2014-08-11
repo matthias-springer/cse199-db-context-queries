@@ -8,7 +8,14 @@ void bit_storage::generate_randomly(DOMAIN_TYPE count, DOMAIN_TYPE max_value)
     
     for (DOMAIN_TYPE i = 0; i < count; ++i)
     {
-        data->setBit(rand() % max_value, 1);
+        int next_bit = rand() % max_value;
+        if (data->getBit(next_bit))
+        {
+            // bit already set
+            continue;
+        }
+        
+        data->setBit(next_bit, 1);
     }
     
     data->compress();
