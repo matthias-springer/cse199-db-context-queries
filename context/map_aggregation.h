@@ -11,10 +11,7 @@
 using namespace std;
 
 class map_aggregation : public aggregation
-{
-private:
-    unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> *data;
-    
+{   
 public:
     map_aggregation();
     virtual void add(DOMAIN_TYPE key, DOMAIN_TYPE increment);

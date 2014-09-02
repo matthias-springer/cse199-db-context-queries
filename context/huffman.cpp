@@ -50,33 +50,22 @@ Node* generate_tree(word_t* input, long length)
     return subtrees.top();
 }
 
-struct inverse_map_builder_state {
-    Node* node;
-    char* bits;
-    int count_bits;
+// TODO: fix global state
+unordered_map<word_t, struct inverse_map_builder_state> inverse_mapping;
 
-    inverse_map_builder_state(Node* _node, char* _bits, int _count_bits) :
-        node(_node), bits(_bits), count_bits(_count_bits) {}
-
-    inverse_map_builder_state() {}
-};
-
-long encode(word_t* input, long length, char*& output, Node* tree)
+void generate_inverse_mapping(Node* tree)
 {
-    output = new char[length * sizeof(word_t) / sizeof(char)]();
-
     // build inverse map
     struct inverse_map_builder_state state(tree, NULL, 0);
-
-    unordered_map<word_t, struct inverse_map_builder_state> inverse_mapping;
+    
     stack<struct inverse_map_builder_state> traversal_state;
     traversal_state.push(state);
-
+    
     while (!traversal_state.empty())
     {
         state = traversal_state.top();
         traversal_state.pop();
-
+        
         if (state.node->is_terminal)
         {
             // input has only one word (possibly repeatedly)
@@ -85,9 +74,9 @@ long encode(word_t* input, long length, char*& output, Node* tree)
             inverse_mapping[state.node->value] = state;
             break;
         }
-
+        
         struct inverse_map_builder_state left(state.node->left, new char[state.count_bits + 1],
-                state.count_bits + 1);
+                                              state.count_bits + 1);
         if (state.count_bits > 0)
             memcpy(left.bits, state.bits, state.count_bits);
         left.bits[state.count_bits] = 0;
@@ -95,9 +84,9 @@ long encode(word_t* input, long length, char*& output, Node* tree)
             inverse_mapping[left.node->value] = left;
         else
             traversal_state.push(left);
-
+        
         struct inverse_map_builder_state right(state.node->right, new char[state.count_bits + 1],
-                state.count_bits + 1);
+                                               state.count_bits + 1);
         if (state.count_bits > 0)
             memcpy(right.bits, state.bits, state.count_bits);
         right.bits[state.count_bits] = 1;
@@ -106,6 +95,11 @@ long encode(word_t* input, long length, char*& output, Node* tree)
         else
             traversal_state.push(right);
     }
+}
+
+long encode(word_t* input, long length, char*& output)
+{
+    output = new char[length * sizeof(word_t) / sizeof(char)]();
 
     // encode
     long byte_pos = 0, bit_pos = 0;

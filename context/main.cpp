@@ -12,6 +12,7 @@
 #include "top_k_query_tf_benchmark.h"
 #include "top_k_query_tf_dual_list_benchmark.h"
 #include "top_k_tf_column_db_query_benchmark.h"
+#include "huffman_query_benchmark.h"
 #include "pubmed.h"
 #include "huffman_benchmark.h"
 #include <unistd.h>
@@ -66,6 +67,7 @@ int main(int argc, char ** argv)
         "[12]\tBenchmark for query 5 with column database.\n"
         "[13]\tBenchmark for query 1 with column database.\n"
         "[14]\tHuffman Benchmark.\n"
+        "[15]\tHuffman query benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -132,6 +134,7 @@ int main(int argc, char ** argv)
     }
     
     pubmed::load_docs_per_term();
+    pubmed::load_terms_per_doc();
     
     show_info("Using working directory: " << storage_base_path());
     
@@ -192,6 +195,10 @@ int main(int argc, char ** argv)
                     break;
                 case 14:
                     calculate_huffman_encoded_size();
+                    break;
+                case 15:
+                    benchmark::huffman_query_generate_lists();
+                    benchmark::huffman_query_run_benchmark();
                     break;
             }
             break;
