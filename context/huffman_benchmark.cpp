@@ -1,5 +1,5 @@
 #include "huffman_benchmark.h"
-#include "huffman.h"
+//#include "huffman.h"
 #include "pubmed.h"
 #include <map>
 #include <vector>
@@ -74,7 +74,16 @@ void calculate_huffman_encoded_size()
     {
         int freq = pubmed::get_group_by_term(i);
         uncompressed_bits += freq * 16;     // assuming 16 bit shorts
-        compressed_bits += freq * term_bit_counter[i];
+        int compressed_code_len = term_bit_counter[i];
+        
+        
+        if (compressed_code_len % 4 != 0)
+        {
+            compressed_code_len = compressed_code_len - (compressed_code_len % 4) + 4;
+        }
+        
+        
+        compressed_bits += freq * compressed_code_len;
         
         bit_len_counter[term_bit_counter[i]]++;
     }

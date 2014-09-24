@@ -10,29 +10,29 @@
 	<string>context</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>63728E36-DA3A-430A-A8A2-6B689289109B</key>
+		<key>1AB65FADAC92DA9254252E732719FCDCD83A62C8</key>
 		<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>context.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>63728E36-DA3A-430A-A8A2-6B689289109B</key>
+		<key>1AB65FADAC92DA9254252E732719FCDCD83A62C8</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>63728E36-DA3A-430A-A8A2-6B689289109B</string>
+	<string>1AB65FADAC92DA9254252E732719FCDCD83A62C8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>63728E36-DA3A-430A-A8A2-6B689289109B</string>
+			<string>1AB65FADAC92DA9254252E732719FCDCD83A62C8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>context</string>
 		</dict>

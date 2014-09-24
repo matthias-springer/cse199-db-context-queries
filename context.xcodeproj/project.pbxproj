@@ -32,6 +32,7 @@
 		39C35CE91923CECE009BD0DD /* self_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CE71923CECE009BD0DD /* self_test.cpp */; };
 		39C35CEC1923DF75009BD0DD /* top_k_tf_query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CEA1923DF75009BD0DD /* top_k_tf_query.cpp */; };
 		39C35CEF1923E63D009BD0DD /* count_context_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */; };
+		39E97D5519B509970053FFC4 /* huffman_query_benchmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 39E97D5319B509970053FFC4 /* huffman_query_benchmark.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,6 +103,9 @@
 		39C35CEB1923DF75009BD0DD /* top_k_tf_query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = top_k_tf_query.h; sourceTree = "<group>"; };
 		39C35CED1923E63D009BD0DD /* count_context_benchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = count_context_benchmark.cpp; sourceTree = "<group>"; };
 		39C35CEE1923E63D009BD0DD /* count_context_benchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = count_context_benchmark.h; sourceTree = "<group>"; };
+		39D706AE19B535690070C2E7 /* huffman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huffman.h; sourceTree = "<group>"; };
+		39E97D5319B509970053FFC4 /* huffman_query_benchmark.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = huffman_query_benchmark.cpp; sourceTree = "<group>"; };
+		39E97D5419B509970053FFC4 /* huffman_query_benchmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huffman_query_benchmark.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,7 @@
 		3900F8F0191EFF9D0097C373 /* context */ = {
 			isa = PBXGroup;
 			children = (
+				39D706AE19B535690070C2E7 /* huffman.h */,
 				39C35CE61923CEBC009BD0DD /* benchmark */,
 				39C35CE21921ED0C009BD0DD /* input */,
 				39C35CDB1921B45B009BD0DD /* query */,
@@ -227,6 +232,8 @@
 				399F41121960E9CB00CE888D /* top_k_tf_column_db_query_benchmark.h */,
 				396310A01998837E0035B16A /* huffman_benchmark.cpp */,
 				396310A11998837E0035B16A /* huffman_benchmark.h */,
+				39E97D5319B509970053FFC4 /* huffman_query_benchmark.cpp */,
+				39E97D5419B509970053FFC4 /* huffman_query_benchmark.h */,
 			);
 			name = benchmark;
 			sourceTree = "<group>";
@@ -282,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39E97D5519B509970053FFC4 /* huffman_query_benchmark.cpp in Sources */,
 				3900F91319206FEE0097C373 /* aggregation.cpp in Sources */,
 				39C35CDE1921B474009BD0DD /* count_context_query.cpp in Sources */,
 				3900F905191F08BC0097C373 /* output.cpp in Sources */,
