@@ -11,7 +11,7 @@ namespace input
     bool stats_visible;
     bool no_generate_benchmark_data;
     bool omit_io;
-    
+        
     DOMAIN_TYPE b_NUM_TERMS = T_PM; //9000;
     DOMAIN_TYPE b_MAX_TERM = T_PM; //9000;
     DOMAIN_TYPE b_DOCUMENTS_PER_TERM = 50000;
@@ -23,6 +23,12 @@ namespace input
     long b_NUM_TUPLES =     450000000; //50000000;
     //                      447392426
     
+    char* STATS_FILE_T;
+    char* STATS_FILE_D;
+    // number of documents and terms, read from first line of CSV file
+    long D_PM;
+    long T_PM;
+
     void store(string name)
     {
         show_info("Input number id and number of values.");

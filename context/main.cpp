@@ -37,7 +37,9 @@ int main(int argc, char ** argv)
     input::debug = 0;
     input::no_generate_benchmark_data = false;
     storage_path = "/Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database";
-    
+    input::STATS_FILE_T = "pubmed/stats_terms.csv";
+    input::STATS_FILE_D = "pubmed/stats_docs.csv";
+        
     char *help = "usage: %s [-hrpsdzo] [-f file] [-i id] [-n name] [-q id] [-t type] [-w path] \n\n"
         "-h\tShow list of parameters.\n"
         "-r\tRead data for name from stdin.\n"
@@ -50,6 +52,8 @@ int main(int argc, char ** argv)
         "-t type\tSpecifies the storage type (see below).\n"
         "-z\tDo not generate benchmark data, reuse existing data.\n"
         "-w path\tUse path as the working directory containing all data.\n"
+        "-k file\tOverride STATS_FILE_D (terms per document file)\n"
+        "-l file\tOverride STATS_FILE_T (documents per term file)\n"
         "-o\tOmit IO in benchmarks.\n"
         "-d\tEnables debug mode.\n\n"
         "List of queries/benchmarks:\n"
@@ -72,7 +76,7 @@ int main(int argc, char ** argv)
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
     
-    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:dzw:o")) != -1)
+    while ((c = getopt(argc, argv, "hrf:sn:i:pq:t:dzw:ok:l:")) != -1)
     {
         switch (c)
         {
@@ -126,6 +130,12 @@ int main(int argc, char ** argv)
                 break;
             case 'w':
                 storage_path = optarg;
+                break;
+            case 'k':
+                input::STATS_FILE_D = optarg;
+                break;
+            case 'l':
+                input::STATS_FILE_T = optarg;
                 break;
             case 'o':
                 input::omit_io = true;

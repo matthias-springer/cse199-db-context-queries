@@ -6,6 +6,7 @@
 #include <queue>
 #include <deque>
 #include "output.h"
+#include "input.h"
 
 class Node
 {
@@ -27,7 +28,7 @@ void calculate_huffman_encoded_size()
     map<int, int> term_bit_counter;
     priority_queue<Node*, deque<Node*>, node_comparator> nodes;
     
-    for (int i = 0; i < T_PM; ++i)
+    for (int i = 0; i < input::T_PM; ++i)
     {
         Node* node = new Node();
         vector<int>* terms = new vector<int>();
@@ -70,7 +71,7 @@ void calculate_huffman_encoded_size()
     long compressed_bits = 0;
     long uncompressed_bits = 0;
     
-    for (int i = 0; i < T_PM; ++i)
+    for (int i = 0; i < input::T_PM; ++i)
     {
         int freq = pubmed::get_group_by_term(i);
         uncompressed_bits += freq * 16;     // assuming 16 bit shorts

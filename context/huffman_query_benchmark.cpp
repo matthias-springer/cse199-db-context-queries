@@ -51,7 +51,7 @@ namespace benchmark
         
         long next_index = 0;
         
-        for (short t = 0; t < T_PM; ++t)
+        for (short t = 0; t < input::T_PM; ++t)
         {
             for (long c = 0; c < pubmed::get_group_by_term(t); ++c)
             {
@@ -65,7 +65,7 @@ namespace benchmark
                 tuples[next_index++] = t;
             }
             
-            if (t % (T_PM/1000) == 0) debug_n("  " << t*100.0/T_PM << " % complete.    ");
+            if (t % (input::T_PM/1000) == 0) debug_n("  " << t*100.0/input::T_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
         
@@ -76,7 +76,7 @@ namespace benchmark
         // generate terms per doc
         show_info("[3] Generating separate lists...");
         next_index = 0;
-        for (long d = 0; d < D_PM; ++d)
+        for (long d = 0; d < input::D_PM; ++d)
         {
             unsigned short* list = new unsigned short[pubmed::get_group_by_doc(d)];
             memcpy(list, tuples + next_index, pubmed::get_group_by_doc(d) * sizeof(unsigned short));
@@ -88,7 +88,7 @@ namespace benchmark
             
             terms_per_doc_size[d] = pubmed::get_group_by_doc(d);
             
-            if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+            if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
         
@@ -104,7 +104,7 @@ namespace benchmark
             delete(tuples);
             
             show_info("[5] Compressing terms...");
-            for (long d = 0; d < D_PM; ++d)
+            for (long d = 0; d < input::D_PM; ++d)
             {
                 char* terms_compressed;
                 terms_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned short);
@@ -112,7 +112,7 @@ namespace benchmark
                 terms_per_doc_compressed[d] = terms_compressed;
                 delete terms_per_doc[d];
                 
-                if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
             }
             debug_n("  " << 100 << " % complete.    \n");
             
@@ -125,7 +125,7 @@ namespace benchmark
             delete(tuples_freq);
             
             show_info("[7] Compressing frequencies...");
-            for (long d = 0; d < D_PM; ++d)
+            for (long d = 0; d < input::D_PM; ++d)
             {
                 char* freqs_compressed;
                 freqs_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned char);
@@ -133,7 +133,7 @@ namespace benchmark
                 freqs_per_doc_compressed[d] = freqs_compressed;
                 delete freqs_per_doc[d];
                 
-                if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
             }
             debug_n("  " << 100 << " % complete.    \n");
             
@@ -171,7 +171,7 @@ namespace benchmark
                 for (int di = 0; di < num_docs[i]; ++di)
                 {
                     // retrieve list and add to term counter
-                    long doc_id = rand() % D_PM;
+                    long doc_id = rand() % input::D_PM;
                     
                     //unsigned short* terms = terms_per_doc[doc_id];
                     unsigned short list_size = terms_per_doc_size[doc_id];
