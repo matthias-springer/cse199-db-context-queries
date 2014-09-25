@@ -27,7 +27,9 @@ namespace input
     extern char* STATS_FILE_D;
     extern long T_PM;
     extern long D_PM;
-           
+    extern long NUM_TUPLES;
+
+    void print_stats();               
     void store(string name);
     void store(string name, DOMAIN_TYPE id);
     DOMAIN_TYPE read_value();

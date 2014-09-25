@@ -32,7 +32,7 @@ namespace top_k_query
             if (input::omit_io)
             {
                 s = new list_storage();
-                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM);
+                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::T_PM);
             }
             else
             {

@@ -12,14 +12,14 @@ namespace top_k_tf_dual_list_query
     
     void generate_random_data()
     {
-        debug("Generating random data for " << input::b_MAX_DOCUMENT << " documents.");
-        pre_terms = new list_storage*[input::b_MAX_DOCUMENT];
-        pre_freqs = new list_storage*[input::b_MAX_DOCUMENT];
+        debug("Generating random data for " << input::D_PM << " documents.");
+        pre_terms = new list_storage*[input::D_PM];
+        pre_freqs = new list_storage*[input::D_PM];
         
-        for (long l = 0; l < input::b_MAX_DOCUMENT; ++l)
+        for (long l = 0; l < input::D_PM; ++l)
         {
             pre_terms[l] = new list_storage();
-            pre_terms[l]->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM);
+            pre_terms[l]->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::T_PM);
             pre_freqs[l] = new list_storage();
             pre_freqs[l]->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_FREQUENCY);
         }
@@ -41,7 +41,7 @@ namespace top_k_tf_dual_list_query
         output::start_timer("run/ttop_k_tf_dual_list_in_documents_aggregation_and_load");
         
         aggregation *aggr = new map_aggregation();
-        //aggregation *aggr = new array_aggregation(input::b_MAX_TERM + 1);
+        //aggregation *aggr = new array_aggregation(input::T_PM + 1);
         
         for (vector<DOMAIN_TYPE>::iterator iter = documents->begin(); iter != documents->end(); ++iter)
         {

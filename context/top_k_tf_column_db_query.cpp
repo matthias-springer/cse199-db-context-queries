@@ -1,17 +1,22 @@
 #include "top_k_tf_column_db_query.h"
+#include <algorithm>
+#include "pubmed.h"
 #include <map>
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 using namespace std;
 
-DOMAIN_TYPE *c_term;
-DOMAIN_TYPE *c_doc;
-DOMAIN_TYPE *c_freq;
+unsigned short *c_term;
+unsigned int *c_doc;
+unsigned char *c_freq;
 
 #define S_CLUSTERED 1
 #define S_UNOPTIMIZED 0
 #define S_BINARY_SEARCH 2
+
+#define TUPLES_DIVIDER 10000
 
 int sorted_by_term = S_UNOPTIMIZED;
 int sorted_by_doc = S_BINARY_SEARCH;
@@ -23,54 +28,70 @@ namespace top_k_tf_column_db_query
 {
     void generate_random_tuples()
     {
-        debug("Generating " << input::b_NUM_TUPLES << " random tuples.");
+        debug("Generating " << input::NUM_TUPLES / TUPLES_DIVIDER << " random tuples.");
         
         output::start_timer("run/top_k_column_db_tf_in_documents_generate_random");
         
-        c_term = new DOMAIN_TYPE[input::b_NUM_TUPLES];
-        c_doc = new DOMAIN_TYPE[input::b_NUM_TUPLES];
-        c_freq = new DOMAIN_TYPE[input::b_NUM_TUPLES];
-        
-        if (sorted_by_term != S_UNOPTIMIZED)
+        if (TUPLES_DIVIDER > 1)
         {
-            term_offsets = new long[input::b_MAX_TERM + 1];
-            for (DOMAIN_TYPE i = 0; i < input::b_MAX_TERM + 1; ++i) term_offsets[i] = 20000000000L;
+            show_info("Running benchmark with " << input::NUM_TUPLES/TUPLES_DIVIDER << " instead of " << input::NUM_TUPLES << " tuples.");
         }
+
+        c_term = new unsigned short[input::NUM_TUPLES/TUPLES_DIVIDER];
+        debug("c_term alloc success");
+        c_doc = new unsigned int[input::NUM_TUPLES/TUPLES_DIVIDER];
+        debug("c_doc alloc success");
+        c_freq = new unsigned char[input::NUM_TUPLES/TUPLES_DIVIDER];
+        debug("c_freq alloc success");
         
-        if (sorted_by_doc != S_UNOPTIMIZED)
+        // offsets define where cluster of same items begins 
+        term_offsets = new long[input::T_PM + 1];
+        for (DOMAIN_TYPE i = 0; i < input::T_PM + 1; ++i) term_offsets[i] = 20000000000L;
+        
+        doc_offsets = new long[input::D_PM + 1];
+        for (DOMAIN_TYPE i = 0; i < input::D_PM + 1; ++i) doc_offsets[i] = 200000000000L;
+
+        int next_index = 0;
+        for (long term = 0; term < input::T_PM; ++term)
         {
-            doc_offsets = new long[input::b_MAX_DOCUMENT + 1];
-            for (DOMAIN_TYPE i = 0; i < input::b_MAX_DOCUMENT + 1; ++i) doc_offsets[i] = 200000000000L;
+            long times = MAX(1, pubmed::get_group_by_term(term) / TUPLES_DIVIDER);
+            term_offsets[term] = next_index;
+            for (int i = 0; i < times; ++i)
+            {
+                if (next_index < input::NUM_TUPLES / TUPLES_DIVIDER)
+                {
+                    c_freq[next_index] = rand() % input::b_MAX_FREQUENCY;
+                    c_term[next_index++] = term;
+                }
+            }
         }
-        
-        for (long i = 0; i < input::b_NUM_TUPLES; ++i)
+
+        if (sorted_by_term == S_UNOPTIMIZED)
         {
-            if (sorted_by_term == S_UNOPTIMIZED)
-            {
-                // no optimization
-                c_term[i] = rand() % input::b_MAX_TERM;
-            }
-            else
-            {
-                // clustered or binary search
-                c_term[i] = (int) ((i * 1.0) / input::b_NUM_TUPLES * input::b_MAX_TERM);
-                term_offsets[c_term[i]] = MIN(term_offsets[c_term[i]], i);
-            }
-            
-            if (sorted_by_doc == S_UNOPTIMIZED)
-            {
-                c_doc[i] = rand() % input::b_MAX_DOCUMENT;
-            }
-            else
-            {
-                c_doc[i] = (int) ((i * 1.0) / input::b_NUM_TUPLES * input::b_MAX_DOCUMENT);
-                doc_offsets[c_doc[i]] = MIN(doc_offsets[c_doc[i]], i);
-                
-            }
-            
-            c_freq[i] = rand() % input::b_MAX_FREQUENCY;
+            shuffle(c_term, c_term + input::NUM_TUPLES / TUPLES_DIVIDER, default_random_engine(42));
         }
-        
+        debug("Done generating terms and frequencies.");
+
+        next_index = 0;
+        for (long doc = 0; doc < input::D_PM; ++doc)
+        {
+            long times = MAX(1, pubmed::get_group_by_doc(doc) / TUPLES_DIVIDER);
+            doc_offsets[doc] = next_index;
+            for (int i = 0; i < times; ++i)
+            {
+                if (next_index < input::NUM_TUPLES / TUPLES_DIVIDER)
+                {
+                    c_doc[next_index++] = doc;
+                }
+            }
+        }
+
+        if (sorted_by_doc == S_UNOPTIMIZED)
+        {
+            shuffle(c_doc, c_doc + input::NUM_TUPLES / TUPLES_DIVIDER, default_random_engine(42));
+        }
+        debug("Done generating documents.");
+
         output::stop_timer("run/top_k_column_db_tf_in_documents_generate_random");
     }
     
@@ -98,7 +119,7 @@ namespace top_k_tf_column_db_query
                 DOMAIN_TYPE term = terms->at(term_index);
                 long index = term_offsets[term];
                 
-                while (c_term[index] == term && index < input::b_NUM_TUPLES)
+                while (c_term[index] == term && index < input::NUM_TUPLES / TUPLES_DIVIDER)
                 {
                     temp_sets[term_index].insert(c_doc[index]);
                     index++;
@@ -116,7 +137,7 @@ namespace top_k_tf_column_db_query
                 
                 // search for term - 1
                 long index = 0;
-                long range = input::b_NUM_TUPLES;
+                long range = input::NUM_TUPLES / TUPLES_DIVIDER;
                 
                 while (range > 0)
                 {
@@ -141,7 +162,7 @@ namespace top_k_tf_column_db_query
                 // found starting point for binary search
                 // debug("Starting row for " << term << " is " << index << ".");
                 
-                while (c_term[index] <= term && index < input::b_NUM_TUPLES)
+                while (c_term[index] <= term && index < input::NUM_TUPLES / TUPLES_DIVIDER)
                 {
                     if (c_term[index] == term)
                     {
@@ -157,7 +178,7 @@ namespace top_k_tf_column_db_query
         }
         else
         {
-            for (int row = 0; row < input::b_NUM_TUPLES; ++row)
+            for (int row = 0; row < input::NUM_TUPLES / TUPLES_DIVIDER; ++row)
             {
                 if (term_to_temp_index.end() != term_to_temp_index.find(c_term[row]))
                 {
@@ -231,7 +252,7 @@ namespace top_k_tf_column_db_query
             {
                 long index = doc_offsets[*doc_iter];
                 
-                while (c_doc[index] == *doc_iter && index < input::b_NUM_TUPLES)
+                while (c_doc[index] == *doc_iter && index < input::NUM_TUPLES / TUPLES_DIVIDER)
                 {
                     aggr->add(c_term[index], c_freq[index]);
                     index++;
@@ -247,7 +268,7 @@ namespace top_k_tf_column_db_query
             {
                 // search for doc - 1
                 long index = 0;
-                long range = input::b_NUM_TUPLES;
+                long range = input::NUM_TUPLES / TUPLES_DIVIDER;
                 
                 while (range > 0)
                 {
@@ -272,7 +293,7 @@ namespace top_k_tf_column_db_query
                 // found starting point for binary search
                 // debug("Starting row for " << term << " is " << index << ".");
                 
-                while (c_doc[index] <= *doc_iter && index < input::b_NUM_TUPLES)
+                while (c_doc[index] <= *doc_iter && index < input::NUM_TUPLES / TUPLES_DIVIDER)
                 {
                     if (c_doc[index] == *doc_iter)
                     {
@@ -288,7 +309,7 @@ namespace top_k_tf_column_db_query
         }
         else
         {
-            for (int row = 0; row < input::b_NUM_TUPLES; ++row)
+            for (int row = 0; row < input::NUM_TUPLES / TUPLES_DIVIDER; ++row)
             {
                 if (documents->end() != documents->find(c_doc[row]))
                 {

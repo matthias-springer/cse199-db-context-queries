@@ -7,11 +7,9 @@ short* terms_per_doc;
 
 namespace pubmed
 {
-    long tuples;
-    
     void load_docs_per_term()
     {
-        show_info("[HISTOGRAM] Loading documents per term from " << input::STATS_FILE_T << ".");
+        debug("[HISTOGRAM] Loading documents per term from " << input::STATS_FILE_T << ".");
     
         struct stat buffer;
         if (stat(input::STATS_FILE_T, &buffer) != 0)
@@ -22,23 +20,24 @@ namespace pubmed
 
         std::ifstream infile(input::STATS_FILE_T);
         infile >> input::T_PM;
-        show_info("[HISTOGRAM] Reading " << input::T_PM << " terms.");
+        debug("[HISTOGRAM] Reading " << input::T_PM << " terms.");
 
         documents_per_term = new int[input::T_PM];
-        tuples = 0;
+        input::NUM_TUPLES = 0;
 
         for (int i = 0; i < input::T_PM; ++i)
         {
             infile >> documents_per_term[i];
-            tuples += documents_per_term[i];
+            input::NUM_TUPLES += documents_per_term[i];
         }
         
-        show_info("[HISTOGRAM] Done loading file.");
+        debug("[HISTOGRAM] Done loading file.");
+        debug("[HISTOGRAM] Column DB has " << input::NUM_TUPLES << " tuples.");
     }
     
     void load_terms_per_doc()
     {
-        show_info("[HISTOGRAM] Loading terms per document from " << input::STATS_FILE_D << ".");
+        debug("[HISTOGRAM] Loading terms per document from " << input::STATS_FILE_D << ".");
        
         struct stat buffer;
         if (stat(input::STATS_FILE_D, &buffer) != 0)
@@ -49,7 +48,7 @@ namespace pubmed
  
         std::ifstream infile(input::STATS_FILE_D);
         infile >> input::D_PM;
-        show_info("[HISTOGRAM] Reading " << input::D_PM << " documents.");
+        debug("[HISTOGRAM] Reading " << input::D_PM << " documents.");
 
         terms_per_doc = new short[input::D_PM];
 
@@ -58,7 +57,7 @@ namespace pubmed
             infile >> terms_per_doc[i];
         }
         
-        show_info("[HISTOGRAM] Done loading file.");
+        debug("[HISTOGRAM] Done loading file.");
     }
     
     int get_random_group_by_term_count()

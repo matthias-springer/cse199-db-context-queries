@@ -44,9 +44,9 @@ namespace benchmark
         
         // generate tuples
         show_info("[1] Generating tuples...");
-        show_info("Allocating " << pubmed::tuples << " shorts/chars (array).");
-        tuples = new unsigned short[pubmed::tuples];
-        tuples_freq = new unsigned char[pubmed::tuples];
+        show_info("Allocating " << input::NUM_TUPLES << " shorts/chars (array).");
+        tuples = new unsigned short[input::NUM_TUPLES];
+        tuples_freq = new unsigned char[input::NUM_TUPLES];
         show_info("Alloc success");
         
         long next_index = 0;
@@ -71,7 +71,7 @@ namespace benchmark
         
         // shuffle
         show_info("[2] Shuffling...");
-        shuffle(tuples, tuples + pubmed::tuples, default_random_engine(42));
+        shuffle(tuples, tuples + input::NUM_TUPLES, default_random_engine(42));
         
         // generate terms per doc
         show_info("[3] Generating separate lists...");
@@ -97,7 +97,7 @@ namespace benchmark
         {
             // compress
             show_info("[4] Generating Huffman tree for terms...");
-            generate_array_tree_representation(tuples, pubmed::tuples, huffman_array_terms, terminator_array_terms, tree);
+            generate_array_tree_representation(tuples, input::NUM_TUPLES, huffman_array_terms, terminator_array_terms, tree);
             encoding_dict<unsigned short> encoding_dict_terms;
             build_inverse_mapping(tree, encoding_dict_terms);
             
@@ -118,7 +118,7 @@ namespace benchmark
             
             // compress
             show_info("[6] Generating Huffman tree for frequencies...");
-            generate_array_tree_representation(tuples_freq, pubmed::tuples, huffman_array_freqs, terminator_array_freqs, tree_freqs);
+            generate_array_tree_representation(tuples_freq, input::NUM_TUPLES, huffman_array_freqs, terminator_array_freqs, tree_freqs);
             encoding_dict<unsigned char> encoding_dict_freqs;
             build_inverse_mapping(tree_freqs, encoding_dict_freqs);
             

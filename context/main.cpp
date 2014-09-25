@@ -145,7 +145,10 @@ int main(int argc, char ** argv)
     
     pubmed::load_docs_per_term();
     pubmed::load_terms_per_doc();
-    
+
+    show_info("Using these statistics:");
+    input::print_stats();
+        
     show_info("Using working directory: " << storage_base_path());
     
     switch (action)
