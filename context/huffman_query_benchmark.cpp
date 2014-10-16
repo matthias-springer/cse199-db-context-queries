@@ -150,10 +150,17 @@ namespace benchmark
                     
                     
                     terms_compressed->compress();
+                    // force new allocate
+                    ibis::array_t<uint32_t> arr = ibis::array_t<uint32_t>();
+                    terms_compressed->write(arr);
+                    delete terms_compressed;
+                    terms_compressed = new ibis::bitvector(arr);
+                    
                     delete terms_per_doc[d];
                     
                     terms_per_doc_bitvector[d] = terms_compressed;
                     terms_bytes_compressed += terms_compressed->bytes();
+                    
                     
                     if (d % (input::D_PM/1000) == 0)
                     {
