@@ -9,22 +9,28 @@
 #include <string.h>
 #include "map_aggregation.h"
 #include "huffman.h"
+#include <bitvector.h>
+#include <ibis.h>
+
+#define compress true
+#define use_fastbit false
 
 using namespace std;
 
+// this is a benchmark for Phase 2
+
 namespace benchmark
 {
-    bool compress = true;
-    
     unsigned short* tuples;
     unsigned char* tuples_freq;
     
-    unordered_map<long, unsigned short*> terms_per_doc;
-    unordered_map<long, char*> terms_per_doc_compressed;
-    unordered_map<long, unsigned char*> freqs_per_doc;
-    unordered_map<long, char*> freqs_per_doc_compressed;
+    unsigned short** terms_per_doc;
+    char** terms_per_doc_compressed;
+    ibis::bitvector** terms_per_doc_bitvector;
+    unsigned char** freqs_per_doc;
+    char** freqs_per_doc_compressed;
     
-    unordered_map<long, unsigned short> terms_per_doc_size;
+    unsigned short* terms_per_doc_size;
     Node<unsigned short>* tree;
     Node<unsigned char>* tree_freqs;
     
@@ -75,6 +81,10 @@ namespace benchmark
         
         // generate terms per doc
         show_info("[3] Generating separate lists...");
+        terms_per_doc = new unsigned short*[D_PM];
+        terms_per_doc_size = new unsigned short[D_PM];
+        freqs_per_doc = new unsigned char*[D_PM];
+        
         next_index = 0;
         for (long d = 0; d < D_PM; ++d)
         {
@@ -95,29 +105,41 @@ namespace benchmark
         
         if (compress)
         {
-            // compress
-            show_info("[4] Generating Huffman tree for terms...");
-            generate_array_tree_representation(tuples, pubmed::tuples, huffman_array_terms, terminator_array_terms, tree);
-            encoding_dict<unsigned short> encoding_dict_terms;
-            build_inverse_mapping(tree, encoding_dict_terms);
-            
-            delete(tuples);
-            
-            show_info("[5] Compressing terms...");
-            for (long d = 0; d < D_PM; ++d)
+            if (!use_fastbit)
             {
-                char* terms_compressed;
-                terms_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned short);
-                terms_bytes_compressed += encode(terms_per_doc[d], terms_per_doc_size[d], terms_compressed, encoding_dict_terms);
-                terms_per_doc_compressed[d] = terms_compressed;
-                delete terms_per_doc[d];
+                // compress with Huffman
+                show_info("[4] Generating Huffman tree for terms...");
+                terms_per_doc_compressed = new char*[D_PM];
                 
-                if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                generate_array_tree_representation(tuples, pubmed::tuples, huffman_array_terms, terminator_array_terms, tree);
+                encoding_dict<unsigned short> encoding_dict_terms;
+                build_inverse_mapping(tree, encoding_dict_terms);
+                
+                delete(tuples);
+                
+                show_info("[5] Compressing terms...");
+                for (long d = 0; d < D_PM; ++d)
+                {
+                    char* terms_compressed;
+                    terms_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned short);
+                    terms_bytes_compressed += encode(terms_per_doc[d], terms_per_doc_size[d], terms_compressed, encoding_dict_terms);
+                    terms_per_doc_compressed[d] = terms_compressed;
+                    delete terms_per_doc[d];
+                    
+                    if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                }
+                debug_n("  " << 100 << " % complete.    \n");
             }
-            debug_n("  " << 100 << " % complete.    \n");
+            else
+            {
+                // compress with FastBit
+                show_info("[4] Compressing terms with bit vector...");
+                
+            }
             
             // compress
             show_info("[6] Generating Huffman tree for frequencies...");
+            freqs_per_doc_compressed = new char*[D_PM];
             generate_array_tree_representation(tuples_freq, pubmed::tuples, huffman_array_freqs, terminator_array_freqs, tree_freqs);
             encoding_dict<unsigned char> encoding_dict_freqs;
             build_inverse_mapping(tree_freqs, encoding_dict_freqs);
