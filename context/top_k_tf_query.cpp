@@ -30,7 +30,7 @@ namespace top_k_tf_query
             if (input::omit_io)
             {
                 s = new map_column_storage<DOMAIN_TYPE>();
-                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::b_MAX_TERM, input::b_MAX_FREQUENCY);
+                s->generate_randomly(input::b_TERMS_PER_DOCUMENT, input::T_PM, input::b_MAX_FREQUENCY);
             }
             else
             {

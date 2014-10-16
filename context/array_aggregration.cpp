@@ -20,6 +20,14 @@ array_aggregation::array_aggregation(DOMAIN_TYPE size)
     this->size = size;
 }
 
+struct sort_comparator
+{
+    inline bool operator() (const pair<DOMAIN_TYPE, DOMAIN_TYPE>& a, const pair<DOMAIN_TYPE, DOMAIN_TYPE>& b)
+    {
+        return a.second > b.second;
+    }
+};
+
 vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *array_aggregation::top_k(int k)
 {
     vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> pairs;
@@ -31,10 +39,7 @@ vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *array_aggregation::top_k(int k)
         pairs.push_back(p);
     }
     
-    sort(pairs.begin(), pairs.end(), [=](pair<DOMAIN_TYPE, DOMAIN_TYPE> &a, pair<DOMAIN_TYPE, DOMAIN_TYPE> &b)
-         {
-             return a.second > b.second;
-         });
+    sort(pairs.begin(), pairs.end(), sort_comparator());
     
     vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *result = new vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>>();
     

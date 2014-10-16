@@ -50,14 +50,14 @@ namespace benchmark
         
         // generate tuples
         show_info("[1] Generating tuples...");
-        show_info("Allocating " << pubmed::tuples << " shorts/chars (array).");
-        tuples = new unsigned short[pubmed::tuples];
-        tuples_freq = new unsigned char[pubmed::tuples];
+        show_info("Allocating " << input::NUM_TUPLES << " shorts/chars (array).");
+        tuples = new unsigned short[input::NUM_TUPLES];
+        tuples_freq = new unsigned char[input::NUM_TUPLES];
         show_info("Alloc success");
         
         long next_index = 0;
         
-        for (short t = 0; t < T_PM; ++t)
+        for (short t = 0; t < input::T_PM; ++t)
         {
             for (long c = 0; c < pubmed::get_group_by_term(t); ++c)
             {
@@ -71,22 +71,22 @@ namespace benchmark
                 tuples[next_index++] = t;
             }
             
-            if (t % (T_PM/1000) == 0) debug_n("  " << t*100.0/T_PM << " % complete.    ");
+            if (t % (input::T_PM/1000) == 0) debug_n("  " << t*100.0/input::T_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
         
         // shuffle
         show_info("[2] Shuffling...");
-        shuffle(tuples, tuples + pubmed::tuples, default_random_engine(42));
+        shuffle(tuples, tuples + input::NUM_TUPLES, default_random_engine(42));
         
         // generate terms per doc
         show_info("[3] Generating separate lists...");
-        terms_per_doc = new unsigned short*[D_PM];
-        terms_per_doc_size = new unsigned short[D_PM];
-        freqs_per_doc = new unsigned char*[D_PM];
+        terms_per_doc = new unsigned short*[input::D_PM];
+        terms_per_doc_size = new unsigned short[input::D_PM];
+        freqs_per_doc = new unsigned char*[input::D_PM];
         
         next_index = 0;
-        for (long d = 0; d < D_PM; ++d)
+        for (long d = 0; d < input::D_PM; ++d)
         {
             unsigned short* list = new unsigned short[pubmed::get_group_by_doc(d)];
             memcpy(list, tuples + next_index, pubmed::get_group_by_doc(d) * sizeof(unsigned short));
@@ -98,7 +98,7 @@ namespace benchmark
             
             terms_per_doc_size[d] = pubmed::get_group_by_doc(d);
             
-            if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+            if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
         
@@ -109,16 +109,16 @@ namespace benchmark
             {
                 // compress with Huffman
                 show_info("[4] Generating Huffman tree for terms...");
-                terms_per_doc_compressed = new char*[D_PM];
+                terms_per_doc_compressed = new char*[input::D_PM];
                 
-                generate_array_tree_representation(tuples, pubmed::tuples, huffman_array_terms, terminator_array_terms, tree);
+                generate_array_tree_representation(tuples, input::NUM_TUPLES, huffman_array_terms, terminator_array_terms, tree);
                 encoding_dict<unsigned short> encoding_dict_terms;
                 build_inverse_mapping(tree, encoding_dict_terms);
                 
                 delete(tuples);
                 
                 show_info("[5] Compressing terms...");
-                for (long d = 0; d < D_PM; ++d)
+                for (long d = 0; d < input::D_PM; ++d)
                 {
                     char* terms_compressed;
                     terms_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned short);
@@ -126,7 +126,7 @@ namespace benchmark
                     terms_per_doc_compressed[d] = terms_compressed;
                     delete terms_per_doc[d];
                     
-                    if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                    if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
                 }
                 debug_n("  " << 100 << " % complete.    \n");
             }
@@ -139,15 +139,16 @@ namespace benchmark
             
             // compress
             show_info("[6] Generating Huffman tree for frequencies...");
-            freqs_per_doc_compressed = new char*[D_PM];
-            generate_array_tree_representation(tuples_freq, pubmed::tuples, huffman_array_freqs, terminator_array_freqs, tree_freqs);
+            freqs_per_doc_compressed = new char*[input::D_PM];
+
+            generate_array_tree_representation(tuples_freq, input::NUM_TUPLES, huffman_array_freqs, terminator_array_freqs, tree_freqs);
             encoding_dict<unsigned char> encoding_dict_freqs;
             build_inverse_mapping(tree_freqs, encoding_dict_freqs);
             
             delete(tuples_freq);
             
             show_info("[7] Compressing frequencies...");
-            for (long d = 0; d < D_PM; ++d)
+            for (long d = 0; d < input::D_PM; ++d)
             {
                 char* freqs_compressed;
                 freqs_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned char);
@@ -155,7 +156,7 @@ namespace benchmark
                 freqs_per_doc_compressed[d] = freqs_compressed;
                 delete freqs_per_doc[d];
                 
-                if (d % (D_PM/1000) == 0) debug_n("  " << d*100.0/D_PM << " % complete.    ");
+                if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
             }
             debug_n("  " << 100 << " % complete.    \n");
             
@@ -193,7 +194,7 @@ namespace benchmark
                 for (int di = 0; di < num_docs[i]; ++di)
                 {
                     // retrieve list and add to term counter
-                    long doc_id = rand() % D_PM;
+                    long doc_id = rand() % input::D_PM;
                     
                     //unsigned short* terms = terms_per_doc[doc_id];
                     unsigned short list_size = terms_per_doc_size[doc_id];

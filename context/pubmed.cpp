@@ -1,47 +1,68 @@
 #include "pubmed.h"
+#include "input.h"
+#include <sys/stat.h>
 
 int* documents_per_term;
 short* terms_per_doc;
 
 namespace pubmed
 {
-    long tuples;
-    
     void load_docs_per_term()
     {
-        show_info("Loading documents per term from " << STATS_FILE_T << ".");
-        
-        documents_per_term = new int[T_PM];
-        tuples = 0;
-        
-        std::ifstream infile(STATS_FILE_T);
-        for (int i = 0; i < T_PM; ++i)
+        debug("[HISTOGRAM] Loading documents per term from " << input::STATS_FILE_T << ".");
+    
+        struct stat buffer;
+        if (stat(input::STATS_FILE_T, &buffer) != 0)
+        {
+            show_info("[HISTOGRAM] WARNING: STATS_FILE_T does not exist. Cannot run PubMed queries! Run with -h for more options.");
+            return;
+        }
+
+        std::ifstream infile(input::STATS_FILE_T);
+        infile >> input::T_PM;
+        debug("[HISTOGRAM] Reading " << input::T_PM << " terms.");
+
+        documents_per_term = new int[input::T_PM];
+        input::NUM_TUPLES = 0;
+
+        for (int i = 0; i < input::T_PM; ++i)
         {
             infile >> documents_per_term[i];
-            tuples += documents_per_term[i];
+            input::NUM_TUPLES += documents_per_term[i];
         }
         
-        show_info("Done loading file.");
+        debug("[HISTOGRAM] Done loading file.");
+        debug("[HISTOGRAM] Column DB has " << input::NUM_TUPLES << " tuples.");
     }
     
     void load_terms_per_doc()
     {
-        show_info("Loading terms per document from " << STATS_FILE_D << ".");
-        
-        terms_per_doc = new short[D_PM];
-        
-        std::ifstream infile(STATS_FILE_D);
-        for (int i = 0; i < D_PM; ++i)
+        debug("[HISTOGRAM] Loading terms per document from " << input::STATS_FILE_D << ".");
+       
+        struct stat buffer;
+        if (stat(input::STATS_FILE_D, &buffer) != 0)
+        {
+            show_info("[HISTOGRAM] WARNING: STATS_FILE_D does not exist. Cannot run PubMed queries! Run with -h for more options.");
+            return;
+        }
+ 
+        std::ifstream infile(input::STATS_FILE_D);
+        infile >> input::D_PM;
+        debug("[HISTOGRAM] Reading " << input::D_PM << " documents.");
+
+        terms_per_doc = new short[input::D_PM];
+
+        for (int i = 0; i < input::D_PM; ++i)
         {
             infile >> terms_per_doc[i];
         }
         
-        show_info("Done loading file.");
+        debug("[HISTOGRAM] Done loading file.");
     }
     
     int get_random_group_by_term_count()
     {
-        return documents_per_term[rand() % T_PM];
+        return documents_per_term[rand() % input::T_PM];
     }
     
     int get_group_by_term(int term)

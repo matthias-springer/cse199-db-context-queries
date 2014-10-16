@@ -20,7 +20,7 @@ namespace benchmark
                 
                 for (int j = 0; j < terms_size[i]; ++j)
                 {
-                    terms->push_back(rand() % input::b_MAX_TERM);
+                    terms->push_back(rand() % input::T_PM);
                 }
                 
                 unordered_set<DOMAIN_TYPE> *documents = top_k_tf_column_db_query::documents_in_context(terms);
@@ -51,7 +51,7 @@ namespace benchmark
                 
                 for (int j = 0; j < terms_size[i]; ++j)
                 {
-                    terms->push_back(rand() % input::b_MAX_TERM);
+                    terms->push_back(rand() % input::T_PM);
                 }
                 
                 vector<DOMAIN_TYPE> *result = top_k_tf_column_db_query::top_k_tf_in_context(terms, input::b_K);
@@ -79,7 +79,7 @@ namespace benchmark
                 
                 for (int j = 0; j < docs_size[i]; ++j)
                 {
-                    documents->insert(rand() % input::b_MAX_DOCUMENT);
+                    documents->insert(rand() % input::D_PM);
                 }
                 
                 vector<DOMAIN_TYPE> *result = top_k_tf_column_db_query::top_k_tf_in_documents(documents, input::b_K);

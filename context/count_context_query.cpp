@@ -9,10 +9,10 @@ namespace count_context_query
     
     void randomly_generate_vectors()
     {
-        debug("Generating " << input::b_MAX_TERM << " bit vectors.");
-        bit_vectors_in_ram = new bit_storage*[input::b_MAX_TERM];
+        debug("Generating " << input::T_PM << " bit vectors.");
+        bit_vectors_in_ram = new bit_storage*[input::T_PM];
         
-        for (int i = 0; i < input::b_MAX_TERM; ++i)
+        for (int i = 0; i < input::T_PM; ++i)
         {
             bit_vectors_in_ram[i] = new bit_storage();
             
@@ -20,7 +20,7 @@ namespace count_context_query
             //double docs = pubmed::get_random_group_by_term_count();
             //docs = docs / D_PM * input::b_NUM_DOCUMENTS;
             double docs = pubmed::get_group_by_term(i);
-            bit_vectors_in_ram[i]->generate_randomly((int) docs, input::b_MAX_DOCUMENT);
+            bit_vectors_in_ram[i]->generate_randomly((int) docs, input::D_PM);
             
             delete bit_vectors_in_ram[i];
         }

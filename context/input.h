@@ -22,7 +22,14 @@ namespace input
     extern DOMAIN_TYPE b_MAX_FREQUENCY;
     extern DOMAIN_TYPE b_K;
     extern long b_NUM_TUPLES;
-    
+
+    extern char* STATS_FILE_T;
+    extern char* STATS_FILE_D;
+    extern long T_PM;
+    extern long D_PM;
+    extern long NUM_TUPLES;
+
+    void print_stats();               
     void store(string name);
     void store(string name, DOMAIN_TYPE id);
     DOMAIN_TYPE read_value();

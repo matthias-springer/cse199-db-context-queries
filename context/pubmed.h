@@ -4,15 +4,6 @@
 #include <fstream>
 #include "output.h"
 
-#define STATS_FILE_T "/Users/matthias/Documents/context/pubmed/stats_terms.csv"
-#define STATS_FILE_D "/Users/matthias/Documents/context/pubmed/stats_docs.csv"
-
-// number of documents
-#define D_PM 13930233
-
-// number of terms
-#define T_PM 26842
-
 namespace pubmed
 {
     extern long tuples;
