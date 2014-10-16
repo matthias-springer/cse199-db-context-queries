@@ -153,8 +153,12 @@ namespace benchmark
                     delete terms_per_doc[d];
                     
                     terms_per_doc_bitvector[d] = terms_compressed;
+                    terms_bytes_compressed += terms_compressed->bytes();
                     
-                    if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
+                    if (d % (input::D_PM/1000) == 0)
+                    {
+                       debug_n("  " << d*100.0/input::D_PM << " % complete. Using " << terms_bytes_compressed << " / " << terms_bytes_uncompressed << " bytes.   ");
+                    }
                 }
                 
                 debug_n("  " << 100 << " % complete.    \n");
