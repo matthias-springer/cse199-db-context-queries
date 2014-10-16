@@ -12,8 +12,8 @@
 #include <bitvector.h>
 #include <ibis.h>
 
-#define compress true
-#define use_fastbit false
+#define s_compress true
+#define use_fastbit true
 
 using namespace std;
 
@@ -103,7 +103,7 @@ namespace benchmark
         debug_n("  " << 100 << " % complete.    \n");
         
         
-        if (compress)
+        if (s_compress)
         {
             if (!use_fastbit)
             {
@@ -134,7 +134,32 @@ namespace benchmark
             {
                 // compress with FastBit
                 show_info("[4] Compressing terms with bit vector...");
+                terms_per_doc_bitvector = new ibis::bitvector*[input::D_PM];
                 
+                delete tuples;
+                
+                for (long d = 0; d < input::D_PM; ++d)
+                {
+                    ibis::bitvector* terms_compressed = new ibis::bitvector();
+                    terms_bytes_uncompressed += terms_per_doc_size[d] * sizeof(unsigned short);
+                    
+                    for (long term_index = 0; term_index < terms_per_doc_size[d]; ++ term_index)
+                    {
+                        terms_compressed->setBit(terms_per_doc[d][term_index], 1);
+                    }
+                    
+                    
+                    terms_compressed->compress();
+                    delete terms_per_doc[d];
+                    
+                    terms_per_doc_bitvector[d] = terms_compressed;
+                    
+                    if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
+                }
+                
+                debug_n("  " << 100 << " % complete.    \n");
+                
+                show_info("[5] n/a");
             }
             
             // compress
@@ -202,11 +227,16 @@ namespace benchmark
                     unsigned short* terms_decompressed;
                     unsigned char* freqs_decompressed;
                     
-                    if (compress)
+                    if (s_compress)
                     {
                         terms_decompressed = new unsigned short[list_size];
                         freqs_decompressed = new unsigned char[list_size];
-                        decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
+                        
+                        if (!use_fastbit)
+                        {
+                            decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
+                        }
+                        
                         decode(freqs_per_doc_compressed[doc_id], list_size, freqs_decompressed, huffman_array_freqs, terminator_array_freqs);
                     }
                     else
@@ -215,13 +245,43 @@ namespace benchmark
                         freqs_decompressed = freqs_per_doc[doc_id];
                     }
                     
-                    for (int l = 0; l < list_size; ++l)
+                    if (s_compress && use_fastbit)
                     {
-                        term_counter.add(terms_decompressed[l], freqs_decompressed[l]);
-                        //term_counter[terms[l]]++;
+                        long term_index = 0;
+                        ibis::bitvector::indexSet ones = terms_per_doc_bitvector[doc_id]->firstIndexSet();
+                        bool is_range = ones.isRange();
+                        
+                        while (ones.nIndices() != 0)
+                        {
+                            for (int i = 0; i < ones.nIndices(); ++i)
+                            {
+                                unsigned short term;
+                                if (is_range)
+                                {
+                                    term = ones.indices()[0] + i;
+                                }
+                                else
+                                {
+                                    term = ones.indices()[i];
+                                }
+                                
+                                term_counter.add(term, freqs_decompressed[term_index]);
+                                ++term_index;
+                            }
+                            
+                            ++ones;
+                        }
+                    }
+                    else
+                    {
+                        for (int l = 0; l < list_size; ++l)
+                        {
+                            term_counter.add(terms_decompressed[l], freqs_decompressed[l]);
+                            //term_counter[terms[l]]++;
+                        }
                     }
                     
-                    if (compress)
+                    if (s_compress)
                     {
                         delete terms_decompressed;
                         delete freqs_decompressed;
