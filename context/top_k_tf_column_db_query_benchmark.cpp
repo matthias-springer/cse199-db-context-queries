@@ -71,10 +71,10 @@ namespace benchmark
         
         for (int i = 0; i < 8; ++i)
         {
+            show_info("Running run_top_k_tf_in_docs_column_db_query with number of documents " << docs_size[i] << ".");
             int r = 0;
             for (r = 0; r < 25; ++r)
             {
-                show_info("Running run_top_k_tf_in_docs_column_db_query with number of documents " << docs_size[i] << ".");
                 unordered_set<DOMAIN_TYPE> *documents = new unordered_set<DOMAIN_TYPE>();
                 
                 for (int j = 0; j < docs_size[i]; ++j)

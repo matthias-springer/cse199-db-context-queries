@@ -26,7 +26,7 @@ unsigned char *c_freq;
 #define S_UNOPTIMIZED 0
 #define S_BINARY_SEARCH 2
 
-#define TUPLES_DIVIDER 10000
+#define TUPLES_DIVIDER 1
 
 int sorted_by_term = S_UNOPTIMIZED;
 int sorted_by_doc = S_BINARY_SEARCH;
@@ -74,6 +74,7 @@ namespace top_k_tf_column_db_query
                     c_term[next_index++] = term;
                 }
             }
+            
         }
 
         if (sorted_by_term == S_UNOPTIMIZED)
@@ -329,7 +330,7 @@ namespace top_k_tf_column_db_query
             }
         }
         
-        show_info("Printing top-" << k << " documents with term frequency:");
+        debug("Printing top-" << k << " documents with term frequency:");
         
         output::start_timer("run/top_k_column_db_tf_in_documents_extract_top_k");
         vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *top_k = aggr->top_k(k);
@@ -337,7 +338,7 @@ namespace top_k_tf_column_db_query
         
         for (vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>>::iterator iter = top_k->begin(); iter != top_k->end(); ++iter)
         {
-            show_info("  [" << (*iter).first << "]  " << (*iter).second);
+            debug("  [" << (*iter).first << "]  " << (*iter).second);
         }
         
         output::stop_timer("run/top_k_tf_in_documents_complete");
