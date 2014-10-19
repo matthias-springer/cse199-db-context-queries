@@ -216,6 +216,7 @@ int main(int argc, char ** argv)
                     break;
                 case 16:
                     benchmark::generate_bit_vectors();
+                    benchmark::run_phase1_bench_final();
                     break;
             }
             break;

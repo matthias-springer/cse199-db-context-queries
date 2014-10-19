@@ -6,6 +6,7 @@
 namespace benchmark
 {
     void generate_bit_vectors();
+    void run_phase1_bench_final();
 }
 
 #endif
