@@ -45,6 +45,7 @@ namespace benchmark
         
         show_info("[3] Generating bit vectors...");
         unsigned long docs_compressed_bytes = 0;
+        next_index = 0;
         
         for (int term = 0; term < input::T_PM; ++term)
         {
