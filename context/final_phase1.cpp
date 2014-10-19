@@ -37,6 +37,7 @@ namespace benchmark
             if (t % (input::D_PM/1000) == 0) debug_n("  " << t*100.0/input::D_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
+        debug("Generated " << next_index << " tuples.");
         
         // shuffle
         show_info("[2] Shuffling...");
