@@ -33,7 +33,7 @@ namespace benchmark
                 column_doc[next_index++] = t;
             }
             
-            if (t % (input::T_PM/1000) == 0) debug_n("  " << t*100.0/input::T_PM << " % complete.    ");
+            if (t % (input::T_PM/1000) == 0) debug_n("  " << t*100.0/input::D_PM << " % complete.    ");
         }
         debug_n("  " << 100 << " % complete.    \n");
         
