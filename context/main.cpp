@@ -15,6 +15,7 @@
 #include "huffman_query_benchmark.h"
 #include "pubmed.h"
 #include "huffman_benchmark.h"
+#include "final_phase1.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -212,6 +213,9 @@ int main(int argc, char ** argv)
                 case 15:
                     benchmark::huffman_query_generate_lists();
                     benchmark::huffman_query_run_benchmark();
+                    break;
+                case 16:
+                    benchmark::generate_bit_vectors();
                     break;
             }
             break;

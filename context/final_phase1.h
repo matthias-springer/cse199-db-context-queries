@@ -3,4 +3,9 @@
 
 #include <stdio.h>
 
+namespace benchmark
+{
+    void generate_bit_vectors();
+}
+
 #endif
