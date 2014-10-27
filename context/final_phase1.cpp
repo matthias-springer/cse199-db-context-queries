@@ -106,7 +106,7 @@ namespace benchmark
         int num_terms[6] = {5, 10, 100, 1000, 10000, 25000};
         long mem_counter = 0;   // avoid optimizations
         
-        pthread_t* threads = new pthread_t[NUM_THREADS];
+        pthread_t** threads = new pthread_t*[NUM_THREADS];
         
         for (int i = 0; i < 6; ++i)
         {
@@ -120,21 +120,25 @@ namespace benchmark
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
+                    debug("[pthread] Spawning thread " << t << "...");
+                    threads[t] = new pthread_t;
                     args[t] = new thread_args;
                     args[t]->base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
                     args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
                     
-                    int result = pthread_create(threads + i, NULL, pthread_bitvector_intersect, (void*) args[t]);
+                    int result = pthread_create(threads[i], NULL, pthread_bitvector_intersect, (void*) args[t]);
                     
                     if (result)
                     {
                         error("Creating thread failed with error code " << result << ".");
                     }
+                    
+                    debug("[pthread] Thread is running.");
                 }
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
-                    pthread_join(threads[t], NULL);
+                    pthread_join(*threads[t], NULL);
                 }
                 
                 ibis::bitvector* base_vector = args[0]->base_vector;
