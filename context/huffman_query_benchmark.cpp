@@ -220,10 +220,10 @@ namespace benchmark
         
         for (int i = 0; i < 7; ++i)
         {
-            show_info("Running benchmark for " << num_docs[i] << " documents (15 iterations).");
+            show_info("Running benchmark for " << num_docs[i] << " documents (30 iterations).");
             output::start_timer("run/bench_huffman_query");
          
-            for (int j = 0; j < 15; ++j)
+            for (int j = 0; j < 30; ++j)
             {
                 map_aggregation term_counter;
                 //unordered_map<unsigned short, long> term_counter;
