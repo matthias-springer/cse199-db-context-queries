@@ -321,7 +321,7 @@ namespace benchmark
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
-                    debug("Spawing thread " << t << "...");
+                    //debug("Spawing thread " << t << "...");
                     
                     threads[t] = new pthread_t;
                     args[t] = new thread_args;
@@ -335,7 +335,7 @@ namespace benchmark
                         error("Creating thread failed with error code " << result << ".");
                     }
                     
-                    debug("Thread is running.");
+                    //debug("Thread is running.");
                 }
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
@@ -344,7 +344,7 @@ namespace benchmark
                     delete args[t];
                     delete threads[t];
                     
-                    debug("Joined thread " << t << ".");
+                    //debug("Joined thread " << t << ".");
                 }
                 
                 // sort list and extract top-k
