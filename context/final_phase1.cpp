@@ -10,6 +10,9 @@
 #include <string.h>
 #include "map_aggregation.h"
 #include "huffman.h"
+#include <pthread.h>
+
+#define NUM_THREADS 4
 
 namespace benchmark
 {
@@ -73,12 +76,37 @@ namespace benchmark
         
         debug_n("  " << 100 << " % complete.    \n");
         show_info("size of compressed bit vectors (bytes): " << docs_compressed_bytes << ".");
+        
+        delete column_doc;
+    }
+    
+    ibis::bitvector* final_bit_vectors;
+    int num_final_bit_vectors;
+    
+    struct thread_args
+    {
+        ibis::bitvector* base_vector;
+        int cnt_more_vectors;
+    };
+    
+    void* pthread_bitvector_intersect(void* args_v)
+    {
+        thread_args* args = (thread_args*) args_v;
+        
+        for (int a = 0; a < args->cnt_more_vectors; ++a)
+        {
+            *args->base_vector &= *bit_vector_for_term[rand() % input::T_PM];
+        }
+        
+        return NULL;
     }
     
     void run_phase1_bench_final()
     {
         int num_terms[6] = {5, 10, 100, 1000, 10000, 25000};
         long mem_counter = 0;   // avoid optimizations
+        
+        pthread_t* threads = new pthread_t[NUM_THREADS];
         
         for (int i = 0; i < 6; ++i)
         {
@@ -88,11 +116,22 @@ namespace benchmark
             output::start_timer("run/phase1_final");
             for (int r = 0; r < 300; ++r)
             {
-                ibis::bitvector* base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
+                thread_args** args = new thread_args*[NUM_THREADS];
                 
-                for (int a = 0; a < cnt_terms - 1; ++a)
+                for (int t = 0; t < NUM_THREADS; ++t)
                 {
-                    *base_vector &= *bit_vector_for_term[rand() % input::T_PM];
+                    args[t] = new thread_args;
+                    args[t]->base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
+                    args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
+                    
+                    pthread_create(threads + i, NULL, pthread_bitvector_intersect, (void*) args[t]);
+                }
+                
+                ibis::bitvector* base_vector = args[0]->base_vector;
+                
+                for (int a = 1; a < NUM_THREADS; ++a)
+                {
+                    *base_vector &= *args[a]->base_vector;
                 }
                 
                 // extract ones

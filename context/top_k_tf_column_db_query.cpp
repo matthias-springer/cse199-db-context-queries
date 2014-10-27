@@ -12,6 +12,7 @@
 #include <bitvector.h>
 #include <ibis.h>
 #include <map>
+#include <pthread.h>
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))

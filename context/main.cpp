@@ -73,6 +73,7 @@ int main(int argc, char ** argv)
         "[13]\tBenchmark for query 1 with column database.\n"
         "[14]\tHuffman Benchmark.\n"
         "[15]\tHuffman query benchmark.\n"
+        "[16]\tFinal Phase 1 benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";

@@ -11,17 +11,17 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1AB65FADAC92DA9254252E732719FCDCD83A62C8</key>
-		<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
+		<string>github.com:matthias-springer/cse199-db-context-queries.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>context.xcodeproj/project.xcworkspace</string>
+	<string>context.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1AB65FADAC92DA9254252E732719FCDCD83A62C8</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/matthias-springer/cse199-db-context-queries.git</string>
+	<string>github.com:matthias-springer/cse199-db-context-queries.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
