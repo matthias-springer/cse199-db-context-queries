@@ -14,7 +14,7 @@
 #include <pthread.h>
 
 #define s_compress true
-#define use_fastbit true
+#define use_fastbit false
 
 #define NUM_THREADS 4
 
@@ -227,12 +227,87 @@ namespace benchmark
     {
         thread_args* args = (thread_args*) args_v;
         
+        for (long di = 0; di < args->num_docs; ++di)
+        {
+            // retrieve list and add to term counter
+            long doc_id = rand() % input::D_PM;
+            
+            //unsigned short* terms = terms_per_doc[doc_id];
+            unsigned short list_size = terms_per_doc_size[doc_id];
+            
+            unsigned short* terms_decompressed;
+            unsigned char* freqs_decompressed;
+            
+            if (s_compress)
+            {
+                terms_decompressed = new unsigned short[list_size];
+                freqs_decompressed = new unsigned char[list_size];
+                
+                if (!use_fastbit)
+                {
+                    decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
+                }
+                
+                decode(freqs_per_doc_compressed[doc_id], list_size, freqs_decompressed, huffman_array_freqs, terminator_array_freqs);
+            }
+            else
+            {
+                terms_decompressed = terms_per_doc[doc_id];
+                freqs_decompressed = freqs_per_doc[doc_id];
+            }
+            
+            if (s_compress && use_fastbit)
+            {
+                long term_index = 0;
+                ibis::bitvector::indexSet ones = terms_per_doc_bitvector[doc_id]->firstIndexSet();
+                bool is_range = ones.isRange();
+                
+                while (ones.nIndices() != 0)
+                {
+                    for (int i = 0; i < ones.nIndices(); ++i)
+                    {
+                        unsigned short term;
+                        if (is_range)
+                        {
+                            term = ones.indices()[0] + i;
+                        }
+                        else
+                        {
+                            term = ones.indices()[i];
+                        }
+                        
+                        args->term_counter->add(term, freqs_decompressed[term_index]);
+                        ++term_index;
+                    }
+                    
+                    ++ones;
+                }
+            }
+            else
+            {
+                for (int l = 0; l < list_size; ++l)
+                {
+                    args->term_counter->add(terms_decompressed[l], freqs_decompressed[l]);
+                    //term_counter[terms[l]]++;
+                }
+            }
+            
+            if (s_compress)
+            {
+                delete terms_decompressed;
+                delete freqs_decompressed;
+            }
+        }
+        
         return NULL;
     }
     
     void huffman_query_run_benchmark()
     {
         int num_docs[7] = {1, 10, 100, 1000, 10000, 100000, 1000000};
+        
+        pthread_t** threads = new pthread_t*[NUM_THREADS];
+        thread_args** args = new thread_args*[NUM_THREADS];
         
         for (int i = 0; i < 7; ++i)
         {
@@ -244,76 +319,26 @@ namespace benchmark
                 map_aggregation term_counter;
                 //unordered_map<unsigned short, long> term_counter;
                 
-                for (int di = 0; di < num_docs[i]; ++di)
+                for (int t = 0; t < NUM_THREADS; ++t)
                 {
-                    // retrieve list and add to term counter
-                    long doc_id = rand() % input::D_PM;
+                    threads[t] = new pthread_t;
+                    args[t] = new thread_args;
+                    args[t]->num_docs = num_docs[i] / NUM_THREADS;
+                    args[t]->term_counter = &term_counter;
                     
-                    //unsigned short* terms = terms_per_doc[doc_id];
-                    unsigned short list_size = terms_per_doc_size[doc_id];
+                    int result = pthread_create(threads[t], NULL, pthread_query, (void*) args[t]);
                     
-                    unsigned short* terms_decompressed;
-                    unsigned char* freqs_decompressed;
-                    
-                    if (s_compress)
+                    if (result)
                     {
-                        terms_decompressed = new unsigned short[list_size];
-                        freqs_decompressed = new unsigned char[list_size];
-                        
-                        if (!use_fastbit)
-                        {
-                            decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
-                        }
-                        
-                        decode(freqs_per_doc_compressed[doc_id], list_size, freqs_decompressed, huffman_array_freqs, terminator_array_freqs);
+                        error("Creating thread failed with error code " << result << ".");
                     }
-                    else
-                    {
-                        terms_decompressed = terms_per_doc[doc_id];
-                        freqs_decompressed = freqs_per_doc[doc_id];
-                    }
-                    
-                    if (s_compress && use_fastbit)
-                    {
-                        long term_index = 0;
-                        ibis::bitvector::indexSet ones = terms_per_doc_bitvector[doc_id]->firstIndexSet();
-                        bool is_range = ones.isRange();
-                        
-                        while (ones.nIndices() != 0)
-                        {
-                            for (int i = 0; i < ones.nIndices(); ++i)
-                            {
-                                unsigned short term;
-                                if (is_range)
-                                {
-                                    term = ones.indices()[0] + i;
-                                }
-                                else
-                                {
-                                    term = ones.indices()[i];
-                                }
-                                
-                                term_counter.add(term, freqs_decompressed[term_index]);
-                                ++term_index;
-                            }
-                            
-                            ++ones;
-                        }
-                    }
-                    else
-                    {
-                        for (int l = 0; l < list_size; ++l)
-                        {
-                            term_counter.add(terms_decompressed[l], freqs_decompressed[l]);
-                            //term_counter[terms[l]]++;
-                        }
-                    }
-                    
-                    if (s_compress)
-                    {
-                        delete terms_decompressed;
-                        delete freqs_decompressed;
-                    }
+                }
+                
+                for (int t = 0; t < NUM_THREADS; ++t)
+                {
+                    pthread_join(*(threads[t]), NULL);
+                    delete args[t];
+                    delete threads[t];
                 }
                 
                 // sort list and extract top-k
