@@ -142,13 +142,14 @@ namespace benchmark
                     delete threads[t];
                 }
                 
-                delete threads;
                 
                 ibis::bitvector* base_vector = args[0]->base_vector;
                 
                 for (int a = 1; a < NUM_THREADS; ++a)
                 {
                     *base_vector &= *args[a]->base_vector;
+                    delete args[a]->base_vector;
+                    delete args[a];
                 }
                 
                 // extract ones
@@ -172,6 +173,8 @@ namespace benchmark
                     ++ones;
                 }
                 
+                delete args[0]->base_vector;
+                delete args[0];
             }
             
             output::stop_timer("run/phase1_final");
