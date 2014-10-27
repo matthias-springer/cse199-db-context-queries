@@ -127,6 +127,11 @@ namespace benchmark
                     pthread_create(threads + i, NULL, pthread_bitvector_intersect, (void*) args[t]);
                 }
                 
+                for (int t = 0; t < NUM_THREADS; ++t)
+                {
+                    pthread_join(threads[t], NULL);
+                }
+                
                 ibis::bitvector* base_vector = args[0]->base_vector;
                 
                 for (int a = 1; a < NUM_THREADS; ++a)
