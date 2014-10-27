@@ -124,7 +124,12 @@ namespace benchmark
                     args[t]->base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
                     args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
                     
-                    pthread_create(threads + i, NULL, pthread_bitvector_intersect, (void*) args[t]);
+                    int result = pthread_create(threads + i, NULL, pthread_bitvector_intersect, (void*) args[t]);
+                    
+                    if (result)
+                    {
+                        error("Creating thread failed with error code " << result << ".");
+                    }
                 }
                 
                 for (int t = 0; t < NUM_THREADS; ++t)

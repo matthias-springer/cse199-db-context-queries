@@ -11,9 +11,12 @@
 #include "huffman.h"
 #include <bitvector.h>
 #include <ibis.h>
+#include <pthread.h>
 
 #define s_compress true
 #define use_fastbit true
+
+#define NUM_THREADS 4
 
 using namespace std;
 
@@ -212,6 +215,19 @@ namespace benchmark
         output::stop_timer("run/bench_huffman_query_generate");
         
         show_info("Done.");
+    }
+    
+    struct thread_args
+    {
+        map_aggregation* term_counter;
+        long num_docs;
+    };
+    
+    void* pthread_query(void* args_v)
+    {
+        thread_args* args = (thread_args*) args_v;
+        
+        return NULL;
     }
     
     void huffman_query_run_benchmark()
