@@ -44,7 +44,7 @@ namespace benchmark
         
         // shuffle
         show_info("[2] Shuffling...");
-        //shuffle(column_doc, column_doc + input::NUM_TUPLES, default_random_engine(42));
+        shuffle(column_doc, column_doc + input::NUM_TUPLES, default_random_engine(42));
         
         show_info("[3] Generating bit vectors...");
         unsigned long docs_compressed_bytes = 0;
