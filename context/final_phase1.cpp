@@ -44,7 +44,7 @@ namespace benchmark
         
         // shuffle
         show_info("[2] Shuffling...");
-        shuffle(column_doc, column_doc + input::NUM_TUPLES, default_random_engine(42));
+        //shuffle(column_doc, column_doc + input::NUM_TUPLES, default_random_engine(42));
         
         show_info("[3] Generating bit vectors...");
         unsigned long docs_compressed_bytes = 0;
@@ -139,7 +139,10 @@ namespace benchmark
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
                     pthread_join(*threads[t], NULL);
+                    delete threads[t];
                 }
+                
+                delete threads;
                 
                 ibis::bitvector* base_vector = args[0]->base_vector;
                 
