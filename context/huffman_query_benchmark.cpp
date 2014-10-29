@@ -13,7 +13,7 @@
 #include <ibis.h>
 #include <pthread.h>
 
-#define s_compress true
+#define s_compress false
 #define use_fastbit false
 
 #define NUM_THREADS 4
@@ -276,6 +276,7 @@ namespace benchmark
                             term = ones.indices()[i];
                         }
                         
+                        // TODO: make thread-safe
                         args->term_counter->add(term, freqs_decompressed[term_index]);
                         ++term_index;
                     }
@@ -287,6 +288,7 @@ namespace benchmark
             {
                 for (int l = 0; l < list_size; ++l)
                 {
+                    // TODO: make thread-safe
                     args->term_counter->add(terms_decompressed[l], freqs_decompressed[l]);
                     //term_counter[terms[l]]++;
                 }
@@ -304,12 +306,12 @@ namespace benchmark
     
     void huffman_query_run_benchmark()
     {
-        int num_docs[7] = {1, 10, 100, 1000, 10000, 100000, 1000000};
+        int num_docs[7] = {10, 100, 1000, 10000, 100000, 1000000};
         
         pthread_t** threads = new pthread_t*[NUM_THREADS];
         thread_args** args = new thread_args*[NUM_THREADS];
         
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < 6; ++i)
         {
             show_info("Running benchmark for " << num_docs[i] << " documents (30 iterations).");
             output::start_timer("run/bench_huffman_query");
