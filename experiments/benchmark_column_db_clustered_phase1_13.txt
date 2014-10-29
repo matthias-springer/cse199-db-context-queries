@@ -1,0 +1,32 @@
+INFO [main.cpp:150 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:153 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [top_k_tf_column_db_query_benchmark.cpp:15 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	0.99739
+ U(run/documents_in_context_column_db)	997390149
+  (run/documents_in_context_column_db_intersect)	0.00185262
+ U(run/documents_in_context_column_db_intersect)	1852622
+  (run/top_k_column_db_tf_in_documents_generate_random)	184.359
+ U(run/top_k_column_db_tf_in_documents_generate_random)	184358528283
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:15 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	1.42994
+ U(run/documents_in_context_column_db)	1429937065
+  (run/documents_in_context_column_db_intersect)	0.000822427
+ U(run/documents_in_context_column_db_intersect)	822427
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:15 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	26.4797
+ U(run/documents_in_context_column_db)	26479681992
+  (run/documents_in_context_column_db_intersect)	9.9557e-05
+ U(run/documents_in_context_column_db_intersect)	99557
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:15 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.

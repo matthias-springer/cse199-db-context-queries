@@ -1,0 +1,80 @@
+INFO [main.cpp:150 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:153 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 1.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	1265.58
+ U(run/top_k_column_db_tf_in_documents)	1265578867960
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.00010688
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	106880
+  (run/top_k_column_db_tf_in_documents_generate_random)	334.687
+ U(run/top_k_column_db_tf_in_documents_generate_random)	334687134267
+  (run/top_k_tf_in_documents_complete)	2.76243e+09
+ U(run/top_k_tf_in_documents_complete)	2762430490607389559
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 10.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	2313.88
+ U(run/top_k_column_db_tf_in_documents)	2313884522815
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.00042018
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	420180
+  (run/top_k_tf_in_documents_complete)	2.76246e+09
+ U(run/top_k_tf_in_documents_complete)	2762457854347749550
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 100.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	1871.54
+ U(run/top_k_column_db_tf_in_documents)	1871544213250
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.00262193
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	2621931
+  (run/top_k_tf_in_documents_complete)	2.76249e+09
+ U(run/top_k_tf_in_documents_complete)	2762489032539249387
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 1000.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	1979.85
+ U(run/top_k_column_db_tf_in_documents)	1979846013243
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.0131325
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	13132524
+  (run/top_k_tf_in_documents_complete)	2.76252e+09
+ U(run/top_k_tf_in_documents_complete)	2762517969291158621
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 10000.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	2263.12
+ U(run/top_k_column_db_tf_in_documents)	2263121412018
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.045797
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	45796974
+  (run/top_k_tf_in_documents_complete)	2.76255e+09
+ U(run/top_k_tf_in_documents_complete)	2762549942362963871
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 100000.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	2615.98
+ U(run/top_k_column_db_tf_in_documents)	2615982069884
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.0988797
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	98879711
+  (run/top_k_tf_in_documents_complete)	2.76259e+09
+ U(run/top_k_tf_in_documents_complete)	2762586710797484197
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:75 run_top_k_tf_in_docs_column_db_query] Running run_top_k_tf_in_docs_column_db_query with number of documents 1000000.
+INFO [top_k_tf_column_db_query_benchmark.cpp:90 run_top_k_tf_in_docs_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/top_k_column_db_tf_in_documents)	5483.64
+ U(run/top_k_column_db_tf_in_documents)	5483640953351
+  (run/top_k_column_db_tf_in_documents_extract_top_k)	0.132975
+ U(run/top_k_column_db_tf_in_documents_extract_top_k)	132975119
+  (run/top_k_tf_in_documents_complete)	2.76265e+09
+ U(run/top_k_tf_in_documents_complete)	2762649056539302474
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+

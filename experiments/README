@@ -1,0 +1,38 @@
+Explanation of benchmarks
+
+- benchmark_column_db_binarysearch_phase1_13.txt
+Column DB with binary search, phase 1. Preliminary data (only up to 100 terms)
+
+- benchmark_column_db_binarysearch_phase2_12.txt
+Column DB with binary search, phase 2.
+
+- benchmark_column_db_clustered_phase1_13.txt
+Column DB clustered, phase 1. Preliminary data.
+
+- benchmark_column_db_clustered_phase2_12.txt
+Column DB clustered, phase 2.
+
+- benchmark_column_db_no_opt_phase1_13.txt
+Column DB without optimizations (data not sorted or anything, requires full column scan), phase 1.
+
+- benchmark_column_db_no_opt_phase2_12.txt
+Column DB without optimizations, phase 2.
+
+- benchmark_phase1_bitvector_4threads.txt
+Our implementation, using bit vectors, 4 threads, phase 1.
+
+- benchmark_phase1_bitvector.txt
+Our implementation, using bit vectors, phase 2.
+
+- benchmark_phase2_bitvector.txt
+Our implementation, using bit vectors, phase 2.
+
+- benchmark_phase2_huffman_4threads.txt
+Our implementation, using two lists that are Huffman encoded, 4 threads, phase 2. Preliminary data.
+
+- benchmark_phase2_huffman.txt
+Our implementation, using two lists that are Huffman encoded, 1 thread, phase 2.
+
+- benchmark_phase2_no_compression.txt
+Our implementation, using two lists without compression, 1 thread, phase 2.
+
