@@ -318,7 +318,7 @@ namespace benchmark
          
             for (int j = 0; j < 30; ++j)
             {
-                map_aggregation term_counter;
+                map_aggregation* term_counter = new map_aggregation[4]();
                 //unordered_map<unsigned short, long> term_counter;
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
@@ -328,7 +328,7 @@ namespace benchmark
                     threads[t] = new pthread_t;
                     args[t] = new thread_args;
                     args[t]->num_docs = num_docs[i] / NUM_THREADS;
-                    args[t]->term_counter = &term_counter;
+                    args[t]->term_counter = &term_counter[t];
                     
                     int result = pthread_create(threads[t], NULL, pthread_query, (void*) args[t]);
                     
@@ -349,8 +349,17 @@ namespace benchmark
                     debug("Joined thread " << t << ".");
                 }
                 
-                // sort list and extract top-k
-                term_counter.top_k(5);
+                // aggregate lists and sort list and extract top-k
+                for (int t = 1; t < NUM_THREADS; ++t)
+                {
+                    for (auto el = term_counter[t].data.begin(); el != term_counter[t].data.end(); ++el)
+                    {
+                        term_counter[0].data[el->first] += el->second;
+                    }
+                }
+                
+                term_counter[0].top_k(5);
+                delete term_counter;
             }
             
             // stats

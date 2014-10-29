@@ -2,8 +2,6 @@
 
 #define min(a,b) (a < b ? a : b)
 
-unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> data;
-
 void map_aggregation::add(DOMAIN_TYPE key, DOMAIN_TYPE increment)
 {
     data[key] = data[key] + increment;

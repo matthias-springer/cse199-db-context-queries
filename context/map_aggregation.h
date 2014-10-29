@@ -13,6 +13,8 @@ using namespace std;
 class map_aggregation : public aggregation
 {   
 public:
+    unordered_map<DOMAIN_TYPE, DOMAIN_TYPE> data;
+    
     map_aggregation();
     virtual void add(DOMAIN_TYPE key, DOMAIN_TYPE increment);
     virtual vector<pair<DOMAIN_TYPE, DOMAIN_TYPE>> *top_k(int k);
