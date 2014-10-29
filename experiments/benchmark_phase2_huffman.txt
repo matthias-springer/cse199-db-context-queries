@@ -1,0 +1,38 @@
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	0.00200268
+ U(run/bench_huffman_query)	2002678
+  (run/bench_huffman_query_generate)	654.206
+ U(run/bench_huffman_query_generate)	654206152240
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	0.00951818
+ U(run/bench_huffman_query)	9518177
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	0.0865741
+ U(run/bench_huffman_query)	86574148
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	0.836349
+ U(run/bench_huffman_query)	836349102
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10000 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	8.59619
+ U(run/bench_huffman_query)	8596194672
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100000 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	77.8714
+ U(run/bench_huffman_query)	77871397058
+
+INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000000 documents (30 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_huffman_query)	1902.12
+ U(run/bench_huffman_query)	1902121772838
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:

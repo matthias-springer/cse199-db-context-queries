@@ -1,0 +1,48 @@
+INFO [final_phase1.cpp:75 generate_bit_vectors] size of compressed bit vectors (bytes): 3206599844.
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 5 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase1_final)	0.18673
+ U(run/phase1_final)	186730386
+
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 10 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	0.479853
+ U(run/phase1_final)	479852524
+
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 100 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	2.15016
+ U(run/phase1_final)	2150158635
+
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 1000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	8.57088
+ U(run/phase1_final)	8570878413
+
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 10000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	63.541
+ U(run/phase1_final)	63540979634
+
+INFO [final_phase1.cpp:87 run_phase1_bench_final] Running for 25000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	205.284
+ U(run/phase1_final)	205283827643
+
+DBG  [final_phase1.cpp:125 run_phase1_bench_final] mem counter output: 0
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	205.284
+ U(run/phase1_final)	205283827643
