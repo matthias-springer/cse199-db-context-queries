@@ -200,6 +200,9 @@ namespace benchmark
             }
             debug_n("  " << 100 << " % complete.    \n");
             
+            delete freqs_per_doc;
+            delete terms_per_doc;
+            
             show_info("terms bytes uncompressed: " << terms_bytes_uncompressed);
             show_info("terms bytes compressed: " << terms_bytes_compressed);
             show_info("freqs bytes uncompressed: " << freqs_bytes_uncompressed);
@@ -240,9 +243,6 @@ namespace benchmark
             
             if (s_compress)
             {
-                terms_decompressed = new unsigned short[list_size];
-                freqs_decompressed = new unsigned char[list_size];
-                
                 if (!use_fastbit)
                 {
                     decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
