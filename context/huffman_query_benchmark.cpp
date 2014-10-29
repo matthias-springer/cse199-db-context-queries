@@ -359,7 +359,7 @@ namespace benchmark
                 }
                 
                 term_counter[0].top_k(5);
-                delete term_counter;
+                //delete term_counter;
             }
             
             // stats

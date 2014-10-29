@@ -126,7 +126,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "6"
-            endingLineNumber = "6">
+            endingLineNumber = "6"
+            landmarkName = "array_aggregation::add(DOMAIN_TYPE key, DOMAIN_TYPE increment)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
