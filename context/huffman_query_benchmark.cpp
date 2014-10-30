@@ -296,7 +296,7 @@ namespace benchmark
             
             if (s_compress)
             {
-                if (use_fastbit)
+                if (!use_fastbit)
                 {
                     delete terms_decompressed;
                 }
