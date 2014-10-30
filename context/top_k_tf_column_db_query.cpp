@@ -29,8 +29,8 @@ unsigned char *c_freq;
 
 #define TUPLES_DIVIDER 1
 
-int sorted_by_term = S_UNOPTIMIZED;
-int sorted_by_doc = S_BINARY_SEARCH;
+int sorted_by_term = S_BINARY_SEARCH;
+int sorted_by_doc = S_UNOPTIMIZED;
 
 long *term_offsets;
 long *doc_offsets;
@@ -242,7 +242,7 @@ namespace top_k_tf_column_db_query
         
         output::stop_timer("run/documents_in_context_column_db_intersect");
         
-        //delete temp_sets;
+        delete temp_sets;
         output::stop_timer("run/documents_in_context_column_db");
         
         return result;
@@ -346,6 +346,7 @@ namespace top_k_tf_column_db_query
         output::stop_timer("run/top_k_column_db_tf_in_documents");
         
         delete top_k;
+        delete aggr;
         
         return NULL;
     }
