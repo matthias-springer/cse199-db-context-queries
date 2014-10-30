@@ -6,10 +6,10 @@ namespace benchmark
     
     void run_docs_in_context_column_db_query()
     {
-        int terms_size[6] = {5, 10, 100, 1000, 10000, 25000};
+        int terms_size[9] = {5, 10, 50, 100, 250, 500, 750, 1000, 1500};
         top_k_tf_column_db_query::generate_random_tuples();
         
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 9; ++i)
         {
             int r = 0;
             
@@ -37,10 +37,10 @@ namespace benchmark
     
     void run_top_k_tf_column_db_query()
     {
-        int terms_size[6] = {5, 10, 100, 1000, 10000, 25000};
+        int terms_size[9] = {5, 10, 50, 100, 250, 500, 750, 1000, 1500};
         top_k_tf_column_db_query::generate_random_tuples();
         
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 9; ++i)
         {
             int r = 0;
             
