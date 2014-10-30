@@ -14,3 +14,478 @@ DBG  [top_k_tf_column_db_query.cpp:42 generate_random_tuples] Generating 1495505
 DBG  [top_k_tf_column_db_query.cpp:52 generate_random_tuples] c_term alloc success
 DBG  [top_k_tf_column_db_query.cpp:54 generate_random_tuples] c_doc alloc success
 DBG  [top_k_tf_column_db_query.cpp:56 generate_random_tuples] c_freq alloc success
+DBG  [top_k_tf_column_db_query.cpp:85 generate_random_tuples] Done generating terms and frequencies.
+DBG  [top_k_tf_column_db_query.cpp:105 generate_random_tuples] Done generating documents.
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 52501 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 18469 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 55751 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 15146 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 18116 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 359215 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 78391 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 148325 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 16263 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 290061 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1813449 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 67498 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 67245 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 27875 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 5.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 5.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 135614 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	1.24256
+ U(run/documents_in_context_column_db)	1242555483
+  (run/documents_in_context_column_db_intersect)	0.00189717
+ U(run/documents_in_context_column_db_intersect)	1897166
+  (run/top_k_column_db_tf_in_documents_generate_random)	178.639
+ U(run/top_k_column_db_tf_in_documents_generate_random)	178639263133
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 424113 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 140412 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 229366 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 180051 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 62971 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 108320 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 158257 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 27406 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 81933 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 117261 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 42196 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1174016 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1306693 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 321434 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 10.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 10.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 344103 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	1.76151
+ U(run/documents_in_context_column_db)	1761505973
+  (run/documents_in_context_column_db_intersect)	0.000840846
+ U(run/documents_in_context_column_db_intersect)	840846
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 6409733 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 692506 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1878276 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 15050070 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 670698 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 3949138 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2259271 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 687728 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2038714 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1401984 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2903603 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 4559820 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 660429 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2540139 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 50.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 50.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1691735 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	20.476
+ U(run/documents_in_context_column_db)	20475991570
+  (run/documents_in_context_column_db_intersect)	0.00012073
+ U(run/documents_in_context_column_db_intersect)	120730
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 5516702 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 3321088 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 13131170 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1043970 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2675211 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2854530 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 1531731 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 3395346 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2052346 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 3936473 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2258364 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 2239863 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 4855579 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 3842579 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 100.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 100.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 7005109 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	23.0577
+ U(run/documents_in_context_column_db)	23057682791
+  (run/documents_in_context_column_db_intersect)	9.8312e-05
+ U(run/documents_in_context_column_db_intersect)	98312
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 16075242 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 8099972 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 26589504 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 15830651 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 25576624 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 20043643 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 7253883 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 7052182 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 11570933 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 8357640 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 6261294 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 9215556 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 9152447 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 9879336 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 250.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 250.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 12621494 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	81.0304
+ U(run/documents_in_context_column_db)	81030429520
+  (run/documents_in_context_column_db_intersect)	6.8104e-05
+ U(run/documents_in_context_column_db_intersect)	68104
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 29345737 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 52453040 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 33969511 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 51083376 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 26714313 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 41803323 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 32069177 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 34983127 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 15223833 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 24387977 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 16221904 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 25102353 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 15452508 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 43604381 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 28514185 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	209.334
+ U(run/documents_in_context_column_db)	209334424965
+  (run/documents_in_context_column_db_intersect)	5.0453e-05
+ U(run/documents_in_context_column_db_intersect)	50453
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 47253515 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 36485716 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 42002185 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 52918291 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 35095280 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 43914413 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 40203106 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 52580873 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 34080205 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 43483067 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 45564182 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 38299374 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 71325342 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 37344091 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 750.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 750.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 31655929 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	283.824
+ U(run/documents_in_context_column_db)	283824126973
+  (run/documents_in_context_column_db_intersect)	5.091e-05
+ U(run/documents_in_context_column_db_intersect)	50910
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 45669171 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 31137888 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 58557200 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 48407901 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 77013370 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 57456034 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 65143732 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 51900215 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 62638715 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 39574692 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 74665707 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 67973694 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 60970823 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 45100986 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1000.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1000.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 77396604 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	374.927
+ U(run/documents_in_context_column_db)	374926679497
+  (run/documents_in_context_column_db_intersect)	5.0108e-05
+ U(run/documents_in_context_column_db_intersect)	50108
+
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 86963665 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 74209050 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 103403364 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 95493792 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 79961827 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 96201459 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 88222688 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 127503892 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 87095354 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 78064676 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 92654267 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 93314049 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 74167140 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 73188708 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:18 run_docs_in_context_column_db_query] Running top_k_in_documents_tf with number of terms 1500.
+DBG  [top_k_tf_column_db_query.cpp:112 documents_in_context] Running documents_in_context. Context size is 1500.
+DBG  [top_k_tf_column_db_query.cpp:142 documents_in_context] Read 82081629 (clustered).
+INFO [top_k_tf_column_db_query_benchmark.cpp:32 run_docs_in_context_column_db_query] Statistics for 15 runs.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/documents_in_context_column_db)	578.693
+ U(run/documents_in_context_column_db)	578693374527
+  (run/documents_in_context_column_db_intersect)	4.7758e-05
+ U(run/documents_in_context_column_db_intersect)	47758
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+
