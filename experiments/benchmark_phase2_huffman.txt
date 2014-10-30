@@ -1,38 +1,16 @@
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.00200268
- U(run/bench_huffman_query)	2002678
-  (run/bench_huffman_query_generate)	654.206
- U(run/bench_huffman_query_generate)	654206152240
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.00951818
- U(run/bench_huffman_query)	9518177
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.0865741
- U(run/bench_huffman_query)	86574148
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.836349
- U(run/bench_huffman_query)	836349102
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10000 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	8.59619
- U(run/bench_huffman_query)	8596194672
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100000 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	77.8714
- U(run/bench_huffman_query)	77871397058
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000000 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	1902.12
- U(run/bench_huffman_query)	1902121772838
-
-INFO [offset.cpp:61 close_offset_files] Closed all offset files.
-INFO [output.cpp:124 show_stats] Runtime statistics:
+DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
+INFO [main.cpp:151 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:154 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [huffman_query_benchmark.cpp:55 huffman_query_generate_lists] [1] Generating tuples...
+INFO [huffman_query_benchmark.cpp:56 huffman_query_generate_lists] Allocating 1495505362 shorts/chars (array).
+INFO [huffman_query_benchmark.cpp:59 huffman_query_generate_lists] Alloc success
+DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.0968631 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.193726 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.290589 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.387452 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.484316 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.581179 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.678042 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.774905 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.871768 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   0.968631 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.06549 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.16236 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.25922 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.35608 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.45295 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.54981 % complete.    DBG   [huffman_query_benchmark.cpp:77 huffman_query_generate_lists]   1.64667 % complete.    
