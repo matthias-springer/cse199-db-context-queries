@@ -242,7 +242,7 @@ namespace top_k_tf_column_db_query
         
         output::stop_timer("run/documents_in_context_column_db_intersect");
         
-        delete temp_sets;
+        delete[] temp_sets;
         output::stop_timer("run/documents_in_context_column_db");
         
         return result;
