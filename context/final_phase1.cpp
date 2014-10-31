@@ -100,6 +100,8 @@ namespace benchmark
                 bit_vector->set(doc_list[i]);
             }
             
+            docs_compressed_bytes += bit_vector->sizeInBytes();
+            
             delete doc_list;
 #endif
             
