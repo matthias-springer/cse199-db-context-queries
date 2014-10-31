@@ -1,0 +1,66 @@
+DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
+INFO [main.cpp:151 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:154 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [final_phase1.cpp:32 generate_bit_vectors] [1] Generating tuples...
+DBG   [final_phase1.cpp:52 generate_bit_vectors]   100 % complete.
+DBG  [final_phase1.cpp:53 generate_bit_vectors] Generated 1495505362 tuples.
+INFO [final_phase1.cpp:56 generate_bit_vectors] [2] Shuffling...
+INFO [final_phase1.cpp:59 generate_bit_vectors] [3] Generating bit vectors...
+DBG   [final_phase1.cpp:113 generate_bit_vectors]   100 % complete.
+INFO [final_phase1.cpp:114 generate_bit_vectors] size of compressed bit vectors (bytes): 3160606100.
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 5 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase1_final)    1.32279
+ U(run/phase1_final)    1322792740
+
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 10 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    3.12487
+ U(run/phase1_final)    3124868626
+
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 100 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    16.4016
+ U(run/phase1_final)    16401629391
+
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 1000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    135.271
+ U(run/phase1_final)    135271199823
+
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 10000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    1347.62
+ U(run/phase1_final)    1347616215650
+
+INFO [final_phase1.cpp:162 run_phase1_bench_final] Running for 25000 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    4030.33
+ U(run/phase1_final)    4030327689222
+
+DBG  [final_phase1.cpp:252 run_phase1_bench_final] mem counter output: 0
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/phase1_final)    4030.33
+ U(run/phase1_final)    4030327689222
