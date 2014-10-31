@@ -11,22 +11,32 @@
 #include "map_aggregation.h"
 #include "huffman.h"
 #include <pthread.h>
+#include "ewah.h"
 
 #define NUM_THREADS 4
+//#define FASTBIT
 
 namespace benchmark
 {
     unsigned int* column_doc;
     unsigned short* column_term;
     
+#ifdef FASTBIT
     ibis::bitvector** bit_vector_for_term;
+#else
+    EWAHBoolArray<uint32_t>** bit_vector_for_term;
+#endif
     
     void generate_bit_vectors()
     {
         show_info("[1] Generating tuples...");
         column_doc = new unsigned int[input::NUM_TUPLES];
-        column_term = new unsigned short[input::NUM_TUPLES];
+        
+#ifdef FASTBIT
         bit_vector_for_term = new ibis::bitvector*[input::T_PM];
+#else
+        bit_vector_for_term = new EWAHBoolArray<uint32_t>*[input::T_PM];
+#endif
         
         long next_index = 0;
         
@@ -52,7 +62,13 @@ namespace benchmark
         
         for (int term = 0; term < input::T_PM; ++term)
         {
+#ifdef FASTBIT
             ibis::bitvector* bit_vector = new ibis::bitvector();
+#else
+            EWAHBoolArray<uint32_t>* bit_vector = new EWAHBoolArray<uint32_t>();
+#endif
+            
+#ifdef FASTBIT
             
             for (int i = 0; i < pubmed::get_group_by_term(term); ++i)
             {
@@ -68,6 +84,24 @@ namespace benchmark
             delete bit_vector;
             bit_vector = new ibis::bitvector(*arr);
             delete arr;
+#else
+            int cnt_docs = pubmed::get_group_by_term(term);
+            
+            uint32_t* doc_list = new uint32_t[cnt_docs];
+            for (int i = 0; i < cnt_docs; ++i)
+            {
+                doc_list[i] = column_doc[next_index++];
+            }
+            
+            sort(doc_list, doc_list + cnt_docs);
+            
+            for (int i = 0; i < cnt_docs; ++i)
+            {
+                bit_vector->set(doc_list[i]);
+            }
+            
+            delete doc_list;
+#endif
             
             bit_vector_for_term[term] = bit_vector;
             
@@ -85,7 +119,11 @@ namespace benchmark
     
     struct thread_args
     {
+#ifdef FASTBIT
         ibis::bitvector* base_vector;
+#else
+        EWAHBoolArray<uint32_t>* base_vector;
+#endif
         int cnt_more_vectors;
     };
     
@@ -95,7 +133,13 @@ namespace benchmark
         
         for (int a = 0; a < args->cnt_more_vectors; ++a)
         {
+#ifdef FASTBIT
             *args->base_vector &= *bit_vector_for_term[rand() % input::T_PM];
+#else
+            EWAHBoolArray<uint32_t>* base_copy = new EWAHBoolArray<uint32_t>(*args->base_vector);
+            base_copy->logicaland(*bit_vector_for_term[rand() % input::T_PM], *args->base_vector);
+            delete base_copy;
+#endif
         }
         
         return NULL;
@@ -122,7 +166,13 @@ namespace benchmark
                     //debug("[pthread] Spawning thread " << t << "...");
                     threads[t] = new pthread_t;
                     args[t] = new thread_args;
+                    
+#ifdef FASTBIT
                     args[t]->base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
+#else
+                    args[t]->base_vector = new EWAHBoolArray<uint32_t>(*bit_vector_for_term[rand() % input::T_PM]);
+#endif
+                    
                     args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
                     
                     int result = pthread_create(threads[t], NULL, pthread_bitvector_intersect, (void*) args[t]);
@@ -144,6 +194,7 @@ namespace benchmark
                 }
                 
                 
+#ifdef FASTBIT
                 ibis::bitvector* base_vector = args[0]->base_vector;
                 
                 for (int a = 1; a < NUM_THREADS; ++a)
@@ -173,10 +224,24 @@ namespace benchmark
                     
                     ++ones;
                 }
+#else
+                EWAHBoolArray<uint32_t>* base_vector = args[0]->base_vector;
+                
+                for (int a = 1; a < NUM_THREADS; ++a)
+                {
+                    EWAHBoolArray<uint32_t>* base_copy = new EWAHBoolArray<uint32_t>(*base_vector);
+                    base_copy->logicaland(*args[1]->base_vector, *base_vector);
+                    delete base_copy;
+                }
+                
+                // extract ones
+                base_vector->toArray();
+#endif
                 
                 delete args[0]->base_vector;
                 delete args[0];
             }
+            
             
             output::stop_timer("run/phase1_final");
             output::show_stats();
