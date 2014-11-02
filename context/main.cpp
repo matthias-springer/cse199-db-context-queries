@@ -16,6 +16,7 @@
 #include "pubmed.h"
 #include "huffman_benchmark.h"
 #include "final_phase1.h"
+#include "column_db_bitvector_space_benchmark.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,6 +75,7 @@ int main(int argc, char ** argv)
         "[14]\tHuffman Benchmark.\n"
         "[15]\tHuffman query benchmark.\n"
         "[16]\tFinal Phase 1 benchmark.\n"
+        "[17]\tColumn DB bit vector compression space benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -218,6 +220,9 @@ int main(int argc, char ** argv)
                 case 16:
                     benchmark::generate_bit_vectors();
                     benchmark::run_phase1_bench_final();
+                    break;
+                case 17:
+                    benchmark::column_db_bitvector_output_compression_ratio();
                     break;
             }
             break;
