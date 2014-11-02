@@ -24,7 +24,11 @@ namespace benchmark
             
             terms_uncompressed += 2 * pubmed::get_group_by_term(i);
             terms_compressed += bv.bytes();
+            
+            if (i % (input::T_PM/1000) == 0) debug_n("  " << i*100.0/input::T_PM << " % complete.    ");
         }
+        
+        debug_n("  " << 100 << " % complete.    \n");
         
         show_info("terms uncompressed: " << terms_uncompressed);
         show_info("terms compressed: " << terms_compressed);
@@ -46,7 +50,11 @@ namespace benchmark
             
             docs_uncompressed += 4 * pubmed::get_group_by_doc(i);
             docs_compressed += bv.bytes();
+            
+            if (i % (input::D_PM/1000) == 0) debug_n("  " << i*100.0/input::D_PM << " % complete.    ");
         }
+        
+        debug_n("  " << 100 << " % complete.    \n");
         
         show_info("terms uncompressed: " << docs_uncompressed);
         show_info("terms compressed: " << docs_compressed);
