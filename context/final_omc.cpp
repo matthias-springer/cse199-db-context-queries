@@ -87,12 +87,13 @@ namespace benchmark
             for (int r = 0; r < 200; ++r)
             {
                 
-                int* input_terms;
-                input_terms = new int[num_terms];
+                int* input_terms = new int[num_terms];
                 for (int i = 0; i < num_terms; ++i)
                     input_terms[i] = rand() % input::T_PM;
                 
                 vector<int>* temp_docs = new vector<int>[num_terms]();
+                
+                debug("Starting binary search...");
                 
                 // build columns
                 for (int t = 0; t < num_terms; ++t)
@@ -131,6 +132,7 @@ namespace benchmark
                     }
                 }
                 
+                debug("Starting intersect...");
                 // intersect columns
                 vector<int> intersection;
                 for (int i = 0; i < temp_docs[0].size(); ++i)
@@ -148,6 +150,7 @@ namespace benchmark
                     intersection.push_back(doc_id);
                 }
                 
+                debug("Delete...");
                 delete[] temp_docs;
                 //debug("There are " << intersection.size() << " elements in the intersection.");
             }
@@ -165,7 +168,7 @@ namespace benchmark
         {
             int num_docs = num_docs_a[p];
             
-            show_info("Running for " << num_docs << " documents using 200 repititions.");
+            show_info("Running for " << num_docs << " documents using 50 repititions.");
             output::start_timer("run/phase2_omc_final");
             
             for (int r = 0; r < 50; ++r)
