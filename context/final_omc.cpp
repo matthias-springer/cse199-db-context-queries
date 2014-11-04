@@ -222,7 +222,7 @@ namespace benchmark
                 
                 vector<int> intersection;
                 
-                for (int i = 0; i < NUM_THREADS; ++i)
+                for (int i = 0; i < temp_docs[0].size(); ++i)
                 {
                     bool not_found = false;
                     int doc_id = temp_docs[0].at(i);
