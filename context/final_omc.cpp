@@ -3,9 +3,12 @@
 #include "output.h"
 #include "input.h"
 #include <unordered_map>
+#include <pthread.h>
 
 namespace benchmark
 {
+#define NUM_THREADS 1
+    
     template<typename id_t, typename len_t>
     struct rle_tuple
     {
@@ -79,6 +82,100 @@ namespace benchmark
         show_info("DONE.");
     }
     
+    template<typename dtype>
+    struct thread_args
+    {
+        int p;
+        int start;
+        int end;
+        union
+        {
+            vector<dtype>* intersection;
+            unordered_map<dtype, int>* aggr;
+        } result;
+    };
+    
+    void* pthread_phase1(void* args)
+    {
+        int p = ((thread_args<int>*)args)->p;
+        int start = ((thread_args<int>*)args)->start;
+        int end = ((thread_args<int>*)args)->end;
+        vector<int>* intersection = ((thread_args<int>*)args)->result.intersection;
+        
+        //debug("Starting binary search...");
+        int num_terms = end - start;
+        vector<int>* temp_docs = new vector<int>[num_terms]();
+        
+        // build columns
+        for (int t = 0; t < num_terms; ++t)
+        {
+            short term_id = exact_terms[p][t];
+            int l = 0;
+            int r = input::T_PM;
+            
+            while (r - l > 1)
+            {
+                int mid = (l+r) / 2;
+                //debug("[BS] mid = " << mid);
+                
+                if (dt1_terms[mid].id == term_id)
+                {
+                    l = mid;
+                    break;
+                }
+                else if (dt1_terms[mid].id < term_id)
+                {
+                    l = mid + 1;
+                }
+                else if (dt1_terms[mid].id > term_id)
+                {
+                    r = mid;
+                }
+            }
+            
+            if (dt1_terms[l].id != term_id)
+            {
+                error("binary search failed in phase 1!");
+            }
+            else
+            {
+                //debug("[BS] found!");
+            }
+            
+            for (int d = dt1_terms[l].row_id; d < dt1_terms[l].row_id + dt1_terms[l].length; ++d)
+            {
+                //debug("Add to temp docs column: " << dt1_docs[d]);
+                temp_docs[t].push_back(dt1_docs[d]);
+            }
+            
+            //debug("Added docs!");
+        }
+        
+        //debug("Starting intersect...");
+        // intersect columns
+        for (int i = 0; i < temp_docs[0].size(); ++i)
+        {
+            bool not_found = false;
+            int doc_id = temp_docs[0].at(i);
+            
+            for (int l = 1; l < num_terms; ++l)
+            {
+                if (find(temp_docs[l].begin(), temp_docs[l].end(), doc_id) == temp_docs[l].end())
+                {
+                    not_found = true;
+                    break;
+                }
+            }
+            
+            if (!not_found)
+                intersection->push_back(doc_id);
+        }
+        
+        delete[] temp_docs;
+        
+        return NULL;
+    }
+    
     void bench_omc_phase1()
     {
         int num_terms_a[6] = {5, 10, 100, 1000, 10000, 25000};
@@ -92,71 +189,55 @@ namespace benchmark
             
             for (int r = 0; r < 20; ++r)
             {
-                vector<int>* temp_docs = new vector<int>[num_terms]();
+                vector<int>* temp_docs = new vector<int>[NUM_THREADS]();
                 
-                //debug("Starting binary search...");
+                pthread_t** threads = new pthread_t*[NUM_THREADS];
+                thread_args<int>** args = new thread_args<int>*[NUM_THREADS];
                 
-                // build columns
-                for (int t = 0; t < num_terms; ++t)
+                for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
-                    short term_id = exact_terms[p][t];
-                    int l = 0;
-                    int r = input::T_PM;
+                    //debug("Spawing thread " << thread << ".");
                     
-                    while (r - l > 1)
-                    {
-                        int mid = (l+r) / 2;
-                        //debug("[BS] mid = " << mid);
-                        
-                        if (dt1_terms[mid].id == term_id)
-                        {
-                            l = mid;
-                            break;
-                        }
-                        else if (dt1_terms[mid].id < term_id)
-                        {
-                            l = mid + 1;
-                        }
-                        else if (dt1_terms[mid].id > term_id)
-                        {
-                            r = mid;
-                        }
-                    }
+                    args[thread] = new thread_args<int>;
+                    threads[thread] = new pthread_t;
+                    args[thread]->p = p;
+                    args[thread]->start = thread * num_terms / NUM_THREADS;
+                    args[thread]->end = (thread+1) * num_terms / NUM_THREADS;
+                    args[thread]->result.intersection = &temp_docs[thread];
                     
-                    if (dt1_terms[l].id != term_id)
-                    {
-                        error("binary search failed in phase 1!");
-                    }
-                    else
-                    {
-                        //debug("[BS] found!");
-                    }
+                    int result = pthread_create(threads[thread], NULL, pthread_phase1, (void*) args[thread]);
                     
-                    for (int d = dt1_terms[l].row_id; d < dt1_terms[l].row_id + dt1_terms[l].length; ++d)
+                    if (result)
                     {
-                        //debug("Add to temp docs column: " << dt1_docs[d]);
-                        temp_docs[t].push_back(dt1_docs[d]);
+                        error("Creating thread failed with error code " << result << ".");
                     }
+                }
+
+                for (int thread = 0; thread < NUM_THREADS; ++thread)
+                {
+                    pthread_join(*threads[thread], NULL);
                     
-                    //debug("Added docs!");
+                    //debug("Joined thread " << thread << ".");
                 }
                 
-                //debug("Starting intersect...");
-                // intersect columns
                 vector<int> intersection;
-                for (int i = 0; i < temp_docs[0].size(); ++i)
+                
+                for (int i = 0; i < NUM_THREADS; ++i)
                 {
+                    bool not_found = false;
                     int doc_id = temp_docs[0].at(i);
                     
-                    for (int l = 1; l < num_terms; ++l)
+                    for (int l = 1; l < NUM_THREADS; ++l)
                     {
                         if (find(temp_docs[l].begin(), temp_docs[l].end(), doc_id) == temp_docs[l].end())
                         {
-                            continue;
+                            not_found = true;
+                            break;
                         }
                     }
                     
-                    intersection.push_back(doc_id);
+                    if (!not_found)
+                        intersection.push_back(doc_id);
                 }
                 
                 //debug("Delete...");
@@ -167,6 +248,71 @@ namespace benchmark
             output::stop_timer("run/phase1_omc_final");
             output::show_stats();
         }
+    }
+    
+    void* pthread_phase2(void* args)
+    {
+        int p = ((thread_args<short>*)args)->p;
+        int start = ((thread_args<short>*)args)->start;
+        int end = ((thread_args<short>*)args)->end;
+        unordered_map<short, int>* aggr = ((thread_args<short>*)args)->result.aggr;
+        
+        int num_docs = end - start;
+        
+        vector<short>* temp_terms = new vector<short>[num_docs]();
+        vector<unsigned char>* temp_freqs = new vector<unsigned char>[num_docs]();
+        
+        // build columns
+        for (int t = 0; t < num_docs; ++t)
+        {
+            int doc_id = exact_docs[p][t];
+            int l = 0;
+            int r = input::D_PM;
+            
+            while (r - l > 1)
+            {
+                int mid = (l+r) / 2;
+                
+                if (dt2_docs[mid].id == doc_id)
+                {
+                    l = mid;
+                    break;
+                }
+                else if (dt2_docs[mid].id < doc_id)
+                {
+                    l = mid + 1;
+                }
+                else if (dt2_docs[mid].id > doc_id)
+                {
+                    r = mid;
+                }
+            }
+            
+            if (dt2_docs[l].id != doc_id)
+            {
+                error("binary search failed in phase 2!");
+            }
+            
+            for (int d = dt2_docs[l].row_id; d < dt2_docs[l].row_id + dt2_docs[l].length; ++d)
+            {
+                temp_terms[t].push_back(dt2_terms[d]);
+                temp_freqs[t].push_back(dt2_freqs[d]);
+            }
+        }
+        
+        // aggregate
+        for (int d = 0; d < num_docs; ++d)
+        {
+            for (int t = 0; t < temp_terms[d].size(); ++t)
+            {
+                (*aggr)[temp_terms[d].at(t)] += temp_freqs[d].at(t);
+            }
+        }
+        
+        delete[] temp_freqs;
+        delete[] temp_terms;
+        
+        return NULL;
     }
     
     void bench_omc_phase2()
@@ -182,60 +328,47 @@ namespace benchmark
             
             for (int r = 0; r < 20; ++r)
             {
-                vector<short>* temp_terms = new vector<short>[num_docs]();
-                vector<unsigned char>* temp_freqs = new vector<unsigned char>[num_docs]();
+                unordered_map<short, int>* temp_aggrs = new unordered_map<short, int>[NUM_THREADS];
                 
-                // build columns
-                for (int t = 0; t < num_docs; ++t)
+                vector<int>* temp_docs = new vector<int>[NUM_THREADS]();
+                
+                pthread_t** threads = new pthread_t*[NUM_THREADS];
+                thread_args<short>** args = new thread_args<short>*[NUM_THREADS];
+                
+                for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
-                    int doc_id = exact_docs[p][t];
-                    int l = 0;
-                    int r = input::D_PM;
+                    //debug("Spawing thread " << thread << ".");
                     
-                    while (r - l > 1)
-                    {
-                        int mid = (l+r) / 2;
-                        
-                        if (dt2_docs[mid].id == doc_id)
-                        {
-                            l = mid;
-                            break;
-                        }
-                        else if (dt2_docs[mid].id < doc_id)
-                        {
-                            l = mid + 1;
-                        }
-                        else if (dt2_docs[mid].id > doc_id)
-                        {
-                            r = mid;
-                        }
-                    }
+                    args[thread] = new thread_args<short>;
+                    threads[thread] = new pthread_t;
+                    args[thread]->p = p;
+                    args[thread]->start = thread * num_docs / NUM_THREADS;
+                    args[thread]->end = (thread+1) * num_docs / NUM_THREADS;
+                    args[thread]->result.aggr = &temp_aggrs[thread];
                     
-                    if (dt2_docs[l].id != doc_id)
-                    {
-                        error("binary search failed in phase 2!");
-                    }
+                    int result = pthread_create(threads[thread], NULL, pthread_phase2, (void*) args[thread]);
                     
-                    for (int d = dt2_docs[l].row_id; d < dt2_docs[l].row_id + dt2_docs[l].length; ++d)
+                    if (result)
                     {
-                        temp_terms[t].push_back(dt2_terms[d]);
-                        temp_freqs[t].push_back(dt2_freqs[d]);
+                        error("Creating thread failed with error code " << result << ".");
                     }
                 }
                 
-                // aggregate
-                unordered_map<short, int> aggr;
+                // global aggregate
+                unordered_map<short, int> global_aggr;
                 
-                for (int d = 0; d < num_docs; ++d)
+                for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
-                    for (int t = 0; t < temp_terms[d].size(); ++t)
+                    pthread_join(*threads[thread], NULL);
+                    
+                    for (auto it = args[thread]->result.aggr->begin(); it != args[thread]->result.aggr->end(); ++it)
                     {
-                        aggr[temp_terms[d].at(t)] += temp_freqs[d].at(t);
+                        global_aggr[it->first] += it->second;
                     }
+                    //debug("Joined thread " << thread << ".");
                 }
-                
-                delete[] temp_freqs;
-                delete[] temp_terms;
+
+                delete[] temp_aggrs;
                 //debug("There are " << intersection.size() << " elements in the intersection.");
             }
             
