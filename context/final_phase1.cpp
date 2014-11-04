@@ -14,17 +14,22 @@
 #include "ewah.h"
 
 #define NUM_THREADS 4
-//#define FASTBIT
+//#define FASTBIT 1
+//#define HUFFMAN 1
 
 namespace benchmark
 {
     unsigned int* column_doc;
     unsigned short* column_term;
     
+#ifdef HUFFMAN
+    
+#else
 #ifdef FASTBIT
     ibis::bitvector** bit_vector_for_term;
 #else
     EWAHBoolArray<uint32_t>** bit_vector_for_term;
+#endif
 #endif
     
     void generate_bit_vectors()

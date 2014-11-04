@@ -222,7 +222,7 @@ namespace benchmark
     
     struct thread_args
     {
-        map_aggregation* term_counter;
+        unordered_map<short, int>* term_counter;
         long num_docs;
         int p;
         int start;
@@ -282,8 +282,7 @@ namespace benchmark
 #else
                 for (int l = 0; l < list_size; ++l)
                 {
-                    // TODO: make thread-safe
-                    args->term_counter->add(terms_decompressed[l], freqs_decompressed[l]);
+                    (*args->term_counter)[terms_decompressed[l]] += freqs_decompressed[l];
                     //term_counter[terms[l]]++;
                 }
 #endif
@@ -313,7 +312,7 @@ namespace benchmark
          
             for (int j = 0; j < 30; ++j)
             {
-                map_aggregation* term_counter = new map_aggregation[4]();
+                unordered_map<short, int>* term_counter = new unordered_map<short, int>[4]();
                 //unordered_map<unsigned short, long> term_counter;
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
@@ -349,13 +348,13 @@ namespace benchmark
                 // aggregate lists and sort list and extract top-k
                 for (int t = 1; t < NUM_THREADS; ++t)
                 {
-                    for (auto el = term_counter[t].data.begin(); el != term_counter[t].data.end(); ++el)
+                    for (auto el = term_counter[t].begin(); el != term_counter[t].end(); ++el)
                     {
-                        term_counter[0].data[el->first] += el->second;
+                        term_counter[0][el->first] += el->second;
                     }
                 }
                 
-                term_counter[0].top_k(5);
+                //term_counter[0].top_k(5);
                 //delete term_counter;
             }
             
