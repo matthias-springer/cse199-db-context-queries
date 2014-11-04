@@ -1,0 +1,55 @@
+INFO [main.cpp:156 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:159 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [final_omc.cpp:35 generate_tuples] Generating random data for DT1...
+INFO [final_omc.cpp:58 generate_tuples] Generating random data for DT2...
+INFO [final_omc.cpp:84 generate_tuples] DONE.
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 10 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase2_omc_final)	0.0328289
+ U(run/phase2_omc_final)	32828911
+
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 100 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	0.273304
+ U(run/phase2_omc_final)	273304322
+
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 1000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	1.19389
+ U(run/phase2_omc_final)	1193889268
+
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 10000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	6.38154
+ U(run/phase2_omc_final)	6381537045
+
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 100000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	55.0411
+ U(run/phase2_omc_final)	55041065917
+
+INFO [final_omc.cpp:328 bench_omc_phase2] Running for 1000000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	536.879
+ U(run/phase2_omc_final)	536879247278
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final)	536.879
+ U(run/phase2_omc_final)	536879247278
+

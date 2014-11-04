@@ -1,0 +1,67 @@
+DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
+INFO [main.cpp:156 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:159 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [final_omc.cpp:33 generate_tuples] Generating random data for DT1...
+DBG  [final_omc.cpp:37 generate_tuples] ALLOC terms check.
+DBG  [final_omc.cpp:39 generate_tuples] ALLOC docs check.
+INFO [final_omc.cpp:56 generate_tuples] Generating random data for DT2...
+DBG  [final_omc.cpp:60 generate_tuples] ALLOC docs check.
+DBG  [final_omc.cpp:62 generate_tuples] ALLOC freqs check.
+DBG  [final_omc.cpp:64 generate_tuples] ALLOC terms check.
+INFO [final_omc.cpp:82 generate_tuples] DONE.
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 5 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase1_omc_final)	11.0323
+ U(run/phase1_omc_final)	11032262889
+
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 10 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	15.3844
+ U(run/phase1_omc_final)	15384401797
+
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 100 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	16.3615
+ U(run/phase1_omc_final)	16361503176
+
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 1000 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	80.3549
+ U(run/phase1_omc_final)	80354884679
+
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 10000 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	312.595
+ U(run/phase1_omc_final)	312594853928
+
+INFO [final_omc.cpp:187 bench_omc_phase1] Running for 25000 terms using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	828.952
+ U(run/phase1_omc_final)	828952406815
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_omc_final)	828.952
+ U(run/phase1_omc_final)	828952406815
+
