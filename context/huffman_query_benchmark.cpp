@@ -48,8 +48,8 @@ namespace benchmark
     long freqs_bytes_uncompressed = 0;
     long freqs_bytes_compressed = 0;
     
-    short** exact_terms;
-    int** exact_docs;
+    short** exact_terms_a;
+    int** exact_docs_a;
     
     void huffman_query_generate_lists()
     {
@@ -213,7 +213,7 @@ namespace benchmark
             show_info("No compression.");
 #endif
         
-        exact_docs = input::docs_bench_items();
+        exact_docs_a = input::docs_bench_items();
         
         output::stop_timer("run/bench_huffman_query_generate");
         
@@ -235,7 +235,7 @@ namespace benchmark
         for (long di = 0; di < args->num_docs; ++di)
         {
             // retrieve list and add to term counter
-            long doc_id = exact_docs[args->p][di + args->start];
+            long doc_id = exact_docs_a[args->p][di + args->start];
             
             //unsigned short* terms = terms_per_doc[doc_id];
             unsigned short list_size = terms_per_doc_size[doc_id];
