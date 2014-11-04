@@ -29,7 +29,10 @@ namespace benchmark
         
         // DT1
         dt1_terms = new rle_tuple<short, int>[input::T_PM];
+        debug("ALLOC terms check.");
         dt1_docs = new int[input::NUM_TUPLES];
+        debug("ALLOC docs check.");
+        
         int row_counter = 0;
         for (int t = 0; t < input::T_PM; ++t)
         {
@@ -47,8 +50,12 @@ namespace benchmark
         
         // DT2
         dt2_docs = new rle_tuple<int, short>[input::D_PM];
+        debug("ALLOC docs check.");
         dt2_freqs = new unsigned char[input::NUM_TUPLES];
+        debug("ALLOC freqs check.");
         dt2_terms = new short[input::NUM_TUPLES];
+        debug("ALLOC terms check.");
+        
         row_counter = 0;
         for (int d = 0; d < input::D_PM; ++d)
         {
@@ -56,7 +63,7 @@ namespace benchmark
             dt2_docs[d].length = pubmed::get_group_by_doc(d);
             dt2_docs[d].row_id = row_counter;
             
-            for (int t = 0; t < pubmed::get_group_by_term(t); ++t)
+            for (int t = 0; t < pubmed::get_group_by_term(d); ++t)
             {
                 dt2_terms[row_counter] = rand() % input::T_PM;
                 dt2_freqs[row_counter++] = rand() % 256;
