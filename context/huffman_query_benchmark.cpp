@@ -14,6 +14,7 @@
 #include <pthread.h>
 
 #define s_compress 1
+#define use_fastbit 1
 //#define s_compress false
 //#define use_fastbit false
 
@@ -273,7 +274,7 @@ namespace benchmark
                         }
                         
                         // TODO: make thread-safe
-                        args->term_counter->add(term, freqs_decompressed[term_index]);
+                        (*args->term_counter)[term] += freqs_decompressed[term_index];
                         ++term_index;
                     }
                     
