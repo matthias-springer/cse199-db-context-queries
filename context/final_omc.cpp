@@ -105,6 +105,7 @@ namespace benchmark
                     while (r - l > 1)
                     {
                         int mid = (l+r) / 2;
+                        debug("[BS] mid = " << mid);
                         
                         if (dt1_terms[mid].id == term_id)
                         {
