@@ -17,6 +17,7 @@
 #include "huffman_benchmark.h"
 #include "final_phase1.h"
 #include "column_db_bitvector_space_benchmark.h"
+#include "final_omc.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,6 +77,8 @@ int main(int argc, char ** argv)
         "[15]\tHuffman query benchmark.\n"
         "[16]\tFinal Phase 1 benchmark.\n"
         "[17]\tColumn DB bit vector compression space benchmark.\n"
+        "[18]\tFinal OMC for Phase 1.\n"
+        "[19]\tFinal OMC for Phase 2.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -223,6 +226,14 @@ int main(int argc, char ** argv)
                     break;
                 case 17:
                     benchmark::column_db_bitvector_output_compression_ratio();
+                    break;
+                case 18:
+                    benchmark::generate_tuples();
+                    benchmark::bench_omc_phase1();
+                    break;
+                case 19:
+                    benchmark::generate_tuples();
+                    benchmark::bench_omc_phase2();
                     break;
             }
             break;
