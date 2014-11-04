@@ -203,20 +203,18 @@ namespace benchmark
         args->docs_result = new vector<int>();
         int* first_decoded;
         
-#ifndef HUFFMAN
         int idx = exact_terms_b[args->p][args->start];
+        
+#ifndef HUFFMAN
         first_decoded = docs_per_term[idx];
 #else
-        int idx = exact_terms_b[args->p][args->start];
         decode(docs_per_term_compressed[idx], len_docs_per_term[idx], first_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
 #endif
         
-        int first_index = rand() % input::T_PM;
-        
-        for (int i = 0; i < len_docs_per_term[first_index]; ++i)
+        for (int i = 0; i < len_docs_per_term[idx]; ++i)
         {
             bool not_found = false;
-            int doc_id = docs_per_term[first_index][i];
+            int doc_id = first_decoded[i];
             int next_index = exact_terms_b[args->p][args->start + i];
       
             int* next_decoded;
@@ -286,7 +284,7 @@ namespace benchmark
                         error("Creating thread failed with error code " << result << ".");
                     }
                     
-                    //debug("[pthread] Thread is running.");
+                    debug("[pthread] Thread is running.");
                 }
                 
                 for (int t = 0; t < NUM_THREADS; ++t)
@@ -294,7 +292,7 @@ namespace benchmark
                     pthread_join(*(threads[t]), NULL);
                     delete threads[t];
                     
-                    //debug("Joined thread " << t << ".");
+                    debug("Joined thread " << t << ".");
                 }
                 
                 
