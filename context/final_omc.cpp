@@ -4,6 +4,8 @@
 #include "input.h"
 #include <unordered_map>
 #include <pthread.h>
+#include "aggregation.h"
+#include "map_aggregation.h"
 
 namespace benchmark
 {
@@ -91,7 +93,7 @@ namespace benchmark
         union
         {
             vector<dtype>* intersection;
-            unordered_map<dtype, int>* aggr;
+            map_aggregation* aggr;
         } result;
     };
     
@@ -255,7 +257,7 @@ namespace benchmark
         int p = ((thread_args<short>*)args)->p;
         int start = ((thread_args<short>*)args)->start;
         int end = ((thread_args<short>*)args)->end;
-        unordered_map<short, int>* aggr = ((thread_args<short>*)args)->result.aggr;
+        map_aggregation* aggr = ((thread_args<short>*)args)->result.aggr;
         
         int num_docs = end - start;
         
@@ -305,7 +307,7 @@ namespace benchmark
         {
             for (int t = 0; t < temp_terms[d].size(); ++t)
             {
-                (*aggr)[temp_terms[d].at(t)] += temp_freqs[d].at(t);
+                aggr->add(temp_terms[d].at(t), temp_freqs[d].at(t));
             }
         }
         
@@ -328,7 +330,7 @@ namespace benchmark
             
             for (int r = 0; r < 20; ++r)
             {
-                unordered_map<short, int>* temp_aggrs = new unordered_map<short, int>[NUM_THREADS];
+                map_aggregation** temp_aggrs = new map_aggregation*[NUM_THREADS];
                 
                 vector<int>* temp_docs = new vector<int>[NUM_THREADS]();
                 
@@ -344,7 +346,8 @@ namespace benchmark
                     args[thread]->p = p;
                     args[thread]->start = thread * num_docs / NUM_THREADS;
                     args[thread]->end = (thread+1) * num_docs / NUM_THREADS;
-                    args[thread]->result.aggr = &temp_aggrs[thread];
+                    temp_aggrs[thread] = new map_aggregation();
+                    args[thread]->result.aggr = temp_aggrs[thread];
                     
                     int result = pthread_create(threads[thread], NULL, pthread_phase2, (void*) args[thread]);
                     
@@ -355,17 +358,19 @@ namespace benchmark
                 }
                 
                 // global aggregate
-                unordered_map<short, int> global_aggr;
+                map_aggregation global_aggr;
                 
                 for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
                     pthread_join(*threads[thread], NULL);
                     
-                    for (auto it = args[thread]->result.aggr->begin(); it != args[thread]->result.aggr->end(); ++it)
+                    for (auto it = args[thread]->result.aggr->data.begin(); it != args[thread]->result.aggr->data.end(); ++it)
                     {
-                        global_aggr[it->first] += it->second;
+                        global_aggr.add(it->first, it->second);
                     }
                     //debug("Joined thread " << thread << ".");
+                    
+                    delete args[thread]->result.aggr;
                 }
 
                 delete[] temp_aggrs;
