@@ -93,7 +93,7 @@ namespace benchmark
                 
                 vector<int>* temp_docs = new vector<int>[num_terms]();
                 
-                debug("Starting binary search...");
+                //debug("Starting binary search...");
                 
                 // build columns
                 for (int t = 0; t < num_terms; ++t)
@@ -105,7 +105,7 @@ namespace benchmark
                     while (r - l > 1)
                     {
                         int mid = (l+r) / 2;
-                        debug("[BS] mid = " << mid);
+                        //debug("[BS] mid = " << mid);
                         
                         if (dt1_terms[mid].id == term_id)
                         {
@@ -128,16 +128,16 @@ namespace benchmark
                     }
                     else
                     {
-                        debug("[BS] found!");
+                        //debug("[BS] found!");
                     }
                     
                     for (int d = dt1_terms[l].row_id; d < dt1_terms[l].row_id + dt1_terms[l].length; ++d)
                     {
-                        debug("Add to temp docs column: " << dt1_docs[d]);
-                        temp_docs[d].push_back(dt1_docs[d]);
+                        //debug("Add to temp docs column: " << dt1_docs[d]);
+                        temp_docs[t].push_back(dt1_docs[d]);
                     }
                     
-                    debug("Added docs!");
+                    //debug("Added docs!");
                 }
                 
                 debug("Starting intersect...");
@@ -223,8 +223,8 @@ namespace benchmark
                     
                     for (int d = dt2_docs[l].row_id; d < dt2_docs[l].row_id + dt2_docs[l].length; ++d)
                     {
-                        temp_terms[d].push_back(dt2_terms[d]);
-                        temp_freqs[d].push_back(dt2_freqs[d]);
+                        temp_terms[t].push_back(dt2_terms[d]);
+                        temp_freqs[t].push_back(dt2_freqs[d]);
                     }
                 }
                 
