@@ -13,8 +13,9 @@
 #include <ibis.h>
 #include <pthread.h>
 
-#define s_compress false
-#define use_fastbit false
+#define s_compress
+//#define s_compress false
+//#define use_fastbit false
 
 #define NUM_THREADS 4
 
@@ -106,10 +107,8 @@ namespace benchmark
         debug_n("  " << 100 << " % complete.    \n");
         
         
-        if (s_compress)
-        {
-            if (!use_fastbit)
-            {
+#ifdef s_compress
+#ifndef use_fastbit
                 // compress with Huffman
                 show_info("[4] Generating Huffman tree for terms...");
                 terms_per_doc_compressed = new char*[input::D_PM];
@@ -132,9 +131,7 @@ namespace benchmark
                     if (d % (input::D_PM/1000) == 0) debug_n("  " << d*100.0/input::D_PM << " % complete.    ");
                 }
                 debug_n("  " << 100 << " % complete.    \n");
-            }
-            else
-            {
+#else
                 // compress with FastBit
                 show_info("[4] Compressing terms with bit vector...");
                 terms_per_doc_bitvector = new ibis::bitvector*[input::D_PM];
@@ -175,7 +172,7 @@ namespace benchmark
                 debug_n("  " << 100 << " % complete.    \n");
                 
                 show_info("[5] n/a");
-            }
+#endif
             
             // compress
             show_info("[6] Generating Huffman tree for frequencies...");
@@ -207,13 +204,11 @@ namespace benchmark
             show_info("terms bytes compressed: " << terms_bytes_compressed);
             show_info("freqs bytes uncompressed: " << freqs_bytes_uncompressed);
             show_info("freqs bytes compressed: " << freqs_bytes_compressed);
-        }
-        else
-        {
+#else
             delete(tuples);
             delete(tuples_freq);
             show_info("No compression.");
-        }
+#endif
         
         output::stop_timer("run/bench_huffman_query_generate");
         
@@ -241,23 +236,17 @@ namespace benchmark
             unsigned short* terms_decompressed;
             unsigned char* freqs_decompressed;
             
-            if (s_compress)
-            {
-                if (!use_fastbit)
-                {
+#ifdef s_compress
+#ifndef use_fastbit
                     decode(terms_per_doc_compressed[doc_id], list_size, terms_decompressed, huffman_array_terms, terminator_array_terms);
-                }
-                
+#endif
                 decode(freqs_per_doc_compressed[doc_id], list_size, freqs_decompressed, huffman_array_freqs, terminator_array_freqs);
-            }
-            else
-            {
+#else
                 terms_decompressed = terms_per_doc[doc_id];
                 freqs_decompressed = freqs_per_doc[doc_id];
-            }
+#endif
             
-            if (s_compress && use_fastbit)
-            {
+#if defined(s_compress) && defined(use_fastbit)
                 long term_index = 0;
                 ibis::bitvector::indexSet ones = terms_per_doc_bitvector[doc_id]->firstIndexSet();
                 bool is_range = ones.isRange();
@@ -283,26 +272,21 @@ namespace benchmark
                     
                     ++ones;
                 }
-            }
-            else
-            {
+#else
                 for (int l = 0; l < list_size; ++l)
                 {
                     // TODO: make thread-safe
                     args->term_counter->add(terms_decompressed[l], freqs_decompressed[l]);
                     //term_counter[terms[l]]++;
                 }
-            }
+#endif
             
-            if (s_compress)
-            {
-                if (!use_fastbit)
-                {
+#ifdef s_compress
+#ifndef use_fastbit
                     delete terms_decompressed;
-                }
-                
+#endif
                 delete freqs_decompressed;
-            }
+#endif
         }
         
         return NULL;
