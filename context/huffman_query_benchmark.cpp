@@ -13,7 +13,7 @@
 #include <ibis.h>
 #include <pthread.h>
 
-#define s_compress
+#define s_compress 1
 //#define s_compress false
 //#define use_fastbit false
 
@@ -47,6 +47,9 @@ namespace benchmark
     long terms_bytes_compressed = 0;
     long freqs_bytes_uncompressed = 0;
     long freqs_bytes_compressed = 0;
+    
+    short** exact_terms;
+    int** exact_docs;
     
     void huffman_query_generate_lists()
     {
@@ -210,6 +213,8 @@ namespace benchmark
             show_info("No compression.");
 #endif
         
+        exact_docs = input::docs_bench_items();
+        
         output::stop_timer("run/bench_huffman_query_generate");
         
         show_info("Done.");
@@ -219,6 +224,8 @@ namespace benchmark
     {
         map_aggregation* term_counter;
         long num_docs;
+        int p;
+        int start;
     };
     
     void* pthread_query(void* args_v)
@@ -228,7 +235,7 @@ namespace benchmark
         for (long di = 0; di < args->num_docs; ++di)
         {
             // retrieve list and add to term counter
-            long doc_id = rand() % input::D_PM;
+            long doc_id = exact_docs[args->p][di + args->start];
             
             //unsigned short* terms = terms_per_doc[doc_id];
             unsigned short list_size = terms_per_doc_size[doc_id];
@@ -317,6 +324,8 @@ namespace benchmark
                     args[t] = new thread_args;
                     args[t]->num_docs = num_docs[i] / NUM_THREADS;
                     args[t]->term_counter = &term_counter[t];
+                    args[t]->p = i;
+                    args[t]->start = num_docs[i] * t / NUM_THREADS;
                     
                     int result = pthread_create(threads[t], NULL, pthread_query, (void*) args[t]);
                     
