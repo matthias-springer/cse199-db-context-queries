@@ -63,7 +63,7 @@ namespace benchmark
             dt2_docs[d].length = pubmed::get_group_by_doc(d);
             dt2_docs[d].row_id = row_counter;
             
-            for (int t = 0; t < pubmed::get_group_by_term(d); ++t)
+            for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
             {
                 dt2_terms[row_counter] = rand() % input::T_PM;
                 dt2_freqs[row_counter++] = rand() % 256;
