@@ -275,7 +275,7 @@ namespace benchmark
                     
                     args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
                     args[t]->p = i;
-                    args[t]->start = input::T_PM * t / NUM_THREADS;
+                    args[t]->start = cnt_terms * t / NUM_THREADS;
                     
                     int result = pthread_create(threads[t], NULL, pthread_bitvector_intersect, (void*) args[t]);
                     
