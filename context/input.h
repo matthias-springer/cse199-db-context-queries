@@ -33,6 +33,12 @@ namespace input
     void store(string name);
     void store(string name, DOMAIN_TYPE id);
     DOMAIN_TYPE read_value();
+    
+    short** terms_bench_items();
+    void dealloc_terms_bench_items(short** ptr);
+    
+    int** docs_bench_items();
+    void dealloc_docs_bench_items(int** ptr);
 }
 
 #endif

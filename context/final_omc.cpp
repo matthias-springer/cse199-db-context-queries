@@ -17,11 +17,13 @@ namespace benchmark
     // DT_1
     int* dt1_docs;
     rle_tuple<short, int>* dt1_terms;
+    short** exact_terms;
     
     // DT_2
     rle_tuple<int, short>* dt2_docs;
     short* dt2_terms;
     unsigned char* dt2_freqs;
+    int** exact_docs;
     
     void generate_tuples()
     {
@@ -45,6 +47,8 @@ namespace benchmark
                 dt1_docs[row_counter++] = rand() % input::D_PM;
             }
         }
+        
+        exact_terms = input::terms_bench_items();
         
         show_info("Generating random data for DT2...");
         
@@ -70,6 +74,8 @@ namespace benchmark
             }
         }
         
+        exact_docs = input::docs_bench_items();
+        
         show_info("DONE.");
     }
     
@@ -81,16 +87,11 @@ namespace benchmark
         {
             int num_terms = num_terms_a[p];
             
-            show_info("Running for " << num_terms << " terms using 200 repititions.");
+            show_info("Running for " << num_terms << " terms using 20 repititions.");
             output::start_timer("run/phase1_omc_final");
             
-            for (int r = 0; r < 200; ++r)
+            for (int r = 0; r < 20; ++r)
             {
-                
-                int* input_terms = new int[num_terms];
-                for (int i = 0; i < num_terms; ++i)
-                    input_terms[i] = rand() % input::T_PM;
-                
                 vector<int>* temp_docs = new vector<int>[num_terms]();
                 
                 //debug("Starting binary search...");
@@ -98,7 +99,7 @@ namespace benchmark
                 // build columns
                 for (int t = 0; t < num_terms; ++t)
                 {
-                    int term_id = input_terms[t];
+                    short term_id = exact_terms[p][t];
                     int l = 0;
                     int r = input::T_PM;
                     
@@ -140,7 +141,7 @@ namespace benchmark
                     //debug("Added docs!");
                 }
                 
-                debug("Starting intersect...");
+                //debug("Starting intersect...");
                 // intersect columns
                 vector<int> intersection;
                 for (int i = 0; i < temp_docs[0].size(); ++i)
@@ -158,7 +159,7 @@ namespace benchmark
                     intersection.push_back(doc_id);
                 }
                 
-                debug("Delete...");
+                //debug("Delete...");
                 delete[] temp_docs;
                 //debug("There are " << intersection.size() << " elements in the intersection.");
             }
@@ -176,24 +177,18 @@ namespace benchmark
         {
             int num_docs = num_docs_a[p];
             
-            show_info("Running for " << num_docs << " documents using 50 repititions.");
+            show_info("Running for " << num_docs << " documents using 20 repititions.");
             output::start_timer("run/phase2_omc_final");
             
-            for (int r = 0; r < 50; ++r)
+            for (int r = 0; r < 20; ++r)
             {
-                
-                int* input_docs;
-                input_docs = new int[num_docs];
-                for (int i = 0; i < num_docs; ++i)
-                    input_docs[i] = rand() % input::D_PM;
-                
                 vector<short>* temp_terms = new vector<short>[num_docs]();
                 vector<unsigned char>* temp_freqs = new vector<unsigned char>[num_docs]();
                 
                 // build columns
                 for (int t = 0; t < num_docs; ++t)
                 {
-                    int doc_id = input_docs[t];
+                    int doc_id = exact_docs[p][t];
                     int l = 0;
                     int r = input::D_PM;
                     

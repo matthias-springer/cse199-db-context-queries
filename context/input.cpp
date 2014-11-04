@@ -78,4 +78,64 @@ namespace input
         
         return value;
     }
+    
+    short** terms_bench_items()
+    {
+        srand(123);
+        
+        int num_terms_a[6] = {5, 10, 100, 1000, 10000, 25000};
+        short** terms = new short*[6];
+        
+        for (int i = 0; i < 6; ++i)
+        {
+            terms[i] = new short[num_terms_a[i]];
+            
+            for (int j = 0; j < num_terms_a[i]; ++j)
+            {
+                terms[i][j] = rand() % T_PM;
+            }
+        }
+        
+        return terms;
+    }
+    
+    void dealloc_terms_bench_items(short** ptr)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            delete[] ptr[i];
+        }
+        
+        delete ptr;
+    }
+    
+    int** docs_bench_items()
+    {
+        srand(456);
+        
+        int num_docs_a[6] = {10, 100, 1000, 10000, 100000, 1000000};
+        int** docs = new int*[6];
+        
+        for (int i = 0; i < 6; ++i)
+        {
+            docs[i] = new int[num_docs_a[i]];
+            
+            for (int j = 0; j < num_docs_a[i]; ++j)
+            {
+                docs[i][j] = rand() % D_PM;
+            }
+        }
+        
+        return docs;
+    }
+    
+    void dealloc_docs_bench_items(int** ptr)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            delete[] ptr[i];
+        }
+        
+        delete ptr;
+    }
 }
