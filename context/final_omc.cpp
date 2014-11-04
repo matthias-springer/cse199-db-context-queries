@@ -126,11 +126,18 @@ namespace benchmark
                     {
                         error("binary search failed in phase 1!");
                     }
+                    else
+                    {
+                        debug("[BS] found!");
+                    }
                     
                     for (int d = dt1_terms[l].row_id; d < dt1_terms[l].row_id + dt1_terms[l].length; ++d)
                     {
+                        debug("Add to temp docs column: " << dt1_docs[d]);
                         temp_docs[d].push_back(dt1_docs[d]);
                     }
+                    
+                    debug("Added docs!");
                 }
                 
                 debug("Starting intersect...");
