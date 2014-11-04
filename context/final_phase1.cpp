@@ -15,31 +15,50 @@
 
 #define NUM_THREADS 4
 //#define FASTBIT 1
-//#define HUFFMAN 1
+#define HUFFMAN 1
+//#define EWAH
+#define UNCOMPRESSED 1
 
 namespace benchmark
 {
-    unsigned int* column_doc;
+    int* column_doc;
     unsigned short* column_term;
     
+#if defined(UNCOMPRESSED) || defined(HUFFMAN)
+    int** docs_per_term;
+    int* len_docs_per_term;
+    short** exact_terms_b;
+#endif
 #ifdef HUFFMAN
-    
-#else
+    char** docs_per_term_compressed;
+    int* huffman_array_docs_per_term;
+    bool* terminator_array_docs_per_term;
+    Node<int>* huffman_tree;
+#endif
 #ifdef FASTBIT
     ibis::bitvector** bit_vector_for_term;
-#else
-    EWAHBoolArray<uint32_t>** bit_vector_for_term;
 #endif
+#ifdef EWAH
+    EWAHBoolArray<uint32_t>** bit_vector_for_term;
 #endif
     
     void generate_bit_vectors()
     {
         show_info("[1] Generating tuples...");
-        column_doc = new unsigned int[input::NUM_TUPLES];
+        column_doc = new int[input::NUM_TUPLES];
         
+#if defined(UNCOMPRESSED) || defined(HUFFMAN)
+        docs_per_term = new int*[input::T_PM];
+        len_docs_per_term = new int[input::T_PM];
+        exact_terms_b = input::terms_bench_items();
+#endif
+#if defined(HUFFMAN)
+        docs_per_term_compressed = new char*[input::T_PM];
+#endif
 #ifdef FASTBIT
         bit_vector_for_term = new ibis::bitvector*[input::T_PM];
-#else
+#endif
+#ifdef EWAH
         bit_vector_for_term = new EWAHBoolArray<uint32_t>*[input::T_PM];
 #endif
         
@@ -61,15 +80,33 @@ namespace benchmark
         show_info("[2] Shuffling...");
         shuffle(column_doc, column_doc + input::NUM_TUPLES, default_random_engine(42));
         
-        show_info("[3] Generating bit vectors...");
+#ifdef HUFFMAN
+        show_info("[2.5] Generating Huffman tree...");
+                   
+        generate_array_tree_representation(column_doc, input::NUM_TUPLES, huffman_array_docs_per_term, terminator_array_docs_per_term, huffman_tree);
+        encoding_dict<int> encoding_dict_terms;
+        build_inverse_mapping(huffman_tree, encoding_dict_terms);
+#endif
+        
+        show_info("[3] Generating bit vectors or compressing...");
         unsigned long docs_compressed_bytes = 0;
         next_index = 0;
         
         for (int term = 0; term < input::T_PM; ++term)
         {
+#if defined(UNCOMPRESSED) || defined(HUFFMAN)
+            docs_per_term[term] = new int[pubmed::get_group_by_term(term)];
+            len_docs_per_term[term] = pubmed::get_group_by_term(term);
+            
+            for (int i = 0; i < pubmed::get_group_by_term(term); ++i)
+            {
+                docs_per_term[term][i] = column_doc[next_index++];
+            }
+#endif
 #ifdef FASTBIT
             ibis::bitvector* bit_vector = new ibis::bitvector();
-#else
+#endif
+#ifdef EWAH
             EWAHBoolArray<uint32_t>* bit_vector = new EWAHBoolArray<uint32_t>();
 #endif
             
@@ -89,7 +126,8 @@ namespace benchmark
             delete bit_vector;
             bit_vector = new ibis::bitvector(*arr);
             delete arr;
-#else
+#endif
+#ifdef EWAH
             int cnt_docs = pubmed::get_group_by_term(term);
             
             uint32_t* doc_list = new uint32_t[cnt_docs];
@@ -109,8 +147,13 @@ namespace benchmark
             
             delete doc_list;
 #endif
-            
+#if defined(HUFFMAN)
+            encode(docs_per_term[term], len_docs_per_term[term], docs_per_term_compressed[term], encoding_dict_terms);
+            docs_per_term_compressed = NULL;
+#endif
+#if !defined(HUFFMAN) && !defined(UNCOMPRESSED)
             bit_vector_for_term[term] = bit_vector;
+#endif
             
             if (term % (input::T_PM/1000) == 0) debug_n("  " << term*100.0/input::T_PM << " % complete.    ");
         }
@@ -128,26 +171,78 @@ namespace benchmark
     {
 #ifdef FASTBIT
         ibis::bitvector* base_vector;
-#else
+#endif
+#ifdef EWAH
         EWAHBoolArray<uint32_t>* base_vector;
 #endif
+#if defined(HUFFMAN) || defined(UNCOMPRESSED)
+        vector<int>* docs_result;
+#endif
         int cnt_more_vectors;
+        int p;
+        int start;
     };
     
     void* pthread_bitvector_intersect(void* args_v)
     {
         thread_args* args = (thread_args*) args_v;
         
+#if !defined(HUFFMAN) && !defined(UNCOMPRESSED)
         for (int a = 0; a < args->cnt_more_vectors; ++a)
         {
 #ifdef FASTBIT
             *args->base_vector &= *bit_vector_for_term[rand() % input::T_PM];
-#else
+#endif
+#ifdef EWAH
             EWAHBoolArray<uint32_t>* base_copy = new EWAHBoolArray<uint32_t>(*args->base_vector);
             base_copy->logicaland(*bit_vector_for_term[rand() % input::T_PM], *args->base_vector);
             delete base_copy;
 #endif
         }
+#else
+        // HUFFMAN || UNCOMPRESSED
+        args->docs_result = new vector<int>();
+        int* first_decoded;
+        
+#ifndef HUFFMAN
+        int idx = exact_terms_b[args->p][args->start];
+        first_decoded = docs_per_term[idx];
+#else
+        int idx = exact_terms_b[args->p][args->start];
+        decode(docs_per_term_compressed[idx], len_docs_per_term[idx], first_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
+#endif
+        
+        int first_index = rand() % input::T_PM;
+        
+        for (int i = 0; i < len_docs_per_term[first_index]; ++i)
+        {
+            bool not_found = false;
+            int doc_id = docs_per_term[first_index][i];
+            int next_index = exact_terms_b[args->p][args->start + i];
+      
+            int* next_decoded;
+#ifndef HUFFMAN
+            next_decoded = docs_per_term[next_index];
+#else
+            decode(docs_per_term_compressed[next_index], len_docs_per_term[next_index], next_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
+#endif
+            for (int l = 1; l < args->cnt_more_vectors; ++l)
+            {
+                if (find(next_decoded, next_decoded + len_docs_per_term[next_index], doc_id) == next_decoded + len_docs_per_term[next_index])
+                {
+                    not_found = true;
+                    break;
+                }
+            }
+            
+            if (!not_found)
+                args->docs_result->push_back(doc_id);
+            
+#ifdef HUFFMAN
+            delete[] next_decoded;
+#endif
+        }
+#endif
         
         return NULL;
     }
@@ -176,11 +271,14 @@ namespace benchmark
                     
 #ifdef FASTBIT
                     args[t]->base_vector = new ibis::bitvector(*bit_vector_for_term[rand() % input::T_PM]);
-#else
+#endif
+#ifdef EWAH
                     args[t]->base_vector = new EWAHBoolArray<uint32_t>(*bit_vector_for_term[rand() % input::T_PM]);
 #endif
                     
                     args[t]->cnt_more_vectors = cnt_terms / NUM_THREADS - 1;
+                    args[t]->p = i;
+                    args[t]->start = input::T_PM * t / NUM_THREADS;
                     
                     int result = pthread_create(threads[t], NULL, pthread_bitvector_intersect, (void*) args[t]);
                     
@@ -231,7 +329,8 @@ namespace benchmark
                     
                     ++ones;
                 }
-#else
+#endif
+#ifdef EWAH
                 EWAHBoolArray<uint32_t>* base_vector = args[0]->base_vector;
                 
                 for (int a = 1; a < NUM_THREADS; ++a)
@@ -244,8 +343,37 @@ namespace benchmark
                 // extract ones
                 base_vector->toArray();
 #endif
+#if defined(HUFFMAN) || defined(UNCOMPRESSED)
+                vector<int> intersection;
                 
+                for (int i = 0; i < args[0]->docs_result->size(); ++i)
+                {
+                    bool not_found = false;
+                    int doc_id = args[0]->docs_result->at(i);
+                    
+                    for (int l = 1; l < NUM_THREADS; ++l)
+                    {
+                        if (find(args[0]->docs_result->begin(), args[0]->docs_result->end(), doc_id) == args[0]->docs_result->end())
+                        {
+                            not_found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!not_found)
+                        intersection.push_back(doc_id);
+                    
+                }
+                
+                for (int i = 0; i < NUM_THREADS; ++i)
+                {
+                    delete args[i]->docs_result;
+                }
+#endif
+                
+#if !defined(HUFFMAN) && !defined(UNCOMPRESSED)
                 delete args[0]->base_vector;
+#endif
                 delete args[0];
             }
             
