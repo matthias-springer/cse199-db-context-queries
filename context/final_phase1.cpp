@@ -54,6 +54,7 @@ namespace benchmark
 #endif
 #if defined(HUFFMAN)
         docs_per_term_compressed = new char*[input::T_PM];
+        long huffman_encoded_bytes = 0;
 #endif
 #ifdef FASTBIT
         bit_vector_for_term = new ibis::bitvector*[input::T_PM];
@@ -148,7 +149,7 @@ namespace benchmark
             delete doc_list;
 #endif
 #if defined(HUFFMAN)
-            encode(docs_per_term[term], len_docs_per_term[term], docs_per_term_compressed[term], encoding_dict_terms);
+            huffman_encoded_bytes += encode(docs_per_term[term], len_docs_per_term[term], docs_per_term_compressed[term], encoding_dict_terms);
 #endif
 #if !defined(HUFFMAN) && !defined(UNCOMPRESSED)
             bit_vector_for_term[term] = bit_vector;
@@ -159,6 +160,10 @@ namespace benchmark
         
         debug_n("  " << 100 << " % complete.    \n");
         show_info("size of compressed bit vectors (bytes): " << docs_compressed_bytes << ".");
+        
+#ifdef HUFFMAN
+        show_info("size of huffman compressed lists (bytes): " << huffman_encoded_bytes << ".");
+#endif
         
         delete column_doc;
     }
