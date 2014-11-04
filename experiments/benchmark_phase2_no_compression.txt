@@ -1,38 +1,46 @@
+INFO [main.cpp:156 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:159 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [huffman_query_benchmark.cpp:60 huffman_query_generate_lists] [1] Generating tuples...
+INFO [huffman_query_benchmark.cpp:61 huffman_query_generate_lists] Allocating 1495505362 shorts/chars (array).
+INFO [huffman_query_benchmark.cpp:64 huffman_query_generate_lists] Alloc success
+INFO [huffman_query_benchmark.cpp:87 huffman_query_generate_lists] [2] Shuffling...
+INFO [huffman_query_benchmark.cpp:91 huffman_query_generate_lists] [3] Generating separate lists...
+INFO [huffman_query_benchmark.cpp:214 huffman_query_generate_lists] No compression.
+INFO [huffman_query_benchmark.cpp:221 huffman_query_generate_lists] Done.
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 10 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.00169231
- U(run/bench_huffman_query)	1692308
-  (run/bench_huffman_query_generate)	194.059
- U(run/bench_huffman_query_generate)	194058560593
+  (run/bench_huffman_query)	0.00481356
+ U(run/bench_huffman_query)	4813559
+  (run/bench_huffman_query_generate)	193.173
+ U(run/bench_huffman_query_generate)	193172800607
 
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10 documents (30 iterations).
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 100 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.00670745
- U(run/bench_huffman_query)	6707454
+  (run/bench_huffman_query)	0.0311033
+ U(run/bench_huffman_query)	31103347
 
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100 documents (30 iterations).
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 1000 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.0563897
- U(run/bench_huffman_query)	56389725
+  (run/bench_huffman_query)	0.2642
+ U(run/bench_huffman_query)	264200283
 
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000 documents (30 iterations).
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 10000 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	0.541404
- U(run/bench_huffman_query)	541403573
+  (run/bench_huffman_query)	2.63949
+ U(run/bench_huffman_query)	2639488557
 
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 10000 documents (30 iterations).
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 100000 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	5.6101
- U(run/bench_huffman_query)	5610099807
+  (run/bench_huffman_query)	25.1183
+ U(run/bench_huffman_query)	25118303197
 
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 100000 documents (30 iterations).
+INFO [huffman_query_benchmark.cpp:311 huffman_query_run_benchmark] Running benchmark for 1000000 documents (30 iterations).
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	48.207
- U(run/bench_huffman_query)	48207018581
-
-INFO [huffman_query_benchmark.cpp:223 huffman_query_run_benchmark] Running benchmark for 1000000 documents (30 iterations).
-INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_huffman_query)	483.109
- U(run/bench_huffman_query)	483109131909
+  (run/bench_huffman_query)	308.752
+ U(run/bench_huffman_query)	308752304517
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
