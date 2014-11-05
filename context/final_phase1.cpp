@@ -204,7 +204,7 @@ namespace benchmark
 #endif
         }
 #else
-        // HUFFMAN || UNCOMPRESSED        
+        // HUFFMAN || UNCOMPRESSED
         int* first_decoded;
         int idx = exact_terms_b[args->p][args->start];
 #ifndef HUFFMAN
@@ -351,7 +351,7 @@ namespace benchmark
                     
                     for (int l = 1; l < NUM_THREADS; ++l)
                     {
-                        if (find(args[0]->docs_result->begin(), args[0]->docs_result->end(), doc_id) == args[0]->docs_result->end())
+                        if (find(args[l]->docs_result->begin(), args[l]->docs_result->end(), doc_id) == args[l]->docs_result->end())
                         {
                             not_found = true;
                             break;
