@@ -204,46 +204,42 @@ namespace benchmark
 #endif
         }
 #else
-        // HUFFMAN || UNCOMPRESSED
-        args->docs_result = new vector<int>();
+        // HUFFMAN || UNCOMPRESSED        
         int* first_decoded;
-        
         int idx = exact_terms_b[args->p][args->start];
-        
 #ifndef HUFFMAN
         first_decoded = docs_per_term[idx];
 #else
         decode(docs_per_term_compressed[idx], len_docs_per_term[idx], first_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
 #endif
         
-        for (int i = 0; i < len_docs_per_term[idx]; ++i)
+        vector<int>* result = new vector<int>(first_decoded, first_decoded + len_docs_per_term[idx]);
+        int* next_decoded;
+        
+        for (int i = 1; i < args->cnt_more_vectors; ++i)
         {
-            bool not_found = false;
-            int doc_id = first_decoded[i];
-            int next_index = exact_terms_b[args->p][args->start + i];
-      
-            int* next_decoded;
+            idx = exact_terms_b[args->p][args->start + i];
 #ifndef HUFFMAN
-            next_decoded = docs_per_term[next_index];
+            next_decoded = docs_per_term[idx];
 #else
-            decode(docs_per_term_compressed[next_index], len_docs_per_term[next_index], next_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
+            decode(docs_per_term_compressed[idx], len_docs_per_term[idx], next_decoded, huffman_array_docs_per_term, terminator_array_docs_per_term);
 #endif
-            for (int l = 1; l < args->cnt_more_vectors; ++l)
+            for (auto it = result->begin(); it != result->end(); )
             {
-                if (find(next_decoded, next_decoded + len_docs_per_term[next_index], doc_id) == next_decoded + len_docs_per_term[next_index])
+                if (find(next_decoded, next_decoded + len_docs_per_term[idx], *it) == next_decoded + len_docs_per_term[idx])
                 {
-                    not_found = true;
-                    break;
+                    it = result->erase(it);
+                }
+                else
+                {
+                    ++it;
                 }
             }
             
-            if (!not_found)
-                args->docs_result->push_back(doc_id);
-            
-#ifdef HUFFMAN
             delete[] next_decoded;
-#endif
         }
+        
+        args->docs_result = result;
 #endif
         
         return NULL;
