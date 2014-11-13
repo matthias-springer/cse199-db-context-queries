@@ -145,14 +145,16 @@ namespace benchmark
 
     void* pthread_q1(void* vargs)
     {
+        show_info("[TT] Thread started!");
         thread_args* args = (thread_args*) vargs;
         
         for (int t = 0; t < args->num_terms; ++t)
         {
             // retrieve doc fragments
-            show_info("[T] Decompressing doc fragment...");
+            show_info("[T] Decompressing doc fragment " << t << "...");
             int* doc_fragment_uncompressed;
             int term = args->input_terms[t];
+            show_info("[T] Term number " << term << ".");
             decode(p2_docs_fragments_compressed[term], pubmed::get_group_by_term(term), doc_fragment_uncompressed, p2_huffman_array, p2_terminator_array);
             
             show_info("[T] Aggregating...");
