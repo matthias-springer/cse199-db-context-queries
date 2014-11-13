@@ -190,7 +190,12 @@ namespace benchmark
                 args[t] = new thread_args;
                 args[t]->doc_freq = new unordered_map<int, int>();
                 args[t]->num_terms = term_cnt / NUM_THREADS;
-                args[t]->input_terms = new unsigned short[args[t]->num_terms];    // if it crashes: check if is 0
+                if (args[t]->num_terms > 0)
+                {
+                    args[t]->input_terms = new unsigned short[args[t]->num_terms];
+                    memcpy(args[t]->input_terms, terms_uncompressed + (t-1) * args[t]->num_terms, args[t]->num_terms * sizeof(unsigned short));
+                }
+                
                 threads[t] = new pthread_t();
                 pthread_create(threads[t], NULL, pthread_q1, (void*) args[t]);
             }
