@@ -150,10 +150,12 @@ namespace benchmark
         for (int t = 0; t < args->num_terms; ++t)
         {
             // retrieve doc fragments
+            show_info("[T] Decompressing doc fragment...");
             int* doc_fragment_uncompressed;
             int term = args->input_terms[t];
             decode(p2_docs_fragments_compressed[term], pubmed::get_group_by_term(term), doc_fragment_uncompressed, p2_huffman_array, p2_terminator_array);
             
+            show_info("[T] Aggregating...");
             for (int d = 0; d < pubmed::get_group_by_term(term); ++d)
             {
                 (*args->doc_freq)[doc_fragment_uncompressed[d]]++;
@@ -176,17 +178,20 @@ namespace benchmark
         for (int r = 0; r < 1000; ++r)
         {
             int doc = input_docs[r];
-            
+         
+            show_info("Uncompressing...");
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
             int term_cnt = pubmed::get_group_by_doc(doc);
             decode(p1_terms_fragments_compressed[doc], term_cnt, terms_uncompressed, p1_huffman_array, p1_terminator_array);
             
+            show_info("Allocating thread data...");
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args** args = new thread_args*[NUM_THREADS];
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
+                show_info("Preparing thread data...");
                 args[t] = new thread_args;
                 args[t]->doc_freq = new unordered_map<int, int>();
                 args[t]->num_terms = term_cnt / NUM_THREADS;
@@ -197,14 +202,17 @@ namespace benchmark
                 }
                 
                 threads[t] = new pthread_t();
+                show_info("Starting thread...");
                 pthread_create(threads[t], NULL, pthread_q1, (void*) args[t]);
             }
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
+                show_info("Joining thread...");
                 pthread_join(*threads[t], NULL);
             }
             
+            show_info("Merging thread results...");
             unordered_map<int, int> result;
             for (int t = 0; t < NUM_THREADS; ++t)
             {
