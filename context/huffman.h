@@ -191,7 +191,13 @@ void build_inverse_mapping(Node<word_t>* tree, encoding_dict<word_t>& encoding_d
 template <typename word_t>
 long encode(word_t* input, long length, char*& output, encoding_dict<word_t>& encoding_dict)
 {
-    output = new char[length * sizeof(word_t) / sizeof(char)]();
+    int output_size_bits = 0;
+    for (long l = 0; l < length; ++l)
+    {
+        output_size_bits += encoding_dict[input[l]].count_bits;
+    }
+    
+    output = new char[output_size_bits/8 + 1]();
 
     long byte_pos = 0, bit_pos = 0;
     for (long l = 0; l < length; ++l)
