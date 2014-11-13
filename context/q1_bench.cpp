@@ -145,8 +145,8 @@ namespace benchmark
 
     void* pthread_q1(void* vargs)
     {
-        show_info("[TT] Thread started!");
         thread_args* args = (thread_args*) vargs;
+        show_info("[TT] Thread started with " << args->num_terms << " terms!");
         
         for (int t = 0; t < args->num_terms; ++t)
         {
@@ -186,6 +186,13 @@ namespace benchmark
             unsigned short* terms_uncompressed;
             int term_cnt = pubmed::get_group_by_doc(doc);
             decode(p1_terms_fragments_compressed[doc], term_cnt, terms_uncompressed, p1_huffman_array, p1_terminator_array);
+            
+            /* SANITY CHECK */
+            for (int i = 0; i < term_cnt; ++i)
+            {
+                show_info("SC[" << i << "/" << term_cnt << "] = " << terms_uncompressed[i]);
+            }
+            /* END SANITY CHECK */
             
             show_info("Allocating thread data...");
             pthread_t** threads = new pthread_t*[NUM_THREADS];
