@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "q1_bench.h"
 
 int main(int argc, char ** argv)
 {
@@ -79,6 +80,7 @@ int main(int argc, char ** argv)
         "[17]\tColumn DB bit vector compression space benchmark.\n"
         "[18]\tFinal OMC for Phase 1.\n"
         "[19]\tFinal OMC for Phase 2.\n"
+        "[20]\tQ1 benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -234,6 +236,10 @@ int main(int argc, char ** argv)
                 case 19:
                     benchmark::generate_tuples();
                     benchmark::bench_omc_phase2();
+                    break;
+                case 20:
+                    benchmark::generate_data_q1();
+                    benchmark::q1_final_bench();
                     break;
             }
             break;

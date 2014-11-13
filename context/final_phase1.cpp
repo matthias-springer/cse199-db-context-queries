@@ -372,7 +372,7 @@ namespace benchmark
 #if !defined(HUFFMAN) && !defined(UNCOMPRESSED)
                 delete args[0]->base_vector;
 #endif
-                delete args[0];
+                //delete args[0];
             }
             
             
