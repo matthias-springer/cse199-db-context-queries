@@ -180,11 +180,11 @@ namespace benchmark
         for (int r = 0; r < 1000; ++r)
         {
             int doc = input_docs[r];
-         
-            show_info("Uncompressing...");
+            int term_cnt = pubmed::get_group_by_doc(doc);
+            
+            show_info("Uncompressing for doc " << doc << " with " << term_cnt << " terms...");
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
-            int term_cnt = pubmed::get_group_by_doc(doc);
             decode(p1_terms_fragments_compressed[doc], term_cnt, terms_uncompressed, p1_huffman_array, p1_terminator_array);
             
             /* SANITY CHECK */
