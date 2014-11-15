@@ -210,6 +210,13 @@ namespace benchmark
                     memcpy(args[t]->input_terms, terms_uncompressed + (t-1) * args[t]->num_terms, args[t]->num_terms * sizeof(unsigned short));
                 }
                 
+                /* SANITY CHECK */
+                for (int i = 0; i < args[t]->num_terms; ++i)
+                {
+                    show_info("TH " << t << "SC[" << i << "] = " << args[t]->input_terms[i]);
+                }
+                /* END OF SANITY CHECK */
+                
                 threads[t] = new pthread_t();
                 show_info("Starting thread...");
                 pthread_create(threads[t], NULL, pthread_q1, (void*) args[t]);
