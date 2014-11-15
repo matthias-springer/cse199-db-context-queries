@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "q1_bench.h"
+#include "huffman_self_test.h"
 
 int main(int argc, char ** argv)
 {
@@ -81,6 +82,7 @@ int main(int argc, char ** argv)
         "[18]\tFinal OMC for Phase 1.\n"
         "[19]\tFinal OMC for Phase 2.\n"
         "[20]\tQ1 benchmark.\n"
+        "[21]\tHuffman self test.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -240,6 +242,9 @@ int main(int argc, char ** argv)
                 case 20:
                     benchmark::generate_data_q1();
                     benchmark::q1_final_bench();
+                    break;
+                case 21:
+                    huffman_self_test();
                     break;
             }
             break;
