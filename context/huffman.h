@@ -2,6 +2,7 @@
 #include <deque>
 #include <queue>
 #include <unordered_map>
+#include <string.h>
 
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
