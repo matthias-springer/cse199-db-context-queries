@@ -154,6 +154,8 @@ namespace benchmark
 
     void* pthread_q1(void* vargs)
     {
+        int cntr = 0;
+        
         thread_args* args = (thread_args*) vargs;
         
         for (int t = 0; t < args->num_terms; ++t)
@@ -166,11 +168,13 @@ namespace benchmark
             for (int d = 0; d < pubmed::get_group_by_term(term); ++d)
             {
                 (*args->doc_freq)[doc_fragment_uncompressed[d]]++;
+                cntr++;
             }
             
             delete[] doc_fragment_uncompressed;
         }
         
+        debug("Thread aggregated " << cntr << " documents.");
         return NULL;
     }
     
@@ -178,15 +182,17 @@ namespace benchmark
     {
         int* input_docs = exact_docs_oo[5];
         
-        show_info("Running Q1 with 100 repetitions and " << NUM_THREADS << " threads...");
+        show_info("Running Q1 with 10 repetitions and " << NUM_THREADS << " threads...");
         
         output::start_timer("run/q1_bench");
         
-        for (int r = 0; r < 100; ++r)
+        for (int r = 0; r < 10; ++r)
         {
             debug("REP " << r);
             int doc = input_docs[r];
             int term_cnt = pubmed::get_group_by_doc(doc);
+            
+            debug("Processing " << term_cnt << " terms...");
             
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
