@@ -3,6 +3,7 @@
 #include "pubmed.h"
 #include "huffman.h"
 #include <pthread.h>
+#include <random>
 
 #define NUM_THREADS 4
 
@@ -44,6 +45,10 @@ namespace benchmark
                 p1_terms[index++] = t;
             }
         }
+        
+        // shuffle
+        show_info("[P1] Shuffle...");
+        shuffle(p1_terms, p1_terms + input::NUM_TUPLES, default_random_engine(42));
         
         // compress
         show_info("[P1] Generating Huffman tree...");
@@ -96,6 +101,10 @@ namespace benchmark
             }
         }
         
+        // shuffle
+        show_info("[P2] Shuffle...");
+        shuffle(p2_docs, p2_docs + input::NUM_TUPLES, default_random_engine(42));
+        
         // generate Huffman tree
         show_info("[P2] Generating Huffman tree...");
         generate_array_tree_representation(p2_docs, input::NUM_TUPLES, p2_huffman_array, p2_terminator_array, p2_tree);
@@ -146,18 +155,14 @@ namespace benchmark
     void* pthread_q1(void* vargs)
     {
         thread_args* args = (thread_args*) vargs;
-        show_info("[TT] Thread started with " << args->num_terms << " terms!");
         
         for (int t = 0; t < args->num_terms; ++t)
         {
             // retrieve doc fragments
-            show_info("[T] Decompressing doc fragment " << t << "...");
             int* doc_fragment_uncompressed;
             int term = args->input_terms[t];
-            show_info("[T] Term number " << term << ".");
             decode(p2_docs_fragments_compressed[term], pubmed::get_group_by_term(term), doc_fragment_uncompressed, p2_huffman_array, p2_terminator_array);
             
-            show_info("[T] Aggregating...");
             for (int d = 0; d < pubmed::get_group_by_term(term); ++d)
             {
                 (*args->doc_freq)[doc_fragment_uncompressed[d]]++;
@@ -182,53 +187,33 @@ namespace benchmark
             int doc = input_docs[r];
             int term_cnt = pubmed::get_group_by_doc(doc);
             
-            show_info("Uncompressing for doc " << doc << " with " << term_cnt << " terms...");
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
             decode(p1_terms_fragments_compressed[doc], term_cnt, terms_uncompressed, p1_huffman_array, p1_terminator_array);
             
-            /* SANITY CHECK */
-            for (int i = 0; i < term_cnt; ++i)
-            {
-                show_info("SC[" << i << "/" << term_cnt << "] = " << terms_uncompressed[i]);
-            }
-            /* END SANITY CHECK */
-            
-            show_info("Allocating thread data...");
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args** args = new thread_args*[NUM_THREADS];
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
-                show_info("Preparing thread data...");
                 args[t] = new thread_args;
                 args[t]->doc_freq = new unordered_map<int, int>();
                 args[t]->num_terms = term_cnt / NUM_THREADS;
                 if (args[t]->num_terms > 0)
                 {
                     args[t]->input_terms = new unsigned short[args[t]->num_terms];
-                    memcpy(args[t]->input_terms, terms_uncompressed + (t-1) * args[t]->num_terms, args[t]->num_terms * sizeof(unsigned short));
+                    memcpy(args[t]->input_terms, terms_uncompressed + t * args[t]->num_terms, args[t]->num_terms * sizeof(unsigned short));
                 }
-                
-                /* SANITY CHECK */
-                for (int i = 0; i < args[t]->num_terms; ++i)
-                {
-                    show_info("TH " << t << "SC[" << i << "] = " << args[t]->input_terms[i]);
-                }
-                /* END OF SANITY CHECK */
                 
                 threads[t] = new pthread_t();
-                show_info("Starting thread...");
                 pthread_create(threads[t], NULL, pthread_q1, (void*) args[t]);
             }
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
-                show_info("Joining thread...");
                 pthread_join(*threads[t], NULL);
             }
             
-            show_info("Merging thread results...");
             unordered_map<int, int> result;
             for (int t = 0; t < NUM_THREADS; ++t)
             {
