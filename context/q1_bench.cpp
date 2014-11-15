@@ -178,12 +178,13 @@ namespace benchmark
     {
         int* input_docs = exact_docs_oo[5];
         
-        show_info("Running Q1 with 1000 repetitions and " << NUM_THREADS << " threads...");
+        show_info("Running Q1 with 100 repetitions and " << NUM_THREADS << " threads...");
         
         output::start_timer("run/q1_bench");
         
-        for (int r = 0; r < 1000; ++r)
+        for (int r = 0; r < 100; ++r)
         {
+            debug("REP " << r);
             int doc = input_docs[r];
             int term_cnt = pubmed::get_group_by_doc(doc);
             
