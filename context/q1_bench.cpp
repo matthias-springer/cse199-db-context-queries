@@ -6,25 +6,29 @@
 #include <random>
 
 #define NUM_THREADS 4
+//#define HUFFMAN
 
 namespace benchmark
 {
     unsigned short* p1_terms;
+    unsigned short** p1_terms_fragments;
+    
+#ifdef HUFFMAN
+    char** p1_terms_fragments_compressed;
     unsigned short* p1_huffman_array;
     bool* p1_terminator_array;
     Node<unsigned short>* p1_tree;
-    
-    unsigned short** p1_terms_fragments;
-    char** p1_terms_fragments_compressed;
-    
+#endif
     
     int* p2_docs;
+    int** p2_docs_fragments;
+    
+#ifdef HUFFMAN
     int* p2_huffman_array;
     bool* p2_terminator_array;
-    Node<int>* p2_tree;
-    
-    int** p2_docs_fragments;
     char** p2_docs_fragments_compressed;
+    Node<int>* p2_tree;
+#endif
     
     int** exact_docs_oo;
     
@@ -50,11 +54,13 @@ namespace benchmark
         show_info("[P1] Shuffle...");
         shuffle(p1_terms, p1_terms + input::NUM_TUPLES, default_random_engine(42));
         
+#ifdef HUFFMAN
         // compress
         show_info("[P1] Generating Huffman tree...");
         generate_array_tree_representation(p1_terms, input::NUM_TUPLES, p1_huffman_array, p1_terminator_array, p1_tree);
         encoding_dict<unsigned short> encoding_dict_terms;
         build_inverse_mapping(p1_tree, encoding_dict_terms);
+#endif
         
         // single lists
         show_info("[P1] Generating single lists...");
@@ -74,6 +80,7 @@ namespace benchmark
         
         delete[] p1_terms;
     
+#ifdef HUFFMAN
         // compress
         show_info("[P1] Compressing...");
         p1_terms_fragments_compressed = new char*[input::D_PM];
@@ -85,7 +92,7 @@ namespace benchmark
             delete[] p1_terms_fragments[d];
         }
         delete[] p1_terms_fragments;
-        
+#endif
     
         show_info("[P2] Generating random data...");
         p2_docs = new int[input::NUM_TUPLES];
@@ -105,11 +112,13 @@ namespace benchmark
         show_info("[P2] Shuffle...");
         shuffle(p2_docs, p2_docs + input::NUM_TUPLES, default_random_engine(42));
         
+#ifdef HUFFMAN
         // generate Huffman tree
         show_info("[P2] Generating Huffman tree...");
         generate_array_tree_representation(p2_docs, input::NUM_TUPLES, p2_huffman_array, p2_terminator_array, p2_tree);
         encoding_dict<int> encoding_dict_docs;
         build_inverse_mapping(p2_tree, encoding_dict_docs);
+#endif
         
         // single lists
         show_info("[P2] Generating single lists...");
@@ -129,6 +138,7 @@ namespace benchmark
         
         delete[] p2_docs;
         
+#ifdef HUFFMAN
         // compress
         show_info("[P2] Compressing...");
         p2_docs_fragments_compressed = new char*[input::T_PM];
@@ -140,6 +150,7 @@ namespace benchmark
             delete[] p2_docs_fragments[t];
         }
         delete[] p2_docs_fragments;
+#endif
         
         show_info("DONE.");
     }
@@ -163,7 +174,12 @@ namespace benchmark
             // retrieve doc fragments
             int* doc_fragment_uncompressed;
             int term = args->input_terms[t];
+            
+#ifdef HUFFMAN
             decode(p2_docs_fragments_compressed[term], pubmed::get_group_by_term(term), doc_fragment_uncompressed, p2_huffman_array, p2_terminator_array);
+#else
+            doc_fragment_uncompressed = p2_docs_fragments[term];
+#endif
             
             for (int d = 0; d < pubmed::get_group_by_term(term); ++d)
             {
@@ -188,6 +204,7 @@ namespace benchmark
         
         for (int r = 0; r < 10; ++r)
         {
+            output::start_timer("run/current_rep");
             debug("REP " << r);
             int doc = input_docs[r];
             int term_cnt = pubmed::get_group_by_doc(doc);
@@ -196,7 +213,12 @@ namespace benchmark
             
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
+            
+#ifdef HUFFMAN
             decode(p1_terms_fragments_compressed[doc], term_cnt, terms_uncompressed, p1_huffman_array, p1_terminator_array);
+#else
+            terms_uncompressed = p1_terms_fragments[doc];
+#endif
             
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args** args = new thread_args*[NUM_THREADS];
@@ -236,6 +258,8 @@ namespace benchmark
             }
             
             // TODO: output aggregated map
+            output::stop_timer("run/current_rep");
+            output::show_stats();
         }
         
         output::stop_timer("run/q1_bench");
