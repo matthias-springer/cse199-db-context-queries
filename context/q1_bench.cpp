@@ -187,7 +187,9 @@ namespace benchmark
                 cntr++;
             }
             
+#ifdef HUFFMAN
             delete[] doc_fragment_uncompressed;
+#endif
         }
         
         debug("Thread aggregated " << cntr << " documents.");
