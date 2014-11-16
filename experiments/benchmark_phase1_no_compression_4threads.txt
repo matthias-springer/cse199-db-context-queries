@@ -1,0 +1,22 @@
+INFO [main.cpp:156 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:159 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [final_phase1.cpp:47 generate_bit_vectors] [1] Generating tuples...
+INFO [final_phase1.cpp:81 generate_bit_vectors] [2] Shuffling...
+INFO [final_phase1.cpp:92 generate_bit_vectors] [3] Generating bit vectors or compressing...
+INFO [final_phase1.cpp:162 generate_bit_vectors] size of compressed bit vectors (bytes): 0.
+INFO [final_phase1.cpp:260 run_phase1_bench_final] Running for 5 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase1_final)	165.96
+ U(run/phase1_final)	165959571774
+
+INFO [final_phase1.cpp:260 run_phase1_bench_final] Running for 10 terms using 300 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase1_final)	166.578
+ U(run/phase1_final)	166578314404
+
+INFO [final_phase1.cpp:260 run_phase1_bench_final] Running for 100 terms using 300 repititions.
