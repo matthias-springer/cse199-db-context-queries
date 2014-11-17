@@ -229,6 +229,8 @@ namespace benchmark
 
     void* pthread_q1(void* vargs)
     {
+        debug("[T] Thread is running...");
+        
         int cntr = 0;
         
         thread_args* args = (thread_args*) vargs;
