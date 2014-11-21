@@ -204,6 +204,18 @@ namespace benchmark
             }
             
             vector->compress();
+            
+            /** BEGIN SANITY CHECK **/
+            for (int d = 0; d < pubmed::get_group_by_term(t); ++d)
+            {
+                if (vector->getBit(p2_docs_fragments[t][d]) != 1)
+                {
+                    error("SANITY CHECK A FAILED: bit missing for doc " << p2_docs_fragments[t][d]);
+                }
+            }
+            /** END OF SANITY CHECK **/
+            
+            
             // force new allocate
             ibis::array_t<uint32_t>* arr = new ibis::array_t<uint32_t>();
             vector->write(*arr);
@@ -215,9 +227,9 @@ namespace benchmark
             /** BEGIN SANITY CHECK **/
             for (int d = 0; d < pubmed::get_group_by_term(t); ++d)
             {
-                if (vector->getBit(p2_docs_fragments[t][d]) != 1)
+                if (p2_docs_fragments_compressed[t]->getBit(p2_docs_fragments[t][d]) != 1)
                 {
-                    error("SANITY CHECK FAILED: bit missing for doc " << p2_docs_fragments[t][d]);
+                    error("SANITY CHECK B FAILED: bit missing for doc " << p2_docs_fragments[t][d]);
                 }
             }
             /** END OF SANITY CHECK **/
