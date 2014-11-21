@@ -211,6 +211,35 @@ namespace benchmark
             p2_docs_fragments_compressed[t] = new ibis::bitvector(*arr);
             delete arr;
             
+            
+            /** BEGIN SANITY CHECK **/
+            ibis::bitvector::indexSet ones = p2_docs_fragments_compressed[t]->firstIndexSet();
+            bool is_range = ones.isRange();
+            int cnt_index = 0;
+            
+            while (ones.nIndices() != 0)
+            {
+                for (int i = 0; i < ones.nIndices(); ++i)
+                {
+                    if (is_range)
+                    {
+                        cnt_index++;
+                    }
+                    else
+                    {
+                        cnt_index++;
+                    }
+                }
+                
+                ++ones;
+            }
+            
+            if (cnt_index != pubmed::get_group_by_term(t))
+            {
+                error("SANITY CHECK FAILED: assert equals fails: " << cnt_index << " != " << pubmed::get_group_by_term(t));
+            }
+            /** END OF SANITY CHECK **/
+            
             delete[] p2_docs_fragments[t];
         }
         delete[] p2_docs_fragments;
@@ -305,7 +334,7 @@ namespace benchmark
             int doc = input_docs[r];
             int term_cnt = pubmed::get_group_by_doc(doc);
             
-            debug("Processing " << term_cnt << " terms...");
+            debug("Processing " << term_cnt << " terms for doc " << doc << "...");
             
             // retrieve terms for doc
             unsigned short* terms_uncompressed;
