@@ -213,30 +213,12 @@ namespace benchmark
             
             
             /** BEGIN SANITY CHECK **/
-            ibis::bitvector::indexSet ones = p2_docs_fragments_compressed[t]->firstIndexSet();
-            bool is_range = ones.isRange();
-            int cnt_index = 0;
-            
-            while (ones.nIndices() != 0)
+            for (int d = 0; d < pubmed::get_group_by_term(t); ++d)
             {
-                for (int i = 0; i < ones.nIndices(); ++i)
+                if (vector->getBit(p2_docs_fragments[t][d]) != 1)
                 {
-                    if (is_range)
-                    {
-                        cnt_index++;
-                    }
-                    else
-                    {
-                        cnt_index++;
-                    }
+                    error("SANITY CHECK FAILED: bit missing for doc " << p2_docs_fragments[t][d]);
                 }
-                
-                ++ones;
-            }
-            
-            if (cnt_index != pubmed::get_group_by_term(t))
-            {
-                error("SANITY CHECK FAILED: assert equals fails: " << cnt_index << " != " << pubmed::get_group_by_term(t));
             }
             /** END OF SANITY CHECK **/
             
