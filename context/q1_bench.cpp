@@ -213,6 +213,25 @@ namespace benchmark
             p2_docs_fragments_compressed[t] = new ibis::bitvector(*arr);
             delete arr;
             
+            /** SANITY CHECK **/
+            int cntr = 0;
+            ibis::bitvector::indexSet ones = p2_docs_fragments_compressed[t]->firstIndexSet();
+            while (ones.nIndices() != 0)
+            {
+                for (int i = 0; i < ones.nIndices(); ++i)
+                {
+                    cntr++;
+                }
+                
+                ++ones;
+            }
+            
+            if (cntr != pubmed::get_group_by_term(t))
+            {
+                show_info("WARNING: number of docs for term t differs: " << cntr << " != " << pubmed::get_group_by_term(t));
+            }
+            /** END OF SANITY CHECK **/
+            
             delete[] p2_docs_fragments[t];
         }
         delete[] p2_docs_fragments;
