@@ -230,6 +230,10 @@ namespace benchmark
             {
                 show_info("WARNING: number of docs for term t differs: " << cntr << " != " << pubmed::get_group_by_term(t));
             }
+            else
+            {
+                show_info("OK number of docs.");
+            }
             /** END OF SANITY CHECK **/
             
             delete[] p2_docs_fragments[t];
