@@ -214,25 +214,24 @@ namespace benchmark
             delete arr;
             
             /** SANITY CHECK **/
-            int cntr = 0;
+            set<int> checkSet;
             ibis::bitvector::indexSet ones = p2_docs_fragments_compressed[t]->firstIndexSet();
             while (ones.nIndices() != 0)
             {
                 for (int i = 0; i < ones.nIndices(); ++i)
                 {
-                    cntr++;
+                    checkSet.insert(ones.indices()[i]);
                 }
                 
                 ++ones;
             }
             
-            if (cntr != pubmed::get_group_by_term(t))
+            for (int d = 0; d < pubmed::get_group_by_term(t); ++d)
             {
-                show_info("WARNING: number of docs for term t differs: " << cntr << " != " << pubmed::get_group_by_term(t));
-            }
-            else
-            {
-                show_info("OK number of docs.");
+                if (checkSet.find(p2_docs_fragments[t][d]) == checkSet.end())
+                {
+                    show_info("WARNING: doc " << p2_docs_fragments[t][d] << " not found in set!");
+                }
             }
             /** END OF SANITY CHECK **/
             
