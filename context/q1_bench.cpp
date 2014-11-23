@@ -7,8 +7,8 @@
 #include <ibis.h>
 
 #define NUM_THREADS 4
-//#define HUFFMAN
-#define FASTBIT
+#define HUFFMAN
+//#define FASTBIT
 
 namespace benchmark
 {
