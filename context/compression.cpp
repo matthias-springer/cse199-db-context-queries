@@ -5,7 +5,7 @@
 #include "huffman.h"
 
 #define TUPLES 100000
-#define REPS 1000
+#define REPS 10000
 
 namespace benchmark {
     
@@ -19,7 +19,7 @@ namespace benchmark {
     
     struct rle_pair
     {
-        unsigned char value;
+        unsigned short value;
         int count;
     };
     rle_pair* cb_terms_rle;
@@ -45,7 +45,7 @@ namespace benchmark {
             
             if (have_term) rle_len++;
         }
-        show_info("Generated " << num_tuples << " terms.");
+        show_info("Generated " << num_tuples << " terms (" << rle_len << " distinct terms).");
         
         show_info("[2] Compressing with Huffman...");
         generate_array_tree_representation(cb_terms_uncompressed, num_tuples, huffman_array, terminator_array, huffman_tree);
@@ -56,23 +56,27 @@ namespace benchmark {
         
         show_info("[3] Compressing with RLE...");
         cb_terms_rle = new rle_pair[rle_len];
-        int counter = 0;
-        for (int t = 0; t < input::T_PM; ++t)
+        int counter = -1;
+        int last = -1;
+        
+        for (int i = 0; i < num_tuples; ++i)
         {
-            double num_times = pubmed::get_group_by_term(t) / divider;
-            
-            if (num_times > 0)
+            if (last != cb_terms_uncompressed[i])
             {
-                cb_terms_rle[counter].value = t;
-                cb_terms_rle[counter].count = 0;
-                for (int i = 0; i < num_times; ++i)
-                {
-                    cb_terms_rle[counter].count++;
-                }
-                
+                last = cb_terms_uncompressed[i];
                 counter++;
+                
+                cb_terms_rle[counter].value = last;
+                cb_terms_rle[counter].count = 0;
             }
+            
+            cb_terms_rle[counter].count++;
         }
+        
+        counter++;
+        
+        if (counter != rle_len) error("counter " << counter << " == rle_len " << rle_len << " failed.");
+        
         show_info("Compressed " << num_tuples * sizeof(unsigned short) << " bytes -> " << rle_len * sizeof(rle_pair) << " bytes.");
     }
     
