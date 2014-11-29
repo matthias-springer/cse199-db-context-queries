@@ -8,6 +8,7 @@ namespace benchmark
     void cb_generate_tuples();
     void cb_uncompressed();
     void cb_huffman();
+    void cb_bitvector();
     void cb_rle();
 }
 
