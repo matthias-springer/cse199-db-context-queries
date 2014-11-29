@@ -3,6 +3,7 @@
 #include "input.h"
 #include "output.h"
 #include "huffman.h"
+#include <ibis.h>
 
 #define TUPLES 100000
 #define REPS 10000
@@ -24,6 +25,9 @@ namespace benchmark {
     };
     rle_pair* cb_terms_rle;
     int rle_len = 0;
+    
+    
+    ibis::bitvector* vector;
     
     void cb_generate_tuples()
     {
@@ -78,6 +82,15 @@ namespace benchmark {
         if (counter != rle_len) error("counter " << counter << " == rle_len " << rle_len << " failed.");
         
         show_info("Compressed " << num_tuples * sizeof(unsigned short) << " bytes -> " << rle_len * sizeof(rle_pair) << " bytes.");
+        
+        show_info("[3] Generating random bit vector...")
+        vector = new ibis::bitvector();
+        
+        for (int i = 0; i < num_tuples; ++i)
+        {
+            vector->setBit(rand() % 10000000, 1);
+        }
+        vector->compress();
     }
     
     void cb_uncompressed()
@@ -144,6 +157,35 @@ namespace benchmark {
         }
         
         output::stop_timer("cb/rle");
+        output::show_stats();
+        show_info("checksum: " << sum);
+    }
+    
+    void cb_bitvector()
+    {
+        show_info("Running bit vector with " << REPS << " repetitions (different data set)...");
+        output::start_timer("cb/bitvector");
+        
+        int sum = 0;
+        
+        for (int r = 0; r < REPS; ++r)
+        {
+            sum = 0;
+            
+            ibis::bitvector::indexSet ones = vector->firstIndexSet();
+            
+            while (ones.nIndices() > 0)
+            {
+                for (int i = 0; i < ones.nIndices(); ++i)
+                {
+                    sum += ones.indices()[i];
+                }
+                
+                ++ones;
+            }
+        }
+        
+        output::stop_timer("cb/bitvector");
         output::show_stats();
         show_info("checksum: " << sum);
     }

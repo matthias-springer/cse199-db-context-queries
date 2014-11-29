@@ -259,6 +259,7 @@ int main(int argc, char ** argv)
                     benchmark::cb_uncompressed();
                     benchmark::cb_huffman();
                     benchmark::cb_rle();
+                    benchmark::cb_bitvector();
                     break;
             }
             break;
