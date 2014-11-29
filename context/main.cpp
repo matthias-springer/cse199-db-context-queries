@@ -24,6 +24,7 @@
 #include "q1_bench.h"
 #include "q2_bench.h"
 #include "huffman_self_test.h"
+#include "compression.h"
 
 int main(int argc, char ** argv)
 {
@@ -85,6 +86,7 @@ int main(int argc, char ** argv)
         "[20]\tQ1 benchmark.\n"
         "[21]\tHuffman self test.\n"
         "[22]\tQ2 benchmark.\n"
+        "[23]\tCompression with duplicates.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -251,6 +253,13 @@ int main(int argc, char ** argv)
                 case 22:
                     benchmark::generate_data_q2();
                     benchmark::q2_final_bench();
+                    break;
+                case 23:
+                    benchmark::cb_generate_tuples();
+                    benchmark::cb_uncompressed();
+                    benchmark::cb_huffman();
+                    benchmark::cb_rle();
+                    break;
             }
             break;
     }
