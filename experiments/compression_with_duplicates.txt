@@ -10,49 +10,66 @@ INFO [input.cpp:29 print_stats] # docs                | 13930233
 INFO [input.cpp:30 print_stats] # terms               | 26842
 INFO [input.cpp:31 print_stats] # tuples              | 1495505362
 INFO [main.cpp:167 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
-INFO [compression.cpp:30 cb_generate_tuples] Benchmark: compression with duplicates
-INFO [compression.cpp:32 cb_generate_tuples] [1] Generating uncompressed terms...
-INFO [compression.cpp:48 cb_generate_tuples] Generated 119789 terms (26842 distinct terms).
-INFO [compression.cpp:50 cb_generate_tuples] [2] Compressing with Huffman...
-INFO [compression.cpp:55 cb_generate_tuples] Compressed 239578 bytes -> 178846 bytes.
-INFO [compression.cpp:57 cb_generate_tuples] [3] Compressing with RLE...
-INFO [compression.cpp:80 cb_generate_tuples] Compressed 239578 bytes -> 214736 bytes.
-INFO [compression.cpp:85 cb_uncompressed] Running uncompressed with 10000 repetitions...
+INFO [compression.cpp:34 cb_generate_tuples] Benchmark: compression with duplicates
+INFO [compression.cpp:36 cb_generate_tuples] [1] Generating uncompressed terms...
+INFO [compression.cpp:52 cb_generate_tuples] Generated 119789 terms (26842 distinct terms).
+INFO [compression.cpp:54 cb_generate_tuples] [2] Compressing with Huffman...
+INFO [compression.cpp:59 cb_generate_tuples] Compressed 239578 bytes -> 178846 bytes.
+INFO [compression.cpp:61 cb_generate_tuples] [3] Compressing with RLE...
+INFO [compression.cpp:84 cb_generate_tuples] Compressed 239578 bytes -> 214736 bytes.
+INFO [compression.cpp:86 cb_generate_tuples] [3] Generating random bit vector...
+INFO [compression.cpp:98 cb_uncompressed] Running uncompressed with 10000 repetitions...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (cb/uncompressed)	2.08629
- U(cb/uncompressed)	2086293342
+  (cb/uncompressed)	2.08773
+ U(cb/uncompressed)	2087726693
 
-INFO [compression.cpp:102 cb_uncompressed] checksum: 500355428
-INFO [compression.cpp:107 cb_huffman] Running huffman with 10000 repetitions...
+INFO [compression.cpp:115 cb_uncompressed] checksum: 500355428
+INFO [compression.cpp:120 cb_huffman] Running huffman with 10000 repetitions...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (cb/huffman)	88.4531
- U(cb/huffman)	88453088732
-  (cb/uncompressed)	2.08629
- U(cb/uncompressed)	2086293342
+  (cb/huffman)	88.5853
+ U(cb/huffman)	88585295512
+  (cb/uncompressed)	2.08773
+ U(cb/uncompressed)	2087726693
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
 
-INFO [compression.cpp:126 cb_huffman] checksum: 500355428
-INFO [compression.cpp:131 cb_rle] Running RLE with 10000 repetitions...
+INFO [compression.cpp:139 cb_huffman] checksum: 500355428
+INFO [compression.cpp:144 cb_rle] Running RLE with 10000 repetitions...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (cb/huffman)	88.4531
- U(cb/huffman)	88453088732
-  (cb/rle)	0.607142
- U(cb/rle)	607141983
-  (cb/uncompressed)	2.08629
- U(cb/uncompressed)	2086293342
+  (cb/huffman)	88.5853
+ U(cb/huffman)	88585295512
+  (cb/rle)	0.607252
+ U(cb/rle)	607251605
+  (cb/uncompressed)	2.08773
+ U(cb/uncompressed)	2087726693
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
 
-INFO [compression.cpp:148 cb_rle] checksum: 500355428
+INFO [compression.cpp:161 cb_rle] checksum: 500355428
+INFO [compression.cpp:166 cb_bitvector] Running bit vector with 10000 repetitions (different data set)...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (cb/bitvector)	34.8378
+ U(cb/bitvector)	34837755407
+  (cb/huffman)	88.5853
+ U(cb/huffman)	88585295512
+  (cb/rle)	0.607252
+ U(cb/rle)	607251605
+  (cb/uncompressed)	2.08773
+ U(cb/uncompressed)	2087726693
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
+INFO [compression.cpp:190 cb_bitvector] checksum: 1718562954
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (cb/huffman)	88.4531
- U(cb/huffman)	88453088732
-  (cb/rle)	0.607142
- U(cb/rle)	607141983
-  (cb/uncompressed)	2.08629
- U(cb/uncompressed)	2086293342
+  (cb/bitvector)	34.8378
+ U(cb/bitvector)	34837755407
+  (cb/huffman)	88.5853
+ U(cb/huffman)	88585295512
+  (cb/rle)	0.607252
+ U(cb/rle)	607251605
+  (cb/uncompressed)	2.08773
+ U(cb/uncompressed)	2087726693
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
 
