@@ -1,0 +1,58 @@
+DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
+INFO [main.cpp:164 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:167 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [compression.cpp:30 cb_generate_tuples] Benchmark: compression with duplicates
+INFO [compression.cpp:32 cb_generate_tuples] [1] Generating uncompressed terms...
+INFO [compression.cpp:48 cb_generate_tuples] Generated 119789 terms (26842 distinct terms).
+INFO [compression.cpp:50 cb_generate_tuples] [2] Compressing with Huffman...
+INFO [compression.cpp:55 cb_generate_tuples] Compressed 239578 bytes -> 178846 bytes.
+INFO [compression.cpp:57 cb_generate_tuples] [3] Compressing with RLE...
+INFO [compression.cpp:80 cb_generate_tuples] Compressed 239578 bytes -> 214736 bytes.
+INFO [compression.cpp:85 cb_uncompressed] Running uncompressed with 10000 repetitions...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (cb/uncompressed)	2.08629
+ U(cb/uncompressed)	2086293342
+
+INFO [compression.cpp:102 cb_uncompressed] checksum: 500355428
+INFO [compression.cpp:107 cb_huffman] Running huffman with 10000 repetitions...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (cb/huffman)	88.4531
+ U(cb/huffman)	88453088732
+  (cb/uncompressed)	2.08629
+ U(cb/uncompressed)	2086293342
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
+INFO [compression.cpp:126 cb_huffman] checksum: 500355428
+INFO [compression.cpp:131 cb_rle] Running RLE with 10000 repetitions...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (cb/huffman)	88.4531
+ U(cb/huffman)	88453088732
+  (cb/rle)	0.607142
+ U(cb/rle)	607141983
+  (cb/uncompressed)	2.08629
+ U(cb/uncompressed)	2086293342
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
+INFO [compression.cpp:148 cb_rle] checksum: 500355428
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (cb/huffman)	88.4531
+ U(cb/huffman)	88453088732
+  (cb/rle)	0.607142
+ U(cb/rle)	607141983
+  (cb/uncompressed)	2.08629
+ U(cb/uncompressed)	2086293342
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
