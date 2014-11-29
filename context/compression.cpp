@@ -59,12 +59,18 @@ namespace benchmark {
         int counter = 0;
         for (int t = 0; t < input::T_PM; ++t)
         {
-            int num_times = pubmed::get_group_by_term(t) / divider;
+            double num_times = pubmed::get_group_by_term(t) / divider;
             
             if (num_times > 0)
             {
                 cb_terms_rle[counter].value = t;
-                cb_terms_rle[counter++].count = num_times;
+                cb_terms_rle[counter].count = 0;
+                for (int i = 0; i < num_times; ++i)
+                {
+                    cb_terms_rle[counter].count++;
+                }
+                
+                counter++;
             }
         }
         show_info("Compressed " << num_tuples * sizeof(unsigned short) << " bytes -> " << rle_len * sizeof(rle_pair) << " bytes.");
