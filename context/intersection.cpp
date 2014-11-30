@@ -36,11 +36,11 @@ namespace benchmark
     
     void ib_uncompressed()
     {
-        show_info("Running intersection with 1000 repetitions for uncompressed...");
+        show_info("Running intersection with 10000 repetitions for uncompressed...");
      
         output::start_timer("ib/uncompressed");
         
-        for (int r = 0; r < 1000; ++r)
+        for (int r = 0; r < 10000; ++r)
         {
             unordered_set<int> result;
             
@@ -53,23 +53,23 @@ namespace benchmark
             }
         }
         
-        output::start_timer("ib/uncompressed");
+        output::stop_timer("ib/uncompressed");
         output::show_stats();
     }
     
     void ib_bitvector()
     {
-        show_info("Running intersection with 1000 repetitions for bit vector...");
+        show_info("Running intersection with 10000 repetitions for bit vector...");
         
         output::start_timer("ib/bitvector");
         
-        for (int r = 0; r < 1000; ++r)
+        for (int r = 0; r < 10000; ++r)
         {
             ibis::bitvector base(ib_vector1);
             base &= ib_vector2;
         }
         
-        output::start_timer("ib/bitvector");
+        output::stop_timer("ib/bitvector");
         output::show_stats();
     }
 }
