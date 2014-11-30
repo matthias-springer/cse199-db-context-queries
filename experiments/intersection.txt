@@ -1,0 +1,35 @@
+DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
+INFO [main.cpp:166 main] Using these statistics:
+INFO [input.cpp:29 print_stats] # docs                | 13930233
+INFO [input.cpp:30 print_stats] # terms               | 26842
+INFO [input.cpp:31 print_stats] # tuples              | 1495505362
+INFO [main.cpp:169 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [intersection.cpp:39 ib_uncompressed] Running intersection with 10000 repetitions for uncompressed...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (ib/uncompressed)	132.556
+ U(ib/uncompressed)	132555625576
+
+INFO [intersection.cpp:62 ib_bitvector] Running intersection with 10000 repetitions for bit vector...
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (ib/bitvector)	3.47398
+ U(ib/bitvector)	3473984484
+  (ib/uncompressed)	132.556
+ U(ib/uncompressed)	132555625576
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (ib/bitvector)	3.47398
+ U(ib/bitvector)	3473984484
+  (ib/uncompressed)	132.556
+ U(ib/uncompressed)	132555625576
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+
