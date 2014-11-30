@@ -274,7 +274,8 @@ namespace benchmark
 #endif
             
 #ifndef FASTBIT
-            for (int d = 0; d < pubmed::get_group_by_term(term); ++d)
+            int sz = pubmed::get_group_by_term(term);
+            for (int d = 0; d < sz; ++d)
             {
                 (*args->doc_freq)[doc_fragment_uncompressed[d]]++;
                 cntr++;
@@ -356,7 +357,7 @@ namespace benchmark
             for (int t = 0; t < NUM_THREADS; ++t)
             {
                 args[t] = new thread_args;
-                args[t]->doc_freq = new unordered_map<int, int>();
+                args[t]->doc_freq = new unordered_map<int, int>(input::D_PM);
                 args[t]->num_terms = term_cnt / NUM_THREADS;
                 if (args[t]->num_terms > 0)
                 {
@@ -365,6 +366,11 @@ namespace benchmark
                 }
                 
                 threads[t] = new pthread_t();
+            }
+            
+            output::start_timer("run/phase2-threads");
+            for (int t = 0; t < NUM_THREADS; ++t)
+            {
                 pthread_create(threads[t], NULL, pthread_q1, (void*) args[t]);
             }
             
@@ -372,8 +378,10 @@ namespace benchmark
             {
                 pthread_join(*threads[t], NULL);
             }
+            output::stop_timer("run/phase2-threads");
             
-            unordered_map<int, int> result;
+            output::start_timer("run/phase2-aggregate-threads");
+            unordered_map<int, int> result(input::D_PM);
             for (int t = 0; t < NUM_THREADS; ++t)
             {
                 thread_args* arg = args[t];
@@ -386,6 +394,8 @@ namespace benchmark
                 delete arg->input_terms;
                 delete arg;
             }
+            output::stop_timer("run/phase2-aggregate-threads");
+
             
             // TODO: output aggregated map
             output::stop_timer("run/current_rep");
