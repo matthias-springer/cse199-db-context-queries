@@ -25,6 +25,7 @@
 #include "q2_bench.h"
 #include "huffman_self_test.h"
 #include "compression.h"
+#include "intersection.h"
 
 int main(int argc, char ** argv)
 {
@@ -87,6 +88,7 @@ int main(int argc, char ** argv)
         "[21]\tHuffman self test.\n"
         "[22]\tQ2 benchmark.\n"
         "[23]\tCompression with duplicates.\n"
+        "[24]\tIntersection benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -260,6 +262,11 @@ int main(int argc, char ** argv)
                     benchmark::cb_huffman();
                     benchmark::cb_rle();
                     benchmark::cb_bitvector();
+                    break;
+                case 24:
+                    benchmark::ib_generate_data();
+                    benchmark::ib_uncompressed();
+                    benchmark::ib_bitvector();
                     break;
             }
             break;
