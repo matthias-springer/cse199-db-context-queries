@@ -231,6 +231,7 @@ namespace benchmark
     
     void* pthread_query(void* args_v)
     {
+        int counter = 0;
         thread_args* args = (thread_args*) args_v;
         
         for (long di = 0; di < args->num_docs; ++di)
@@ -285,6 +286,7 @@ namespace benchmark
                 {
                     (*args->term_counter)[terms_decompressed[l]] += freqs_decompressed[l];
                     //term_counter[terms[l]]++;
+                    counter++;
                 }
 #endif
             
@@ -296,6 +298,7 @@ namespace benchmark
 #endif
         }
         
+        debug("Thread aggregated " << counter << " terms.");
         return NULL;
     }
     
