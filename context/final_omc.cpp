@@ -189,6 +189,7 @@ namespace benchmark
             }
             
             output::stop_timer("run/current_rep");
+            output::show_stats();
             
         }
         
