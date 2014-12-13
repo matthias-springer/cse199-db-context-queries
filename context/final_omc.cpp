@@ -72,6 +72,8 @@ namespace benchmark
             
             // build arr_d
             rle_tuple<short, int> tuple = dt1_terms[middle];
+            debug("Found " << tuple.length << " documents for term " << t_args->arr_t[t]);
+            
             t_args->arr_d[t] = new int[tuple.length];
             t_args->len_arr_d[t] = tuple.length;
             
