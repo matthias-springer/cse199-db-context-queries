@@ -73,6 +73,7 @@ namespace benchmark
             // build arr_d
             rle_tuple<short, int> tuple = dt1_terms[middle];
             t_args->arr_d[t] = new int[tuple.length];
+            t_args->len_arr_d[t] = tuple.length;
             
             for (int i = 0; i < tuple.length; ++i)
             {
