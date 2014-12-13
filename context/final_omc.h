@@ -10,6 +10,7 @@ namespace benchmark
     void bench_omc_phase2();
     
     void q1_omc_final_bench();
+    void q2_omc_final_bench();
 }
 
 #endif
