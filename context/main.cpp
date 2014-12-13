@@ -89,6 +89,7 @@ int main(int argc, char ** argv)
         "[22]\tQ2 benchmark.\n"
         "[23]\tCompression with duplicates.\n"
         "[24]\tIntersection benchmark.\n"
+        "[25]\tQ1 OMC benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -267,6 +268,10 @@ int main(int argc, char ** argv)
                     benchmark::ib_generate_data();
                     benchmark::ib_uncompressed();
                     benchmark::ib_bitvector();
+                    break;
+                case 25:
+                    benchmark::generate_tuples();
+                    benchmark::q1_omc_final_bench();
                     break;
             }
             break;

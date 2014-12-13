@@ -30,8 +30,169 @@ namespace benchmark
     unsigned char* dt2_freqs;
     int** exact_docs;
     
+    // input
+    int** exact_docs_ooo;
+    
+    struct thread_args_omc_p1
+    {
+        short* arr_t;
+        int len_arr_t;
+        int** arr_d;
+        int* len_arr_d;
+    };
+    
+    void* q1_omc_final_pthread(void* args)
+    {
+        thread_args_omc_p1* t_args = (thread_args_omc_p1*) args;
+        
+        if (t_args->len_arr_t > 0)
+        {
+            t_args->len_arr_d = new int[t_args->len_arr_t];
+            t_args->arr_d = new int*[t_args->len_arr_t];
+        }
+        
+        for (int t = 0; t < t_args->len_arr_t; ++t)
+        {
+            // find RLE-encoded tuple (DT_1)
+            int start = 0;
+            int end = input::T_PM;
+            int middle = (start+end) / 2;
+            while (dt1_terms[middle].id != t_args->arr_t[t])
+            {
+                if (dt1_terms[middle].id < t_args->arr_t[t])
+                {
+                    start = middle;
+                }
+                else
+                {
+                    end = middle;
+                }
+            }
+            
+            // build arr_d
+            rle_tuple<short, int> tuple = dt1_terms[middle];
+            t_args->arr_d[t] = new int[tuple.length];
+            
+            for (int i = 0; i < tuple.length; ++i)
+            {
+                t_args->arr_d[t][i] = dt1_docs[i + tuple.row_id];
+            }
+        }
+        
+        return NULL;
+    }
+    
+    void q1_omc_final_bench()
+    {
+        int* input_docs = exact_docs_ooo[5];
+        
+        show_info("Running Q1 with 10 repetitions and " << NUM_THREADS << " threads...");
+        
+        output::start_timer("run/q1_omc_bench");
+        
+        for (int r = 0; r < 10; ++r)
+        {
+            output::start_timer("run/current_rep");
+            
+            int doc = input_docs[r];
+        
+            // binary search to find RLE-encoded tuple (DT_2)
+            int start = 0;
+            int end = input::D_PM;
+            int middle = (start+end) / 2;
+            while (dt2_docs[middle].id != doc)
+            {
+                if (dt2_docs[middle].id < doc)
+                {
+                    // continue on right side
+                    start = middle;
+                }
+                else
+                {
+                    end = middle;
+                }
+            }
+            
+            // build arr_t
+            rle_tuple<int, short> tuple = dt2_docs[middle];
+            short* arr_t = new short[tuple.length];
+            
+            for (int i = 0; i < tuple.length; ++i)
+            {
+                arr_t[i] = dt2_terms[i + tuple.row_id];
+            }
+            
+            debug("Found " << tuple.length << " tuples for document " << doc);
+            
+            // run in parallel
+            pthread_t** threads = new pthread_t*[NUM_THREADS];
+            thread_args_omc_p1** args = new thread_args_omc_p1*[NUM_THREADS];
+            
+            for (int t = 0; t < NUM_THREADS; ++t)
+            {
+                threads[t] = new pthread_t();
+                args[t] = new thread_args_omc_p1();
+                
+                int num_terms = tuple.length / NUM_THREADS;
+                args[t]->arr_t = new short[num_terms];
+                args[t]->len_arr_t = num_terms;
+                for (int i = 0; i < num_terms; ++i)
+                {
+                    args[t]->arr_t[i] = arr_t[i + t * num_terms];
+                }
+                
+                int result = pthread_create(threads[t], NULL, q1_omc_final_pthread, (void*) args[t]);
+                
+                if (result)
+                {
+                    error("Creating thread failed with error code " << result << ".");
+                }
+            }
+            
+            debug("All threads finished.");
+            unordered_map<int, int> result;
+            
+            for (int t = 0; t < NUM_THREADS; ++t)
+            {
+                pthread_join(*threads[t], NULL);
+                int ctr = 0;
+                
+                for (int t = 0; t < args[t]->len_arr_t; ++t)
+                {
+                    for (int i = 0; i < args[t]->len_arr_d[t]; ++i)
+                    {
+                        result[args[t]->arr_d[t][i]]++;
+                        ctr++;
+                    }
+                    
+                    delete[] args[t]->arr_d[t];
+                }
+                
+                debug("Thread aggregated " << ctr << " documents.");
+                
+                delete[] threads[t];
+                
+                if (args[t]->len_arr_t > 0)
+                {
+                    delete[] args[t]->len_arr_d;
+                    delete[] args[t]->arr_d;
+                }
+                
+                delete[] args[t]->arr_t;
+            }
+            
+            output::stop_timer("run/current_rep");
+            
+        }
+        
+        output::stop_timer("run/q1_omc_bench");
+        output::show_stats();
+    }
+    
     void generate_tuples()
     {
+        exact_docs_ooo = input::docs_bench_items(); // check at index 5
+        
         show_info("Generating random data for DT1...");
         
         // DT1
