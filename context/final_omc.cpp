@@ -59,6 +59,7 @@ namespace benchmark
             int middle = (start+end) / 2;
             while (dt1_terms[middle].id != t_args->arr_t[t])
             {
+                middle = (start + end)/2;
                 if (dt1_terms[middle].id < t_args->arr_t[t])
                 {
                     start = middle;
@@ -102,6 +103,7 @@ namespace benchmark
             int middle = (start+end) / 2;
             while (dt2_docs[middle].id != doc)
             {
+                middle = (start + end)/2;
                 if (dt2_docs[middle].id < doc)
                 {
                     // continue on right side
