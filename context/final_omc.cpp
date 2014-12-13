@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include "aggregation.h"
 #include "map_aggregation.h"
+#include <random>
 
 namespace benchmark
 {
@@ -207,17 +208,28 @@ namespace benchmark
         dt1_docs = new int[input::NUM_TUPLES];
         debug("ALLOC docs check.");
         
+        show_info("Generating docs...");
+        // generate random dt1_docs
         int row_counter = 0;
+        for (int d = 0; d < input::D_PM; ++d)
+        {
+            for (int i = 0; i < pubmed::get_group_by_doc(d); ++i)
+            {
+                dt1_docs[row_counter++] = d;
+            }
+        }
+        
+        show_info("Shuffle...");
+        shuffle(dt1_docs, dt1_docs + input::NUM_TUPLES, default_random_engine(42));
+        
+        row_counter = 0;
         for (int t = 0; t < input::T_PM; ++t)
         {
             dt1_terms[t].id = t;
             dt1_terms[t].length = pubmed::get_group_by_term(t);
             dt1_terms[t].row_id = row_counter;
             
-            for (int d = 0; d < pubmed::get_group_by_term(t); ++d)
-            {
-                dt1_docs[row_counter++] = rand() % input::D_PM;
-            }
+            row_counter += pubmed::get_group_by_term(t);
         }
         
         exact_terms = input::terms_bench_items();
@@ -232,6 +244,19 @@ namespace benchmark
         dt2_terms = new short[input::NUM_TUPLES];
         debug("ALLOC terms check.");
         
+        show_info("Generating terms...");
+        row_counter = 0;
+        for (int t = 0; t < input::T_PM; ++t)
+        {
+            for (int i = 0; i < pubmed::get_group_by_term(t); ++i)
+            {
+                dt2_terms[row_counter++] = t;
+            }
+        }
+        
+        show_info("Shuffle...");
+        shuffle(dt2_terms, dt2_terms + input::NUM_TUPLES, default_random_engine(42));
+        
         row_counter = 0;
         for (int d = 0; d < input::D_PM; ++d)
         {
@@ -241,7 +266,6 @@ namespace benchmark
             
             for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
             {
-                dt2_terms[row_counter] = rand() % input::T_PM;
                 dt2_freqs[row_counter++] = rand() % 256;
             }
         }
