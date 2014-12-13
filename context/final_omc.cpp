@@ -160,28 +160,29 @@ namespace benchmark
                 pthread_join(*threads[t], NULL);
                 int ctr = 0;
                 
-                for (int t = 0; t < args[t]->len_arr_t; ++t)
+                for (int term = 0; term < args[t]->len_arr_t; ++term)
                 {
-                    for (int i = 0; i < args[t]->len_arr_d[t]; ++i)
+                    //debug("Aggregating " << args[t]->len_arr_d[term] << " documents...");
+                    for (int i = 0; i < args[t]->len_arr_d[term]; ++i)
                     {
-                        result[args[t]->arr_d[t][i]]++;
+                        result[args[t]->arr_d[term][i]]++;
                         ctr++;
                     }
                     
-                    //delete[] args[t]->arr_d[t];
+                    delete[] args[t]->arr_d[term];
                 }
                 
                 debug("Thread aggregated " << ctr << " documents.");
                 
-                //delete threads[t];
+                delete threads[t];
                 
                 if (args[t]->len_arr_t > 0)
                 {
-                    //delete[] args[t]->len_arr_d;
-                    //delete[] args[t]->arr_d;
+                    delete[] args[t]->len_arr_d;
+                    delete[] args[t]->arr_d;
                 }
                 
-                //delete[] args[t]->arr_t;
+                delete[] args[t]->arr_t;
             }
             
             output::stop_timer("run/current_rep");
