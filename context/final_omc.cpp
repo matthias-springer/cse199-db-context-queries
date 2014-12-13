@@ -168,20 +168,20 @@ namespace benchmark
                         ctr++;
                     }
                     
-                    delete[] args[t]->arr_d[t];
+                    //delete[] args[t]->arr_d[t];
                 }
                 
                 debug("Thread aggregated " << ctr << " documents.");
                 
-                delete[] threads[t];
+                //delete threads[t];
                 
                 if (args[t]->len_arr_t > 0)
                 {
-                    delete[] args[t]->len_arr_d;
-                    delete[] args[t]->arr_d;
+                    //delete[] args[t]->len_arr_d;
+                    //delete[] args[t]->arr_d;
                 }
                 
-                delete[] args[t]->arr_t;
+                //delete[] args[t]->arr_t;
             }
             
             output::stop_timer("run/current_rep");
