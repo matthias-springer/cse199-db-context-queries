@@ -6,8 +6,8 @@
 #include <random>
 #include <ibis.h>
 
-#define NUM_THREADS 4
-#define HUFFMAN
+#define NUM_THREADS 1
+//#define HUFFMAN
 //#define FASTBIT
 
 namespace benchmark
@@ -275,6 +275,8 @@ namespace benchmark
             
 #ifndef FASTBIT
             int sz = pubmed::get_group_by_term(term);
+            debug("Found " << sz << " documents for term " << term);
+            
             for (int d = 0; d < sz; ++d)
             {
                 (*args->doc_freq)[doc_fragment_uncompressed[d]]++;
