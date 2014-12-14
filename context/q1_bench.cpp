@@ -405,6 +405,10 @@ namespace benchmark
             else
             {
                 // no aggregate necessary
+                thread_args* arg = args[1];
+                delete arg->doc_freq;
+                delete arg->input_terms;
+                delete arg;
             }
             output::stop_timer("run/phase2-aggregate-threads");
 

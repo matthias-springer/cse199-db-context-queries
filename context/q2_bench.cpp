@@ -305,6 +305,13 @@ namespace benchmark
                     delete arg;
                 }
             }
+            else
+            {
+                thread_args* arg = args[1];
+                delete arg->doc_freq;
+                delete arg->input_terms;
+                delete arg;
+            }
             output::stop_timer("run/phase2-aggregate-threads");
             
             // TODO: output aggregated map
