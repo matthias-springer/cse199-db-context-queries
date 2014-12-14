@@ -254,7 +254,7 @@ namespace benchmark
             }
         }
         
-        for (int t = 0; t < input::D_PM; ++t)
+        for (int t = 0; t < input::T_PM; ++t)
         {
             for (int d = 0; d < pubmed::get_group_by_doc(t); ++d)
             {
@@ -273,7 +273,7 @@ namespace benchmark
             }
         }
         
-        for (int t = 0; t < input::D_PM; ++t)
+        for (int t = 0; t < input::T_PM; ++t)
         {
             for (int d = 0; d < pubmed::get_group_by_doc(t); ++d)
             {
