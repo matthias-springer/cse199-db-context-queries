@@ -242,6 +242,46 @@ namespace benchmark
         delete[] p2_docs_fragments;
 #endif
         
+        show_info("Swapping prevention...");
+#ifdef HUFFMAN
+        int tmp = 0;
+        
+        for (int d = 0; d < input::D_PM; ++d)
+        {
+            for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
+            {
+                tmp = (tmp + p1_terms_fragments_compressed[d][t]) % 256;
+            }
+        }
+        
+        for (int t = 0; t < input::D_PM; ++t)
+        {
+            for (int d = 0; d < pubmed::get_group_by_doc(t); ++d)
+            {
+                tmp = (tmp + p2_docs_fragments_compressed[t][d]) % 256;
+            }
+        }
+#else
+#ifndef FASTBIT
+        int tmp = 0;
+        
+        for (int d = 0; d < input::D_PM; ++d)
+        {
+            for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
+            {
+                tmp = (tmp + p1_terms_fragments[d][t]) % 256;
+            }
+        }
+        
+        for (int t = 0; t < input::D_PM; ++t)
+        {
+            for (int d = 0; d < pubmed::get_group_by_doc(t); ++d)
+            {
+                tmp = (tmp + p2_docs_fragments[t][d]) % 256;
+            }
+        }
+#endif
+#endif
         show_info("DONE.");
     }
     
@@ -405,7 +445,7 @@ namespace benchmark
             else
             {
                 // no aggregate necessary
-                thread_args* arg = args[1];
+                thread_args* arg = args[0];
                 delete arg->doc_freq;
                 delete arg->input_terms;
                 delete arg;
