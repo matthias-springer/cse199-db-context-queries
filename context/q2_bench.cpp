@@ -284,19 +284,25 @@ namespace benchmark
                 pthread_join(*threads[t], NULL);
             }
             
-            unordered_map<int, int> result;
-            for (int t = 0; t < NUM_THREADS; ++t)
+            output::start_timer("run/phase2-aggregate-threads");
+            
+            if (NUM_THREADS > 1)
             {
-                thread_args* arg = args[t];
-                for (auto it = arg->doc_freq->begin(); it != arg->doc_freq->end(); ++it)
+                unordered_map<int, int> result;
+                for (int t = 0; t < NUM_THREADS; ++t)
                 {
-                    result[it->first] += it->second;
+                    thread_args* arg = args[t];
+                    for (auto it = arg->doc_freq->begin(); it != arg->doc_freq->end(); ++it)
+                    {
+                        result[it->first] += it->second;
+                    }
+                    
+                    delete arg->doc_freq;
+                    delete arg->input_terms;
+                    delete arg;
                 }
-                
-                delete arg->doc_freq;
-                delete arg->input_terms;
-                delete arg;
             }
+            output::stop_timer("run/phase2-aggregate-threads");
             
             // TODO: output aggregated map
             output::stop_timer("run/current_rep");
