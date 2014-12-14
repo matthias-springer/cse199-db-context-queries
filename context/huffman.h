@@ -21,6 +21,19 @@ class Node
 
         Node(Node* _left, Node* _right, long _counter, bool _is_terminal, long _value, int _level) :
             left(_left), right(_right), value(_value), counter(_counter), is_terminal(_is_terminal), level(_level) {}
+    
+    ~Node()
+    {
+        if (left != NULL)
+        {
+            delete left;
+        }
+        
+        if (right != NULL)
+        {
+            delete right;
+        }
+    }
 };
 
 template <typename word_t>

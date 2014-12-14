@@ -71,6 +71,7 @@ namespace benchmark
         generate_array_tree_representation(p1_terms, input::NUM_TUPLES, p1_huffman_array, p1_terminator_array, p1_tree);
         encoding_dict<unsigned short> encoding_dict_terms;
         build_inverse_mapping(p1_tree, encoding_dict_terms);
+        delete p1_tree;
 #endif
         
         // single lists
@@ -156,6 +157,7 @@ namespace benchmark
         generate_array_tree_representation(p2_docs, input::NUM_TUPLES, p2_huffman_array, p2_terminator_array, p2_tree);
         encoding_dict<int> encoding_dict_docs;
         build_inverse_mapping(p2_tree, encoding_dict_docs);
+        delete p2_tree;
 #endif
         
         // single lists
