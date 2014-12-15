@@ -325,7 +325,7 @@ namespace benchmark
             }
             
             debug("All threads finished.");
-            unordered_map<int, int> result;
+            unordered_map<int, int>* result = new unordered_map<int, int>();
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
@@ -337,7 +337,7 @@ namespace benchmark
                     //debug("Aggregating " << args[t]->len_arr_d[term] << " documents...");
                     for (int i = 0; i < args[t]->len_arr_d[term]; ++i)
                     {
-                        result[args[t]->arr_d[term][i]] += args[t]->arr_f[term][i];
+                        (*result)[args[t]->arr_d[term][i]] += args[t]->arr_f[term][i];
                         ctr++;
                     }
                     

@@ -175,6 +175,7 @@ namespace benchmark
         }
         
         delete[] a_p2_docs;
+        delete[] a_p2_freqs;
         
 #ifdef HUFFMAN
         // compress
