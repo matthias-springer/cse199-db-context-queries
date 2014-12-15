@@ -45,6 +45,10 @@ namespace benchmark
     
     void generate_data_q2()
     {
+        long compressed_bytes_docs = 0;
+        long compressed_bytes_terms = 0;
+        long compressed_bytes_freqs - 0;
+        
         a_exact_docs_oo = input::docs_bench_items(); // check at index 5
         
         show_info("[P1] Generating random data...");
@@ -102,6 +106,7 @@ namespace benchmark
         {
             a_p1_terms_fragments_compressed_bytes[d] = encode(a_p1_terms_fragments[d], pubmed::get_group_by_doc(d), a_p1_terms_fragments_compressed[d], encoding_dict_terms);
             
+            compressed_bytes_terms += a_p1_terms_fragments_compressed_bytes[d];
             delete[] a_p1_terms_fragments[d];
         }
         delete[] a_p1_terms_fragments;
@@ -187,6 +192,9 @@ namespace benchmark
             
             a_p2_freqs_fragments_compressed_bytes[t] = encode(a_p2_freqs_fragments[t], pubmed::get_group_by_term(t), a_p2_freqs_fragments_compressed[t], encoding_dict_freqs);
             delete[] a_p2_freqs_fragments[t];
+            
+            compressed_bytes_freqs += a_p2_freqs_fragments_compressed_bytes[t];
+            compressed_bytes_docs += a_p2_docs_fragments_compressed_bytes[t];
         }
         delete[] a_p2_docs_fragments;
         delete[] a_p2_freqs_fragments;
@@ -237,6 +245,9 @@ namespace benchmark
 #endif
 #endif
         
+        show_info("Compressed bytes terms: " << compressed_bytes_terms);
+        show_info("Compressed bytes docs: " << compressed_bytes_docs);
+        show_info("Compressed bytes freqs: " << compressed_bytes_freqs);
         show_info("DONE.");
     }
     
