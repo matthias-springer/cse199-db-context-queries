@@ -7,7 +7,7 @@
 #include <ibis.h>
 
 #define NUM_THREADS 1
-//#define HUFFMAN
+#define HUFFMAN
 //#define FASTBIT
 
 namespace benchmark
@@ -17,6 +17,7 @@ namespace benchmark
     
 #ifdef HUFFMAN
     char** p1_terms_fragments_compressed;
+    int* p1_terms_fragments_compressed_bytes;
     unsigned short* p1_huffman_array;
     bool* p1_terminator_array;
     Node<unsigned short>* p1_tree;
@@ -33,6 +34,7 @@ namespace benchmark
     int* p2_huffman_array;
     bool* p2_terminator_array;
     char** p2_docs_fragments_compressed;
+    int* p2_docs_fragments_compressed_bytes;
     Node<int>* p2_tree;
 #endif
     
@@ -96,10 +98,11 @@ namespace benchmark
         // compress
         show_info("[P1] Compressing...");
         p1_terms_fragments_compressed = new char*[input::D_PM];
+        p1_terms_fragments_compressed_bytes = new int[input::D_PM];
         
         for (int d = 0; d < input::D_PM; ++d)
         {
-            encode(p1_terms_fragments[d], pubmed::get_group_by_doc(d), p1_terms_fragments_compressed[d], encoding_dict_terms);
+            p1_terms_fragments_compressed_bytes[d] = encode(p1_terms_fragments[d], pubmed::get_group_by_doc(d), p1_terms_fragments_compressed[d], encoding_dict_terms);
             
             delete[] p1_terms_fragments[d];
         }
@@ -182,10 +185,11 @@ namespace benchmark
         // compress
         show_info("[P2] Compressing...");
         p2_docs_fragments_compressed = new char*[input::T_PM];
+        p2_docs_fragments_compressed_bytes = new int[input::T_PM];
         
         for (int t = 0; t < input::T_PM; ++t)
         {
-            encode(p2_docs_fragments[t], pubmed::get_group_by_term(t), p2_docs_fragments_compressed[t], encoding_dict_docs);
+            p2_docs_fragments_compressed_bytes[t] = encode(p2_docs_fragments[t], pubmed::get_group_by_term(t), p2_docs_fragments_compressed[t], encoding_dict_docs);
             
             delete[] p2_docs_fragments[t];
         }
@@ -248,7 +252,7 @@ namespace benchmark
         
         for (int d = 0; d < input::D_PM; ++d)
         {
-            for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
+            for (int t = 0; t < p1_terms_fragments_compressed_bytes[d]; ++t)
             {
                 tmp = (tmp + p1_terms_fragments_compressed[d][t]) % 256;
             }
@@ -256,7 +260,7 @@ namespace benchmark
         
         for (int t = 0; t < input::T_PM; ++t)
         {
-            for (int d = 0; d < pubmed::get_group_by_doc(t); ++d)
+            for (int d = 0; d < p2_docs_fragments_compressed_bytes[t]; ++d)
             {
                 tmp = (tmp + p2_docs_fragments_compressed[t][d]) % 256;
             }
