@@ -3,111 +3,114 @@ INFO [input.cpp:29 print_stats] # docs                | 13930233
 INFO [input.cpp:30 print_stats] # terms               | 26842
 INFO [input.cpp:31 print_stats] # tuples              | 1495505362
 INFO [main.cpp:171 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
-INFO [q2_bench.cpp:47 generate_data_q2] [P1] Generating random data...
-INFO [q2_bench.cpp:62 generate_data_q2] [P1] Shuffle...
-INFO [q2_bench.cpp:75 generate_data_q2] [P1] Generating single lists...
-INFO [q2_bench.cpp:106 generate_data_q2] [P2] Generating random data...
-INFO [q2_bench.cpp:131 generate_data_q2] [P2] Shuffle...
-INFO [q2_bench.cpp:150 generate_data_q2] [P2] Generating single lists...
-INFO [q2_bench.cpp:188 generate_data_q2] Swapping prevention...
-INFO [q2_bench.cpp:230 generate_data_q2] DONE.
-INFO [q2_bench.cpp:286 q2_final_bench] Running Q2 with 10 repetitions and 1 threads...
+INFO [q2_bench.cpp:54 generate_data_q2] [P1] Generating random data...
+INFO [q2_bench.cpp:69 generate_data_q2] [P1] Shuffle...
+INFO [q2_bench.cpp:82 generate_data_q2] [P1] Generating single lists...
+INFO [q2_bench.cpp:115 generate_data_q2] [P2] Generating random data...
+INFO [q2_bench.cpp:140 generate_data_q2] [P2] Shuffle...
+INFO [q2_bench.cpp:159 generate_data_q2] [P2] Generating single lists...
+INFO [q2_bench.cpp:204 generate_data_q2] Swapping prevention...
+INFO [q2_bench.cpp:249 generate_data_q2] Compressed bytes terms: 0
+INFO [q2_bench.cpp:250 generate_data_q2] Compressed bytes docs: 0
+INFO [q2_bench.cpp:251 generate_data_q2] Compressed bytes freqs: 0
+INFO [q2_bench.cpp:252 generate_data_q2] DONE.
+INFO [q2_bench.cpp:308 q2_final_bench] Running Q2 with 10 repetitions and 1 threads...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/current_rep)	103.108
- U(run/current_rep)	103108392001
-  (run/phase2-aggregate-threads)	0.639593
- U(run/phase2-aggregate-threads)	639592939
+  (run/current_rep)	107.605
+ U(run/current_rep)	107604525210
+  (run/phase2-aggregate-threads)	0.634521
+ U(run/phase2-aggregate-threads)	634521278
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	179.058
- U(run/current_rep)	179057829926
-  (run/phase2-aggregate-threads)	1.27688
- U(run/phase2-aggregate-threads)	1276884306
+  (run/current_rep)	180.307
+ U(run/current_rep)	180306841416
+  (run/phase2-aggregate-threads)	1.28184
+ U(run/phase2-aggregate-threads)	1281839188
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	252.525
- U(run/current_rep)	252525442788
-  (run/phase2-aggregate-threads)	1.9094
- U(run/phase2-aggregate-threads)	1909404043
+  (run/current_rep)	250.592
+ U(run/current_rep)	250591600130
+  (run/phase2-aggregate-threads)	1.92772
+ U(run/phase2-aggregate-threads)	1927716483
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	359.427
- U(run/current_rep)	359426651360
-  (run/phase2-aggregate-threads)	2.53965
- U(run/phase2-aggregate-threads)	2539653736
+  (run/current_rep)	352.74
+ U(run/current_rep)	352739931417
+  (run/phase2-aggregate-threads)	2.57092
+ U(run/phase2-aggregate-threads)	2570924531
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	445.183
- U(run/current_rep)	445183243719
-  (run/phase2-aggregate-threads)	3.1737
- U(run/phase2-aggregate-threads)	3173704930
+  (run/current_rep)	434.697
+ U(run/current_rep)	434697407229
+  (run/phase2-aggregate-threads)	3.21938
+ U(run/phase2-aggregate-threads)	3219380039
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	490.895
- U(run/current_rep)	490894909623
-  (run/phase2-aggregate-threads)	3.79442
- U(run/phase2-aggregate-threads)	3794424742
+  (run/current_rep)	478.424
+ U(run/current_rep)	478424185020
+  (run/phase2-aggregate-threads)	3.85534
+ U(run/phase2-aggregate-threads)	3855343118
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	537.758
- U(run/current_rep)	537758325073
-  (run/phase2-aggregate-threads)	4.42076
- U(run/phase2-aggregate-threads)	4420758010
+  (run/current_rep)	523.198
+ U(run/current_rep)	523198102865
+  (run/phase2-aggregate-threads)	4.49528
+ U(run/phase2-aggregate-threads)	4495279794
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	579.936
- U(run/current_rep)	579936332358
-  (run/phase2-aggregate-threads)	5.04959
- U(run/phase2-aggregate-threads)	5049592230
+  (run/current_rep)	563.504
+ U(run/current_rep)	563503534869
+  (run/phase2-aggregate-threads)	5.13666
+ U(run/phase2-aggregate-threads)	5136661192
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	622.172
- U(run/current_rep)	622171909623
-  (run/phase2-aggregate-threads)	5.6791
- U(run/phase2-aggregate-threads)	5679096732
+  (run/current_rep)	603.899
+ U(run/current_rep)	603899004600
+  (run/phase2-aggregate-threads)	5.78525
+ U(run/phase2-aggregate-threads)	5785250331
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	704.096
- U(run/current_rep)	704096282899
-  (run/phase2-aggregate-threads)	6.3128
- U(run/phase2-aggregate-threads)	6312800070
+  (run/current_rep)	682.238
+ U(run/current_rep)	682238335103
+  (run/phase2-aggregate-threads)	6.43302
+ U(run/phase2-aggregate-threads)	6433016766
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	704.096
- U(run/current_rep)	704096282899
-  (run/phase2-aggregate-threads)	6.3128
- U(run/phase2-aggregate-threads)	6312800070
-  (run/q2_bench)	704.159
- U(run/q2_bench)	704159155559
+  (run/current_rep)	682.238
+ U(run/current_rep)	682238335103
+  (run/phase2-aggregate-threads)	6.43302
+ U(run/phase2-aggregate-threads)	6433016766
+  (run/q2_bench)	682.288
+ U(run/q2_bench)	682288332675
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	704.096
- U(run/current_rep)	704096282899
-  (run/phase2-aggregate-threads)	6.3128
- U(run/phase2-aggregate-threads)	6312800070
-  (run/q2_bench)	704.159
- U(run/q2_bench)	704159155559
+  (run/current_rep)	682.238
+ U(run/current_rep)	682238335103
+  (run/phase2-aggregate-threads)	6.43302
+ U(run/phase2-aggregate-threads)	6433016766
+  (run/q2_bench)	682.288
+ U(run/q2_bench)	682288332675
 
