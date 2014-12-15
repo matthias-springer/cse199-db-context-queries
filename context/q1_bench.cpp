@@ -358,6 +358,7 @@ namespace benchmark
 #endif
         }
         
+        debug("Size of intermediate result is " << args->doc_freq->size());
         debug("Thread aggregated " << cntr << " documents.");
         return NULL;
     }
