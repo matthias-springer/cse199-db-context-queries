@@ -47,7 +47,7 @@ namespace benchmark
     {
         long compressed_bytes_docs = 0;
         long compressed_bytes_terms = 0;
-        long compressed_bytes_freqs - 0;
+        long compressed_bytes_freqs = 0;
         
         a_exact_docs_oo = input::docs_bench_items(); // check at index 5
         
