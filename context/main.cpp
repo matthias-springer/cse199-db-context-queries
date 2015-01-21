@@ -47,7 +47,9 @@ int main(int argc, char ** argv)
     storage_path = "/Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database";
     input::STATS_FILE_T = "pubmed/stats_terms.csv";
     input::STATS_FILE_D = "pubmed/stats_docs.csv";
-        
+    input::STATS_FILE_DA_A = "pubmed/DA_authors.csv";
+    input::STATS_FILE_DA_D = "pubmed/DA_docs.csv";
+    
     char *help = "usage: %s [-hrpsdzo] [-f file] [-i id] [-n name] [-q id] [-t type] [-w path] \n\n"
         "-h\tShow list of parameters.\n"
         "-r\tRead data for name from stdin.\n"
@@ -164,6 +166,8 @@ int main(int argc, char ** argv)
     
     pubmed::load_docs_per_term();
     pubmed::load_terms_per_doc();
+    pubmed::load_authors_per_doc();
+    pubmed::load_docs_per_author();
 
     show_info("Using these statistics:");
     input::print_stats();

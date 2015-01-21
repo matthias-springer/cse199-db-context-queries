@@ -10,6 +10,8 @@ namespace pubmed
     
     void load_terms_per_doc();
     void load_docs_per_term();
+    void load_docs_per_author();
+    void load_authors_per_doc();
     int get_random_group_by_term_count();
     int get_group_by_term(int term);
     short get_group_by_doc(long doc);

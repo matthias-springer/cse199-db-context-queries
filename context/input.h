@@ -25,10 +25,14 @@ namespace input
 
     extern char* STATS_FILE_T;
     extern char* STATS_FILE_D;
+    extern char* STATS_FILE_DA_A;
+    extern char* STATS_FILE_DA_D;
     extern long T_PM;
     extern long D_PM;
+    extern long A_PM;
     extern long NUM_TUPLES;
-
+    extern long NUM_TUPLES_DA;
+    
     void print_stats();               
     void store(string name);
     void store(string name, DOMAIN_TYPE id);

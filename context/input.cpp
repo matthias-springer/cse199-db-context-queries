@@ -19,16 +19,24 @@ namespace input
     
     char* STATS_FILE_T;
     char* STATS_FILE_D;
+    
+    char* STATS_FILE_DA_A;
+    char* STATS_FILE_DA_D;
+    
     // number of documents and terms, read from first line of CSV file
     long D_PM;
     long T_PM;
+    long A_PM;
     long NUM_TUPLES = 0;
+    long NUM_TUPLES_DA = 0;
 
     void print_stats()
     {
         show_info("# docs                | " << D_PM);
         show_info("# terms               | " << T_PM);
-        show_info("# tuples              | " << NUM_TUPLES);
+        show_info("# authors             | " << A_PM);
+        show_info("# tuples DT           | " << NUM_TUPLES);
+        show_info("# tuples DA           | " << NUM_TUPLES_DA);
     }
 
     void store(string name)
