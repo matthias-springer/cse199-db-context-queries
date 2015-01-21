@@ -1,95 +1,143 @@
-DBG  [pubmed.cpp:12 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
-DBG  [pubmed.cpp:23 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
-DBG  [pubmed.cpp:34 load_docs_per_term] [HISTOGRAM] Done loading file.
-DBG  [pubmed.cpp:35 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
-DBG  [pubmed.cpp:40 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
-DBG  [pubmed.cpp:51 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
-DBG  [pubmed.cpp:60 load_terms_per_doc] [HISTOGRAM] Done loading file.
-INFO [main.cpp:160 main] Using these statistics:
+INFO [main.cpp:168 main] Using these statistics:
 INFO [input.cpp:29 print_stats] # docs                | 13930233
 INFO [input.cpp:30 print_stats] # terms               | 26842
 INFO [input.cpp:31 print_stats] # tuples              | 1495505362
-INFO [main.cpp:163 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
-INFO [q1_bench.cpp:35 generate_data_q1] [P1] Generating random data...
-INFO [q1_bench.cpp:50 generate_data_q1] [P1] Shuffle...
-INFO [q1_bench.cpp:54 generate_data_q1] [P1] Generating Huffman tree...
-INFO [q1_bench.cpp:60 generate_data_q1] [P1] Generating single lists...
-INFO [q1_bench.cpp:78 generate_data_q1] [P1] Compressing...
-INFO [q1_bench.cpp:90 generate_data_q1] [P2] Generating random data...
-INFO [q1_bench.cpp:105 generate_data_q1] [P2] Shuffle...
-INFO [q1_bench.cpp:109 generate_data_q1] [P2] Generating Huffman tree...
-INFO [q1_bench.cpp:115 generate_data_q1] [P2] Generating single lists...
-INFO [q1_bench.cpp:133 generate_data_q1] [P2] Compressing...
-INFO [q1_bench.cpp:144 generate_data_q1] DONE.
-INFO [q1_bench.cpp:185 q1_final_bench] Running Q1 with 10 repetitions and 4 threads...
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 0
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 170 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 95753756 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 96708532 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 104603066 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 111595598 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 1
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 128 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 58649714 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 63501361 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 74665819 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 75852386 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 2
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 121 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 44188655 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 65973024 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 75154020 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 76781078 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 3
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 132 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 89447487 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 90782968 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 102589433 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 110512950 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 4
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 106 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 59346201 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 72492352 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 78152402 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 91189742 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 5
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 86 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 27778510 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 37791372 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 37575234 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 44768984 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 6
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 115 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 19343827 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 36084457 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 36728645 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 65168722 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 7
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 52 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 13613802 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 34182677 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 41410730 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 52873484 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 8
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 67 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 25064455 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 37994026 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 35655300 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 42390595 documents.
-DBG  [q1_bench.cpp:191 q1_final_bench] REP 9
-DBG  [q1_bench.cpp:195 q1_final_bench] Processing 132 terms...
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 38939727 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 73000027 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 85144198 documents.
-DBG  [q1_bench.cpp:177 pthread_q1] Thread aggregated 97452545 documents.
+INFO [main.cpp:171 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [q1_bench.cpp:55 generate_data_q1] [P1] Generating random data...
+INFO [q1_bench.cpp:70 generate_data_q1] [P1] Shuffle...
+INFO [q1_bench.cpp:75 generate_data_q1] [P1] Generating Huffman tree...
+INFO [q1_bench.cpp:83 generate_data_q1] [P1] Generating single lists...
+INFO [q1_bench.cpp:102 generate_data_q1] [P1] Compressing...
+INFO [q1_bench.cpp:143 generate_data_q1] [P2] Generating random data...
+INFO [q1_bench.cpp:158 generate_data_q1] [P2] Shuffle...
+INFO [q1_bench.cpp:163 generate_data_q1] [P2] Generating Huffman tree...
+INFO [q1_bench.cpp:171 generate_data_q1] [P2] Generating single lists...
+INFO [q1_bench.cpp:190 generate_data_q1] [P2] Compressing...
+INFO [q1_bench.cpp:254 generate_data_q1] Swapping prevention...
+INFO [q1_bench.cpp:294 generate_data_q1] Compressed bytes terms: 2044725799
+INFO [q1_bench.cpp:295 generate_data_q1] Compressed bytes docs: 4406349771
+INFO [q1_bench.cpp:296 generate_data_q1] DONE.
+INFO [q1_bench.cpp:369 q1_final_bench] Running Q1 with 10 repetitions and 4 threads...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/q1_bench)	1022.71
- U(run/q1_bench)	1022714297077
+  (run/current_rep)	116.252
+ U(run/current_rep)	116251653283
+  (run/phase2-aggregate-threads)	17.311
+ U(run/phase2-aggregate-threads)	17310988605
+  (run/phase2-threads)	98.898
+ U(run/phase2-threads)	98897987061
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	204.607
+ U(run/current_rep)	204606877527
+  (run/phase2-aggregate-threads)	34.4553
+ U(run/phase2-aggregate-threads)	34455288797
+  (run/phase2-threads)	169.428
+ U(run/phase2-threads)	169427919267
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	288.54
+ U(run/current_rep)	288539618404
+  (run/phase2-aggregate-threads)	51.2924
+ U(run/phase2-aggregate-threads)	51292417363
+  (run/phase2-threads)	235.884
+ U(run/phase2-threads)	235883710251
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	402.987
+ U(run/current_rep)	402986974137
+  (run/phase2-aggregate-threads)	68.7142
+ U(run/phase2-aggregate-threads)	68714180286
+  (run/phase2-threads)	332.325
+ U(run/phase2-threads)	332325316089
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	501.117
+ U(run/current_rep)	501117395833
+  (run/phase2-aggregate-threads)	85.7518
+ U(run/phase2-aggregate-threads)	85751830459
+  (run/phase2-threads)	412.847
+ U(run/phase2-threads)	412847421587
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	552.867
+ U(run/current_rep)	552867403952
+  (run/phase2-aggregate-threads)	98.8764
+ U(run/phase2-aggregate-threads)	98876388962
+  (run/phase2-threads)	450.881
+ U(run/phase2-threads)	450881279030
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	623.328
+ U(run/current_rep)	623328018838
+  (run/phase2-aggregate-threads)	113.484
+ U(run/phase2-aggregate-threads)	113484432213
+  (run/phase2-threads)	506.111
+ U(run/phase2-threads)	506111069930
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	684.621
+ U(run/current_rep)	684620699483
+  (run/phase2-aggregate-threads)	128.281
+ U(run/phase2-aggregate-threads)	128281365965
+  (run/phase2-threads)	552.008
+ U(run/phase2-threads)	552007781986
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	740.542
+ U(run/current_rep)	740542043538
+  (run/phase2-aggregate-threads)	143.645
+ U(run/phase2-aggregate-threads)	143645468408
+  (run/phase2-threads)	592
+ U(run/phase2-threads)	591999912755
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	843.058
+ U(run/current_rep)	843058446452
+  (run/phase2-aggregate-threads)	160.471
+ U(run/phase2-aggregate-threads)	160471287774
+  (run/phase2-threads)	677.111
+ U(run/phase2-threads)	677110743918
+
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/current_rep)	843.058
+ U(run/current_rep)	843058446452
+  (run/phase2-aggregate-threads)	160.471
+ U(run/phase2-aggregate-threads)	160471287774
+  (run/phase2-threads)	677.111
+ U(run/phase2-threads)	677110743918
+  (run/q1_bench)	843.078
+ U(run/q1_bench)	843077649321
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/q1_bench)	1022.71
- U(run/q1_bench)	1022714297077
+  (run/current_rep)	843.058
+ U(run/current_rep)	843058446452
+  (run/phase2-aggregate-threads)	160.471
+ U(run/phase2-aggregate-threads)	160471287774
+  (run/phase2-threads)	677.111
+ U(run/phase2-threads)	677110743918
+  (run/q1_bench)	843.078
+ U(run/q1_bench)	843077649321
 
