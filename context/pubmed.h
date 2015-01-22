@@ -15,6 +15,8 @@ namespace pubmed
     int get_random_group_by_term_count();
     int get_group_by_term(int term);
     short get_group_by_doc(long doc);
+    short get_DA_group_by_doc(int doc);
+    short get_DA_group_by_author(int author);
 }
 
 #endif

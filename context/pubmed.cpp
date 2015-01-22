@@ -60,6 +60,7 @@ namespace pubmed
         for (int i = 0; i < counter; ++i)
         {
             infile >> authors_per_doc[i];
+            authors_per_doc[i] *= 1.75; // make up for input skew
             num_tup += authors_per_doc[i];
         }
         
@@ -134,4 +135,15 @@ namespace pubmed
     {
         return terms_per_doc[doc];
     }
+    
+    short get_DA_group_by_doc(int doc)
+    {
+        return authors_per_doc[doc];
+    }
+    
+    short get_DA_group_by_author(int author)
+    {
+        return docs_per_author[author];
+    }
+    
 }

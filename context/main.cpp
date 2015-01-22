@@ -26,6 +26,7 @@
 #include "huffman_self_test.h"
 #include "compression.h"
 #include "intersection.h"
+#include "q3_phase2.h"
 
 int main(int argc, char ** argv)
 {
@@ -93,6 +94,7 @@ int main(int argc, char ** argv)
         "[24]\tIntersection benchmark.\n"
         "[25]\tQ1 OMC benchmark.\n"
         "[26]\tQ2 OMC benchmark.\n"
+        "[27]\tQ3 Phase 2 benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -281,6 +283,10 @@ int main(int argc, char ** argv)
                 case 26:
                     benchmark::generate_tuples();
                     benchmark::q2_omc_final_bench();
+                    break;
+                case 27:
+                    benchmark_q3::huffman_query_generate_lists();
+                    benchmark_q3::huffman_query_run_benchmark();
                     break;
             }
             break;
