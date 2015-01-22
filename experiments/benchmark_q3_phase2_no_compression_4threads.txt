@@ -1,0 +1,49 @@
+INFO [main.cpp:174 main] Using these statistics:
+INFO [input.cpp:35 print_stats] # docs                | 13930233
+INFO [input.cpp:36 print_stats] # terms               | 26842
+INFO [input.cpp:37 print_stats] # authors             | 6301521
+INFO [input.cpp:38 print_stats] # tuples DT           | 1495505362
+INFO [input.cpp:39 print_stats] # tuples DA           | 23711331
+INFO [main.cpp:177 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [q3_phase2.cpp:52 huffman_query_generate_lists] [1] Generating tuples...
+INFO [q3_phase2.cpp:53 huffman_query_generate_lists] Allocating 23711331 ints/chars (array).
+INFO [q3_phase2.cpp:55 huffman_query_generate_lists] Alloc success
+INFO [q3_phase2.cpp:71 huffman_query_generate_lists] [2] Shuffling...
+INFO [q3_phase2.cpp:75 huffman_query_generate_lists] [3] Generating separate lists...
+INFO [q3_phase2.cpp:167 huffman_query_generate_lists] No compression.
+INFO [q3_phase2.cpp:174 huffman_query_generate_lists] Done.
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 10 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	0.00760784
+ U(run/bench_q3_fastr)	7607837
+  (run/bench_q3_fastr_generate)	2.75534
+ U(run/bench_q3_fastr_generate)	2755344463
+
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 100 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	0.0111974
+ U(run/bench_q3_fastr)	11197443
+
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 1000 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	0.0372448
+ U(run/bench_q3_fastr)	37244800
+
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 10000 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	0.224203
+ U(run/bench_q3_fastr)	224203274
+
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 100000 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	2.29217
+ U(run/bench_q3_fastr)	2292166523
+
+INFO [q3_phase2.cpp:264 huffman_query_run_benchmark] Running benchmark for 1000000 documents (300 iterations).
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q3_fastr)	25.3401
+ U(run/bench_q3_fastr)	25340077569
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+
