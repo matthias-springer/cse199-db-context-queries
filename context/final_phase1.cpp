@@ -51,6 +51,17 @@ namespace benchmark
         docs_per_term = new int*[input::T_PM];
         len_docs_per_term = new int[input::T_PM];
         exact_terms_b = input::terms_bench_items();
+        
+        int num_terms[6] = {5, 10, 100, 1000, 10000, 25000};
+        
+        for (int i = 0; i < 6; ++i)
+        {
+            for (int t = 0; t < NUM_THREADS; ++t)
+            {
+                // hardcode first term to start intersection with: has 59015 docs (avg is 55715)
+                exact_terms_b[i][num_terms[i] * t / NUM_THREADS] = 3492;
+            }
+        }
 #endif
 #if defined(HUFFMAN)
         docs_per_term_compressed = new char*[input::T_PM];
@@ -236,7 +247,9 @@ namespace benchmark
                 }
             }
             
+#ifndef UNCOMPRESSED
             delete[] next_decoded;
+#endif
         }
         
         args->docs_result = result;
@@ -257,9 +270,9 @@ namespace benchmark
         {
             int cnt_terms = num_terms[i];
             
-            show_info("Running for " << cnt_terms << " terms using 300 repititions.");
+            show_info("Running for " << cnt_terms << " terms using 30 repititions.");
             output::start_timer("run/phase1_final");
-            for (int r = 0; r < 300; ++r)
+            for (int r = 0; r < 30; ++r)
             {
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
