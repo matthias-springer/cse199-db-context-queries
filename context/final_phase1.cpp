@@ -60,6 +60,12 @@ namespace benchmark
             {
                 // hardcode first term to start intersection with: has 59015 docs (avg is 55715)
                 exact_terms_b[i][num_terms[i] * t / NUM_THREADS] = 3492;
+                
+                if (i > 0)
+                {
+                    // hardcode first intersection: 46390 docs
+                    exact_terms_b[i][num_terms[i] * t / NUM_THREADS + 1] = 7207;
+                }
             }
         }
 #endif
@@ -270,9 +276,9 @@ namespace benchmark
         {
             int cnt_terms = num_terms[i];
             
-            show_info("Running for " << cnt_terms << " terms using 30 repititions.");
+            show_info("Running for " << cnt_terms << " terms using 5 repititions.");
             output::start_timer("run/phase1_final");
-            for (int r = 0; r < 30; ++r)
+            for (int r = 0; r < 5; ++r)
             {
                 for (int t = 0; t < NUM_THREADS; ++t)
                 {
