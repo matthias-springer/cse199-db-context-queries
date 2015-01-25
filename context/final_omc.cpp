@@ -10,7 +10,7 @@
 
 namespace benchmark
 {
-#define NUM_THREADS 1
+#define NUM_THREADS 4
     
     template<typename id_t, typename len_t>
     struct rle_tuple
@@ -439,7 +439,7 @@ namespace benchmark
             dt2_docs[d].length = pubmed::get_DA_group_by_doc(d);
             dt2_docs[d].row_id = row_counter;
             
-            for (int t = 0; t < pubmed::get_group_by_doc(d); ++t)
+            for (int t = 0; t < pubmed::get_DA_group_by_doc(d); ++t)
             {
                 row_counter++;
                 //dt2_freqs[row_counter++] = rand() % 256;
@@ -621,11 +621,12 @@ namespace benchmark
     
     void* pthread_phase2(void* args)
     {
+//debug("ASDASD");
         int p = ((thread_args<int>*)args)->p;
         int start = ((thread_args<int>*)args)->start;
         int end = ((thread_args<int>*)args)->end;
         map_aggregation* aggr = ((thread_args<int>*)args)->result.aggr;
-        
+  //      debug("ASDASD2");
         int num_docs = end - start;
         
         vector<int>* temp_terms = new vector<int>[num_docs]();
@@ -664,11 +665,12 @@ namespace benchmark
             
             for (int d = dt2_docs[l].row_id; d < dt2_docs[l].row_id + dt2_docs[l].length; ++d)
             {
+			//debug(d);
                 temp_terms[t].push_back(dt2_terms[d]);
                 //temp_freqs[t].push_back(dt2_freqs[d]);
             }
         }
-        
+       //debug("ASDASD3"); 
         // aggregate
         for (int d = 0; d < num_docs; ++d)
         {
@@ -706,7 +708,7 @@ namespace benchmark
                 
                 for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
-                    //debug("Spawing thread " << thread << ".");
+                    debug("Spawing thread " << thread << ".");
                     
                     args[thread] = new thread_args<int>;
                     threads[thread] = new pthread_t;
@@ -730,7 +732,7 @@ namespace benchmark
                 for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
                     pthread_join(*threads[thread], NULL);
-                    
+                   debug("Joined thread."); 
                     for (auto it = args[thread]->result.aggr->data.begin(); it != args[thread]->result.aggr->data.end(); ++it)
                     {
                         global_aggr.add(it->first, it->second);
