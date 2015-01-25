@@ -15,7 +15,7 @@ namespace benchmark {
     
     unsigned short* huffman_array;
     bool* terminator_array;
-    Node<unsigned short>* huffman_tree;
+    Node<unsigned short>* huffman_tree_aaaaa;
     char* cb_terms_huffman;
     
     struct rle_pair
@@ -52,9 +52,9 @@ namespace benchmark {
         show_info("Generated " << num_tuples << " terms (" << rle_len << " distinct terms).");
         
         show_info("[2] Compressing with Huffman...");
-        generate_array_tree_representation(cb_terms_uncompressed, num_tuples, huffman_array, terminator_array, huffman_tree);
+        generate_array_tree_representation(cb_terms_uncompressed, num_tuples, huffman_array, terminator_array, huffman_tree_aaaaa);
         encoding_dict<unsigned short> encoding_dict;
-        build_inverse_mapping(huffman_tree, encoding_dict);
+        build_inverse_mapping(huffman_tree_aaaaa, encoding_dict);
         long size_compressed = encode(cb_terms_uncompressed, num_tuples, cb_terms_huffman, encoding_dict);
         show_info("Compressed " << num_tuples * sizeof(unsigned short) << " bytes -> " << size_compressed << " bytes.");
         
