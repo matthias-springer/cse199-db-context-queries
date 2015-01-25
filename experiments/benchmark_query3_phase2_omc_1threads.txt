@@ -1,0 +1,59 @@
+INFO [main.cpp:174 main] Using these statistics:
+INFO [input.cpp:35 print_stats] # docs                | 13930233
+INFO [input.cpp:36 print_stats] # terms               | 26842
+INFO [input.cpp:37 print_stats] # authors             | 6301521
+INFO [input.cpp:38 print_stats] # tuples DT           | 1495505362
+INFO [input.cpp:39 print_stats] # tuples DA           | 23711331
+INFO [main.cpp:177 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [final_omc.cpp:376 generate_tuples] Generating random data for DT1...
+INFO [final_omc.cpp:415 generate_tuples] Query modified for Q3_2.
+INFO [final_omc.cpp:422 generate_tuples] Generating terms...
+INFO [final_omc.cpp:432 generate_tuples] Shuffle...
+INFO [final_omc.cpp:451 generate_tuples] DONE.
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 10 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	0.000794886
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	794886
+
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 100 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	0.00568683
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	5686826
+
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 1000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	0.076265
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	76265047
+
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 10000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	0.576855
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	576854779
+
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 100000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	5.48628
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	5486277592
+
+INFO [final_omc.cpp:697 bench_omc_phase2] Running for 1000000 documents using 20 repititions.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	62.1369
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	62136866381
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)	0
+ U(io-bytes/bitvector-written-uncompressed)	0
+  (run/phase2_omc_final MODIFIED FOR Q3_2)	62.1369
+ U(run/phase2_omc_final MODIFIED FOR Q3_2)	62136866381
+
