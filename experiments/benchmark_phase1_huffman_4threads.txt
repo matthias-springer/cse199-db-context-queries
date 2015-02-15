@@ -7,52 +7,54 @@ INFO [input.cpp:39 print_stats] # tuples DA           | 23711331
 INFO [main.cpp:177 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
 INFO [final_phase1.cpp:47 generate_bit_vectors] [1] Generating tuples...
 INFO [final_phase1.cpp:98 generate_bit_vectors] [2] Shuffling...
+INFO [final_phase1.cpp:102 generate_bit_vectors] [2.5] Generating Huffman tree...
 INFO [final_phase1.cpp:109 generate_bit_vectors] [3] Generating bit vectors or compressing...
 INFO [final_phase1.cpp:179 generate_bit_vectors] size of compressed bit vectors (bytes): 0.
+INFO [final_phase1.cpp:182 generate_bit_vectors] size of huffman compressed lists (bytes): 4406349771.
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 5 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/phase1_final)	93.8029
- U(run/phase1_final)	93802900068
+  (run/phase1_final)	94.8559
+ U(run/phase1_final)	94855919242
 
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 10 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	187.582
- U(run/phase1_final)	187582489292
+  (run/phase1_final)	189.192
+ U(run/phase1_final)	189191578280
 
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 100 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	221.22
- U(run/phase1_final)	221219586127
+  (run/phase1_final)	224.303
+ U(run/phase1_final)	224302551524
 
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 1000 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	255.727
- U(run/phase1_final)	255727164452
+  (run/phase1_final)	311.869
+ U(run/phase1_final)	311868724270
 
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 10000 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	292.313
- U(run/phase1_final)	292313407686
+  (run/phase1_final)	867.543
+ U(run/phase1_final)	867543369184
 
 INFO [final_phase1.cpp:279 run_phase1_bench_final] Running for 25000 terms using 5 repititions.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	327.355
- U(run/phase1_final)	327355038925
+  (run/phase1_final)	2107.54
+ U(run/phase1_final)	2107537716277
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/phase1_final)	327.355
- U(run/phase1_final)	327355038925
+  (run/phase1_final)	2107.54
+ U(run/phase1_final)	2107537716277
 
