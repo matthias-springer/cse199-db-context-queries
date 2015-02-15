@@ -15,9 +15,9 @@
 
 #define NUM_THREADS 4
 //#define FASTBIT 1
-//#define HUFFMAN 1
+#define HUFFMAN 1
 //#define EWAH
-#define UNCOMPRESSED 1
+//#define UNCOMPRESSED 1
 
 namespace benchmark
 {
