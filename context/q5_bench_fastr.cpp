@@ -10,10 +10,19 @@ using namespace std;
 namespace benchmark_q5
 {
     // author --> docs --> terms --> docs --> authors
-    int** docs_per_author;
-    int** terms_per_doc;
-    int** docs_per_term;
-    int** authors_per_doc;
+    //int** docs_per_author;
+    //int** terms_per_doc;
+    //int** docs_per_term;
+    //int** authors_per_doc;
+    
+    int* t_terms;
+    int* terms_per_doc_start;
+    int* t_docs;
+    int* docs_per_term_start;
+    int* t_da_authors;
+    int* authors_per_doc_start;
+    int* t_da_docs;
+    int* docs_per_author_start;
     
     int* len_docs_per_author;
     int* len_terms_per_doc;
@@ -26,7 +35,7 @@ namespace benchmark_q5
         int index = 0;
         
         show_info("[1] Generating terms per doc fragments...");
-        int* t_terms = new int[input::NUM_TUPLES];
+        t_terms = new int[input::NUM_TUPLES];
         
         for (int term = 0; term < input::T_PM; ++term)
         {
@@ -40,20 +49,17 @@ namespace benchmark_q5
         
         // split
         index = 0;
-        terms_per_doc = new int*[input::D_PM];
+        terms_per_doc_start = new int[input::D_PM];
         len_terms_per_doc = new int[input::D_PM];
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
-            terms_per_doc[doc] = new int[pubmed::get_group_by_doc(doc)];
-            memcpy(terms_per_doc[doc], t_terms + index, sizeof(int) * pubmed::get_group_by_doc(doc));
+            terms_per_doc_start[doc] = index;
             len_terms_per_doc[doc] = pubmed::get_group_by_doc(doc);
             index += pubmed::get_group_by_doc(doc);
         }
-        delete[] t_terms;
-        
         
         show_info("[2] Generating docs per term fragments...");
-        int* t_docs = new int[input::NUM_TUPLES];
+        t_docs = new int[input::NUM_TUPLES];
         index = 0;
         
         for (int doc = 0; doc < input::D_PM; ++doc)
@@ -68,19 +74,17 @@ namespace benchmark_q5
         
         // split
         index = 0;
-        docs_per_term = new int*[input::T_PM];
+        docs_per_term_start = new int[input::T_PM];
         len_docs_per_term = new int[input::T_PM];
         for (int term = 0; term < input::T_PM; ++term)
         {
-            docs_per_term[term] = new int[pubmed::get_group_by_term(term)];
-            memcpy(docs_per_term[term], t_docs + index, sizeof(int) * pubmed::get_group_by_term(term));
+            docs_per_term_start[term] = index;
             len_docs_per_term[term] = pubmed::get_group_by_term(term);
             index += pubmed::get_group_by_term(term);
         }
-        delete[] t_docs;
         
         show_info("[3] Generate authors per doc fragments...");
-        int* t_da_authors = new int[input::NUM_TUPLES_DA];
+        t_da_authors = new int[input::NUM_TUPLES_DA];
         index = 0;
         
         for (int author = 0; author < input::A_PM; ++author)
@@ -95,19 +99,17 @@ namespace benchmark_q5
         
         // split
         index = 0;
-        authors_per_doc = new int*[input::D_PM];
+        authors_per_doc_start = new int[input::D_PM];
         len_authors_per_doc = new int[input::D_PM];
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
-            authors_per_doc[doc] = new int[pubmed::get_DA_group_by_doc(doc)];
-            memcpy(authors_per_doc[doc], t_da_authors + index, sizeof(int) * pubmed::get_DA_group_by_doc(doc));
+            authors_per_doc_start[doc] = index;
             len_authors_per_doc[doc] = pubmed::get_DA_group_by_doc(doc);
             index += pubmed::get_DA_group_by_doc(doc);
         }
-        delete[] t_da_authors;
         
         show_info("[4] Generate docs per author fragments...");
-        int* t_da_docs = new int[input::NUM_TUPLES_DA];
+        t_da_docs = new int[input::NUM_TUPLES_DA];
         index = 0;
         
         for (int doc = 0; doc < input::D_PM; ++doc)
@@ -122,52 +124,14 @@ namespace benchmark_q5
         
         // split
         index = 0;
-        docs_per_author = new int*[input::A_PM];
+        docs_per_author_start = new int[input::A_PM];
         len_docs_per_author = new int[input::A_PM];
         for (int author = 0; author < input::A_PM; ++author)
         {
-            docs_per_author[author] = new int[pubmed::get_DA_group_by_author(author)];
-            memcpy(docs_per_author[author], t_da_docs + index, sizeof(int) * pubmed::get_DA_group_by_author(author));
+            docs_per_author_start[author] = index;
             len_docs_per_author[author] = pubmed::get_DA_group_by_author(author);
             index += pubmed::get_DA_group_by_author(author);
         }
-        
-        // anti swapping
-        int a = 0;
-        // terms per doc
-        for (int doc = 0; doc < input::D_PM; ++doc)
-        {
-            for (int j = 0; j < pubmed::get_group_by_doc(doc); ++j)
-            {
-                a += terms_per_doc[doc][j];
-            }
-        }
-        // docs per term
-        for (int term = 0; term < input::T_PM; ++term)
-        {
-            for (int j = 0; j < pubmed::get_group_by_term(term); ++j)
-            {
-                a += docs_per_term[term][j];
-            }
-        }
-        // authors per doc
-        for (int doc = 0; doc < input::D_PM; ++doc)
-        {
-            for (int j = 0; j < pubmed::get_DA_group_by_doc(doc); ++j)
-            {
-                a += authors_per_doc[doc][j];
-            }
-        }
-        // docs per author
-        for (int author = 0; author < input::A_PM; ++author)
-        {
-            for (int j = 0; j < pubmed::get_DA_group_by_author(author); ++j)
-            {
-                a += docs_per_author[author][j];
-            }
-        }
-        
-        show_info("Checksum: " << a);
     }
     
     void run_query_q5_fastr(int author)
@@ -179,7 +143,7 @@ namespace benchmark_q5
         
         for (int i = 0; i < len_docs_per_author[author]; ++i)
         {
-            docs_1_counter[docs_per_author[author][i]]++;
+            docs_1_counter[t_da_docs[docs_per_author_start[author] + i]]++;
         }
         
         for (int doc = 0; doc < input::D_PM; ++doc)
@@ -189,7 +153,7 @@ namespace benchmark_q5
                 // get fragment and aggregate
                 for (int i = 0; i < len_terms_per_doc[doc]; ++i)
                 {
-                    terms_2_counter[terms_per_doc[doc][i]] += docs_1_counter[doc];
+                    terms_2_counter[t_terms[terms_per_doc_start[doc] + i]] += docs_1_counter[doc];
                 }
             }
         }
@@ -201,7 +165,7 @@ namespace benchmark_q5
                 // get fragment and aggregate
                 for (int i = 0; i < len_docs_per_term[term]; ++i)
                 {
-                    docs_3_counter[docs_per_term[term][i]] += terms_2_counter[term];
+                    docs_3_counter[t_docs[docs_per_term_start[term] + i]] += terms_2_counter[term];
                 }
             }
         }
@@ -213,7 +177,7 @@ namespace benchmark_q5
                 // get fragment and aggregate
                 for (int i = 0; i < len_authors_per_doc[doc]; ++i)
                 {
-                    authors_4_counter[authors_per_doc[doc][i]] += docs_3_counter[doc];
+                    authors_4_counter[t_da_authors[authors_per_doc_start[doc] + i]] += docs_3_counter[doc];
                 }
             }
         }
