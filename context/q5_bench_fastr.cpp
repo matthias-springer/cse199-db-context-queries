@@ -22,6 +22,7 @@ namespace benchmark_q5
     
     void generate_tuples_q5_fastr()
     {
+        // scale
         int index = 0;
         
         show_info("[1] Generating terms per doc fragments...");
@@ -130,6 +131,43 @@ namespace benchmark_q5
             len_docs_per_author[author] = pubmed::get_DA_group_by_author(author);
             index += pubmed::get_DA_group_by_author(author);
         }
+        
+        // anti swapping
+        int a = 0;
+        // terms per doc
+        for (int doc = 0; doc < input::D_PM; ++doc)
+        {
+            for (int j = 0; j < pubmed::get_group_by_doc(doc); ++j)
+            {
+                a += terms_per_doc[doc][j];
+            }
+        }
+        // docs per term
+        for (int term = 0; term < input::T_PM; ++term)
+        {
+            for (int j = 0; j < pubmed::get_group_by_term(term); ++j)
+            {
+                a += docs_per_term[term][j];
+            }
+        }
+        // authors per doc
+        for (int doc = 0; doc < input::D_PM; ++doc)
+        {
+            for (int j = 0; j < pubmed::get_DA_group_by_doc(doc); ++j)
+            {
+                a += authors_per_doc[doc][j];
+            }
+        }
+        // docs per author
+        for (int author = 0; author < input::A_PM; ++author)
+        {
+            for (int j = 0; j < pubmed::get_DA_group_by_author(author); ++j)
+            {
+                a += docs_per_author[author][j];
+            }
+        }
+        
+        show_info("Checksum: " << a);
     }
     
     void run_query_q5_fastr(int author)
@@ -198,6 +236,7 @@ namespace benchmark_q5
         for (int i = 0; i < bench_size; ++i)
         {
             run_query_q5_fastr(authors[i]);
+            show_info("DONE (" << i << ")");
         }
         
         output::stop_timer("run/bench_q5_fastr");
