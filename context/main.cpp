@@ -29,6 +29,7 @@
 #include "q3_phase2.h"
 #include "q5_bench_fastr.h"
 #include "q5_bench_omc.h"
+#include "q5_bench_fastr_huffman.h"
 
 int main(int argc, char ** argv)
 {
@@ -99,6 +100,7 @@ int main(int argc, char ** argv)
         "[27]\tQ3 Phase 2 benchmark.\n"
         "[28]\tQ5 FastR benchmark.\n"
         "[29]\tQ5 OMC benchmark.\n"
+        "[30]\tQ5 FastR Huffman benchmark.\n"
         "List of storage types:\n"
         "[0]\tBit vector\n"
         "[1]\tVector (array)\n";
@@ -297,6 +299,9 @@ int main(int argc, char ** argv)
                     break;
                 case 29:
                     benchmark_q5_omc::run_bench_q5_omc();
+                    break;
+                case 30:
+                    benchmark_q5_huffman::run_bench_q5_fastr();
                     break;
             }
             break;
