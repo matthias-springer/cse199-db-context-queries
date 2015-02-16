@@ -141,19 +141,23 @@ namespace benchmark_q5
         int* docs_3_counter = new int[input::D_PM]();
         int* authors_4_counter = new int[input::A_PM]();
         
+        /*
         for (int i = 0; i < len_docs_per_author[author]; ++i)
         {
             docs_1_counter[t_da_docs[docs_per_author_start[author] + i]]++;
         }
+        */
         
-        for (int doc = 0; doc < input::D_PM; ++doc)
+        //for (int doc = 0; doc < input::D_PM; ++doc)
+        for (int i = 0; i < len_docs_per_author[author]; ++i)
         {
-            if (docs_1_counter[doc] > 0)
+            int doc = t_da_docs[docs_per_author_start[author] + i];
+            // if (docs_1_counter[doc] > 0)
             {
                 // get fragment and aggregate
                 for (int i = 0; i < len_terms_per_doc[doc]; ++i)
                 {
-                    terms_2_counter[t_terms[terms_per_doc_start[doc] + i]] += docs_1_counter[doc];
+                    terms_2_counter[t_terms[terms_per_doc_start[doc] + i]]++; //+= docs_1_counter[doc];
                 }
             }
         }
