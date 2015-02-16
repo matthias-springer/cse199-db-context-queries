@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <random>
 
+#define HUFFMAN
+
 using namespace std;
 
 namespace benchmark_q5
