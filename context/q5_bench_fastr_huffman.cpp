@@ -49,14 +49,14 @@ namespace benchmark_q5_huffman
     int* compressed_bytes_authors_per_doc;
     int* compressed_bytes_docs_per_author;
     
-    int terms_bytes_compressed = 0;
-    int docs_bytes_compressed = 0;
-    int da_authors_bytes_compressed = 0;
-    int da_docs_bytes_compressed = 0;
-    int terms_bytes_uncompressed = 0;
-    int docs_bytes_uncompressed = 0;
-    int da_authors_bytes_uncompressed = 0;
-    int da_docs_bytes_uncompressed = 0;
+    long terms_bytes_compressed = 0;
+    long docs_bytes_compressed = 0;
+    long da_authors_bytes_compressed = 0;
+    long da_docs_bytes_compressed = 0;
+    long terms_bytes_uncompressed = 0;
+    long docs_bytes_uncompressed = 0;
+    long da_authors_bytes_uncompressed = 0;
+    long da_docs_bytes_uncompressed = 0;
     
     void generate_tuples_q5_fastr()
     {
