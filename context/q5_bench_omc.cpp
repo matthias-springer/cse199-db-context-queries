@@ -4,6 +4,7 @@
 #include "input.h"
 #include "output.h"
 #include "pubmed.h"
+#include <vector>
 
 namespace benchmark_q5_omc
 {
@@ -174,31 +175,40 @@ namespace benchmark_q5_omc
         
         // get #docs per term(s)
         int* docs_per_term_counter = new int[input::T_PM]();
+        vector<int>* terms_per_doc_row_ids = new vector<int>();
+        vector<int>* terms_per_doc_aggr = new vector<int>();
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
             if (authors_per_doc_counter[doc] > 0)
             {
                 rle_tuple* doc_rle_tuple = binary_search(t_terms_per_doc_docs, 0, input::D_PM, doc);
-                int* terms_per_doc_row_ids = new int[doc_rle_tuple->length];
                 for (int j = 0; j < doc_rle_tuple->length; ++j)
                 {
-                    terms_per_doc_row_ids[j] = j + doc_rle_tuple->row_id;
+                    terms_per_doc_row_ids->push_back(j + doc_rle_tuple->row_id);
+                    terms_per_doc_aggr->push_back(doc);
                 }
-                int* terms_per_doc = new int[doc_rle_tuple->length];
-                for (int j = 0; j < doc_rle_tuple->length; ++j)
-                {
-                    terms_per_doc[j] = t_terms_per_doc[terms_per_doc_row_ids[j]];
-                }
-                delete[] terms_per_doc_row_ids;
-                for (int j = 0; j < doc_rle_tuple->length; ++j)
-                {
-                    docs_per_term_counter[terms_per_doc[j]] += authors_per_doc_counter[doc];
-                }
-                delete[] terms_per_doc;
             }
         }
         
+        int size = terms_per_doc_row_ids->size();
+        int* terms_per_doc = new int[size];
+        for (int j = 0; j < size; ++j)
+        {
+            terms_per_doc[j] = t_terms_per_doc[terms_per_doc_row_ids->at(j)];
+        }
+        delete terms_per_doc_row_ids;
+        for (int j = 0; j < size; ++j)
+        {
+            docs_per_term_counter[terms_per_doc[j]] += authors_per_doc_counter[terms_per_doc_aggr->at(j)];
+        }
+        delete terms_per_doc_aggr;
+        delete[] terms_per_doc;
+        delete[] authors_per_doc_counter;
+
+        
         // get #terms per doc(s)
+        vector<int>* docs_per_term_row_ids = new vector<int>();
+        vector<int>* docs_per_term_aggr = new vector<int>();
         int* terms_per_doc_counter = new int[input::D_PM]();
         for (int term = 0; term < input::T_PM; ++term)
         {
@@ -206,51 +216,58 @@ namespace benchmark_q5_omc
             {
                 // go terms->docs
                 rle_tuple* term_rle_tuple = binary_search(t_docs_per_term_terms, 0, input::T_PM, term);
-                int* docs_per_term_row_ids = new int[term_rle_tuple->length];
                 for (int j = 0; j < term_rle_tuple->length; ++j)
                 {
-                    docs_per_term_row_ids[j] = j + term_rle_tuple->row_id;
+                    docs_per_term_row_ids->push_back(j + term_rle_tuple->row_id);
+                    docs_per_term_aggr->push_back(term);
                 }
-                int* docs_per_term = new int[term_rle_tuple->length];
-                for (int j = 0; j < term_rle_tuple->length; ++j)
-                {
-                    docs_per_term[j] = t_docs_per_term[docs_per_term_row_ids[j]];
-                }
-                delete[] docs_per_term_row_ids;
-                for (int j = 0; j < term_rle_tuple->length; ++j)
-                {
-                    terms_per_doc_counter[docs_per_term[j]] += docs_per_term_counter[term];
-                }
-                delete[] docs_per_term;
             }
         }
+        size = docs_per_term_row_ids->size();
+        int* docs_per_term = new int[size];
+        for (int j = 0; j < size; ++j)
+        {
+            docs_per_term[j] = t_docs_per_term[docs_per_term_row_ids->at(j)];
+        }
+        delete docs_per_term_row_ids;
+        for (int j = 0; j < size; ++j)
+        {
+            terms_per_doc_counter[docs_per_term[j]] += docs_per_term_counter[docs_per_term_aggr->at(j)];
+        }
+        delete[] docs_per_term;
+        delete docs_per_term_aggr;
         delete[] docs_per_term_counter;
         
         // get #docs per author
+        vector<int>* authors_per_doc_row_ids = new vector<int>();
+        vector<int>* authors_per_doc_aggr = new vector<int>();
         int* docs_per_author_counter = new int[input::A_PM]();
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
             if (terms_per_doc_counter[doc] > 0)
             {
                 rle_tuple* doc_rle_tuple = binary_search(t_authors_per_doc_docs, 0, input::D_PM, doc);
-                int* authors_per_doc_row_ids = new int[doc_rle_tuple->length];
                 for (int j = 0; j < doc_rle_tuple->length; ++j)
                 {
-                    authors_per_doc_row_ids[j] = j + doc_rle_tuple->row_id;
+                    authors_per_doc_row_ids->push_back(j + doc_rle_tuple->row_id);
+                    authors_per_doc_aggr->push_back(doc);
                 }
-                int* authors_per_doc = new int[doc_rle_tuple->length];
-                for (int j = 0; j < doc_rle_tuple->length; ++j)
-                {
-                    authors_per_doc[j] = t_authors_per_doc[authors_per_doc_row_ids[j]];
-                }
-                delete[] authors_per_doc_row_ids;
-                for (int j = 0; j < doc_rle_tuple->length; ++j)
-                {
-                    docs_per_author_counter[authors_per_doc[j]] += terms_per_doc_counter[doc];
-                }
-                delete[] authors_per_doc;
             }
         }
+        
+        size = authors_per_doc_row_ids->size();
+        int* authors_per_doc = new int[size];
+        for (int j = 0; j < size; ++j)
+        {
+            authors_per_doc[j] = t_authors_per_doc[authors_per_doc_row_ids->at(j)];
+        }
+        delete authors_per_doc_row_ids;
+        for (int j = 0; j < size; ++j)
+        {
+            docs_per_author_counter[authors_per_doc[j]] += terms_per_doc_counter[authors_per_doc_aggr->at(j)];
+        }
+        delete[] authors_per_doc;
+        delete authors_per_doc_aggr;
         delete[] terms_per_doc_counter;
     }
     

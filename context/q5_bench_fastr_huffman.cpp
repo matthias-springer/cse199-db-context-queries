@@ -355,6 +355,7 @@ namespace benchmark_q5_huffman
             }
         }
         
+        int checksum = 0;
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
             if (docs_3_counter[doc] > 0)
@@ -374,9 +375,12 @@ namespace benchmark_q5_huffman
                 for (int i = 0; i < len_authors_per_doc[doc]; ++i)
                 {
                     authors_4_counter[t_da_authors[authors_per_doc_start[doc] + i]] += docs_3_counter[doc];
+                    checksum += docs_3_counter[doc];
                 }
             }
         }
+        
+        show_info("checksum: " << checksum);
     }
     
     void run_bench_q5_fastr()
