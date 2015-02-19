@@ -4,9 +4,9 @@
 #include "output.h"
 #include <algorithm>
 #include <random>
+#include <pthread.h>
 
-#define HUFFMAN
-
+#define NUM_THREADS 4
 using namespace std;
 
 namespace benchmark_q5
@@ -30,6 +30,48 @@ namespace benchmark_q5
     int* len_terms_per_doc;
     int* len_docs_per_term;
     int* len_authors_per_doc;
+    
+    struct thread_data
+    {
+        int num_items;
+        int* items;
+        int* target_array;
+        int* previous_counter_array;
+    };
+    
+    void* pthread_step3(void* vargs)
+    {
+        struct thread_data* args = (struct thread_data*) vargs;
+        
+        for (int tid = 0; tid < args->num_items; ++tid)
+        {
+            int term = args->items[tid];
+            
+            for (int i = 0; i < len_docs_per_term[term]; ++i)
+            {
+                args->target_array[t_docs[docs_per_term_start[term] + i]] += args->previous_counter_array[term];
+            }
+        }
+        
+        return NULL;
+    }
+    
+    void* pthread_step4(void* vargs)
+    {
+        struct thread_data* args = (struct thread_data*) vargs;
+        
+        for (int tid = 0; tid < args->num_items; ++tid)
+        {
+            int doc = args->items[tid];
+            
+            for (int i = 0; i < len_authors_per_doc[doc]; ++i)
+            {
+                args->target_array[t_da_authors[authors_per_doc_start[doc] + i]] += args->previous_counter_array[doc];
+            }
+        }
+        
+        return NULL;
+    }
     
     void generate_tuples_q5_fastr()
     {
@@ -164,28 +206,97 @@ namespace benchmark_q5
             }
         }
         
+        int next_thread = 0;
+        struct thread_data* targs = new struct thread_data[NUM_THREADS];
+        pthread_t* threads = new pthread_t[NUM_THREADS]();
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            targs[i].items = new int[input::T_PM];
+            targs[i].num_items = 0;
+            targs[i].previous_counter_array = terms_2_counter;
+            targs[i].target_array = docs_3_counter;
+        }
         for (int term = 0; term < input::T_PM; ++term)
         {
             if (terms_2_counter[term] > 0)
             {
+                /*
+                 int* fragment_d2;
+                 decode(docs_per_term_compressed[term], len_docs_per_term[term], fragment_d2, huffman_array_docs, terminator_array_docs);
+                 // get fragment and aggregate
+                 for (int i = 0; i < len_docs_per_term[term]; ++i)
+                 {
+                 docs_3_counter[fragment_d2[i]] += terms_2_counter[term];
+                 }
+                 delete[] fragment_d2;
+                 */
+                
                 // get fragment and aggregate
-                for (int i = 0; i < len_docs_per_term[term]; ++i)
-                {
-                    docs_3_counter[t_docs[docs_per_term_start[term] + i]] += terms_2_counter[term];
-                }
+                /*
+                 for (int i = 0; i < len_docs_per_term[term]; ++i)
+                 {
+                 docs_3_counter[t_docs[docs_per_term_start[term] + i]] += terms_2_counter[term];
+                 }*/
+                
+                targs[next_thread].items[targs[next_thread].num_items++] = term;
+                next_thread = (next_thread + 1) % NUM_THREADS;
             }
         }
         
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            pthread_create(threads + i, NULL, pthread_step3, (void*) (targs + i));
+        }
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            pthread_join(*(threads + i), NULL);
+            delete[] targs[i].items;
+        }
+        
+        int checksum = 0;
+        next_thread = 0;
+        threads = new pthread_t[NUM_THREADS]();
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            targs[i].items = new int[input::D_PM];
+            targs[i].num_items = 0;
+            targs[i].previous_counter_array = docs_3_counter;
+            targs[i].target_array = authors_4_counter;
+        }
         for (int doc = 0; doc < input::D_PM; ++doc)
         {
             if (docs_3_counter[doc] > 0)
             {
+                /*
+                 int* fragment_a1;
+                 decode(authors_per_doc_compressed[doc], len_authors_per_doc[doc], fragment_a1, huffman_array_da_authors, terminator_array_da_authors);
+                 // get fragment and aggregate
+                 for (int i = 0; i < len_authors_per_doc[doc]; ++i)
+                 {
+                 authors_4_counter[fragment_a1[i]] += docs_3_counter[doc];
+                 }
+                 delete[] fragment_a1;
+                 */
+                
                 // get fragment and aggregate
-                for (int i = 0; i < len_authors_per_doc[doc]; ++i)
-                {
-                    authors_4_counter[t_da_authors[authors_per_doc_start[doc] + i]] += docs_3_counter[doc];
-                }
+                //for (int i = 0; i < len_authors_per_doc[doc]; ++i)
+                //{
+                //    authors_4_counter[t_da_authors[authors_per_doc_start[doc] + i]] += docs_3_counter[doc];
+                //    checksum += docs_3_counter[doc];
+                //}
+                targs[next_thread].items[targs[next_thread].num_items++] = doc;
+                next_thread = (next_thread + 1) % NUM_THREADS;
             }
+        }
+        
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            pthread_create(threads + i, NULL, pthread_step4, (void*) (targs + i));
+        }
+        for (int i = 0; i < NUM_THREADS; ++i)
+        {
+            pthread_join(*(threads + i), NULL);
+            delete[] targs[i].items;
         }
     }
     
@@ -196,6 +307,8 @@ namespace benchmark_q5
         {
             authors[i] = rand() % input::A_PM;
         }
+        
+        show_info("Running with " << NUM_THREADS << " threads...");
         
         generate_tuples_q5_fastr();
         
