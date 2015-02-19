@@ -41,8 +41,8 @@ namespace benchmark_q5_huffman
     bool* terminator_array_da_docs;
     
     char** terms_per_doc_compressed;
-    //char** docs_per_term_compressed;
-    //char** authors_per_doc_compressed;
+    char** docs_per_term_compressed;
+    char** authors_per_doc_compressed;
     char** docs_per_author_compressed;
     
     int* len_docs_per_author;
@@ -79,10 +79,22 @@ namespace benchmark_q5_huffman
         for (int tid = 0; tid < args->num_items; ++tid)
         {
             int term = args->items[tid];
+            
+            int* fragment_d2;
+            decode(docs_per_term_compressed[term], len_docs_per_term[term], fragment_d2, huffman_array_docs, terminator_array_docs);
+            // get fragment and aggregate
+            for (int i = 0; i < len_docs_per_term[term]; ++i)
+            {
+                args->target_array[fragment_d2[i]] += args->previous_counter_array[term];
+            }
+            delete[] fragment_d2;
+            
+            /*
             for (int i = 0; i < len_docs_per_term[term]; ++i)
             {
                 args->target_array[t_docs[docs_per_term_start[term] + i]] += args->previous_counter_array[term];
             }
+             */
         }
         
         return NULL;
@@ -95,10 +107,22 @@ namespace benchmark_q5_huffman
         for (int tid = 0; tid < args->num_items; ++tid)
         {
             int doc = args->items[tid];
+            
+            int* fragment_a1;
+            decode(authors_per_doc_compressed[doc], len_authors_per_doc[doc], fragment_a1, huffman_array_da_authors, terminator_array_da_authors);
+            // get fragment and aggregate
+            for (int i = 0; i < len_authors_per_doc[doc]; ++i)
+            {
+                args->target_array[fragment_a1[i]] += args->previous_counter_array[doc];
+            }
+            delete[] fragment_a1;
+            
+            /*
             for (int i = 0; i < len_authors_per_doc[doc]; ++i)
             {
                 args->target_array[t_da_authors[authors_per_doc_start[doc] + i]] += args->previous_counter_array[doc];
             }
+             */
         }
         
         return NULL;
@@ -142,7 +166,7 @@ namespace benchmark_q5_huffman
         delete[] t_terms;
         delete tree_terms;
         
-        /*
+        
         show_info("[2] Generating docs per term fragments...");
         t_docs = new int[input::NUM_TUPLES];
         index = 0;
@@ -210,8 +234,9 @@ namespace benchmark_q5_huffman
         }
         delete[] t_da_authors;
         delete tree_da_authors;
-        */
         
+        
+        /*
         show_info("[2] Generating docs per term fragments...");
         t_docs = new int[input::NUM_TUPLES];
         index = 0;
@@ -260,7 +285,7 @@ namespace benchmark_q5_huffman
             authors_per_doc_start[doc] = index;
             len_authors_per_doc[doc] = pubmed::get_DA_group_by_doc(doc);
             index += pubmed::get_DA_group_by_doc(doc);
-        }
+        }*/
         
         show_info("[4] Generate docs per author fragments...");
         t_da_docs = new int[input::NUM_TUPLES_DA];
