@@ -1,0 +1,68 @@
+DBG  [pubmed.cpp:73 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
+DBG  [pubmed.cpp:84 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
+DBG  [pubmed.cpp:95 load_docs_per_term] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:96 load_docs_per_term] [HISTOGRAM] Column DB has 1495505362 tuples.
+DBG  [pubmed.cpp:101 load_terms_per_doc] [HISTOGRAM] Loading terms per document from pubmed/stats_docs.csv.
+DBG  [pubmed.cpp:112 load_terms_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:121 load_terms_per_doc] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:43 load_authors_per_doc] [HISTOGRAM] Loading authors per doc from pubmed/DA_authors.csv.
+DBG  [pubmed.cpp:55 load_authors_per_doc] [HISTOGRAM] Reading 13930233 documents.
+DBG  [pubmed.cpp:67 load_authors_per_doc] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:68 load_authors_per_doc] [HISTOGRAM] Column DB has 23674474 tuples.
+DBG  [pubmed.cpp:15 load_docs_per_author] [HISTOGRAM] Loading documents per author from pubmed/DA_docs.csv.
+DBG  [pubmed.cpp:26 load_docs_per_author] [HISTOGRAM] Reading 6301521 authors.
+DBG  [pubmed.cpp:37 load_docs_per_author] [HISTOGRAM] Done loading file.
+DBG  [pubmed.cpp:38 load_docs_per_author] [HISTOGRAM] Column DB has 23711331 tuples.
+INFO [main.cpp:180 main] Using these statistics:
+INFO [input.cpp:35 print_stats] # docs                | 13930233
+INFO [input.cpp:36 print_stats] # terms               | 26842
+INFO [input.cpp:37 print_stats] # authors             | 6301521
+INFO [input.cpp:38 print_stats] # tuples DT           | 1495505362
+INFO [input.cpp:39 print_stats] # tuples DA           | 23711332
+INFO [main.cpp:183 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
+INFO [q5_bench_fastr_huffman.cpp:507 run_bench_q5_fastr] Running with 4 threads...
+INFO [q5_bench_fastr_huffman.cpp:136 generate_tuples_q5_fastr] [1] Generating terms per doc fragments...
+INFO [q5_bench_fastr_huffman.cpp:170 generate_tuples_q5_fastr] [2] Generating docs per term fragments...
+INFO [q5_bench_fastr_huffman.cpp:204 generate_tuples_q5_fastr] [3] Generate authors per doc fragments...
+INFO [q5_bench_fastr_huffman.cpp:290 generate_tuples_q5_fastr] [4] Generate docs per author fragments...
+INFO [q5_bench_fastr_huffman.cpp:324 generate_tuples_q5_fastr] terms_per_document_bytes_uncompressed: 5982021448
+INFO [q5_bench_fastr_huffman.cpp:325 generate_tuples_q5_fastr] terms_per_document_bytes_compressed: 2044725799
+INFO [q5_bench_fastr_huffman.cpp:326 generate_tuples_q5_fastr] docs_per_term_bytes_uncompressed: 5982021448
+INFO [q5_bench_fastr_huffman.cpp:327 generate_tuples_q5_fastr] docs_per_term_bytes_compressed: 4406349771
+INFO [q5_bench_fastr_huffman.cpp:328 generate_tuples_q5_fastr] authors_per_doc_bytes_uncompressed: 94697896
+INFO [q5_bench_fastr_huffman.cpp:329 generate_tuples_q5_fastr] authors_per_doc_bytes_compressed: 71283424
+INFO [q5_bench_fastr_huffman.cpp:330 generate_tuples_q5_fastr] docs_per_author_bytes_uncompressed: 94845324
+INFO [q5_bench_fastr_huffman.cpp:331 generate_tuples_q5_fastr] docs_per_author_bytes_compressed: 71271622
+INFO [q5_bench_fastr_huffman.cpp:333 generate_tuples_q5_fastr] [5] Anti Swap...
+INFO [q5_bench_fastr_huffman.cpp:365 generate_tuples_q5_fastr] Checksum: -309092724
+INFO [q5_bench_fastr_huffman.cpp:512 run_bench_q5_fastr] Running Q5 with 20 authors.
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (0)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (1)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (2)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (3)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (4)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (5)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (6)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (7)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (8)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (9)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (10)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (11)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (12)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (13)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (14)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (15)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (16)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (17)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (18)
+INFO [q5_bench_fastr_huffman.cpp:518 run_bench_q5_fastr] DONE (19)
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (run/bench_q5_fastr)  1964.69
+ U(run/bench_q5_fastr)  1964686295235
+
+INFO [offset.cpp:61 close_offset_files] Closed all offset files.
+INFO [output.cpp:124 show_stats] Runtime statistics:
+  (io-bytes/bitvector-written-uncompressed)     0
+ U(io-bytes/bitvector-written-uncompressed)     0
+  (run/bench_q5_fastr)  1964.69
+ U(run/bench_q5_fastr)  1964686295235
