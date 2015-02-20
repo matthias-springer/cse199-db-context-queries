@@ -1,3 +1,17 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 DBG  [pubmed.cpp:73 load_docs_per_term] [HISTOGRAM] Loading documents per term from pubmed/stats_terms.csv.
 DBG  [pubmed.cpp:84 load_docs_per_term] [HISTOGRAM] Reading 26842 terms.
 DBG  [pubmed.cpp:95 load_docs_per_term] [HISTOGRAM] Done loading file.
@@ -47,13 +61,14 @@ INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (17)
 INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (18)
 INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (19)
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_q5_omc)    148.821
- U(run/bench_q5_omc)    148820991390
+  (run/bench_q5_omc)    150.224
+ U(run/bench_q5_omc)    150223924060
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)     0
  U(io-bytes/bitvector-written-uncompressed)     0
-  (run/bench_q5_omc)    148.821
- U(run/bench_q5_omc)    148820991390
+  (run/bench_q5_omc)    150.224
+ U(run/bench_q5_omc)    150223924060
+
 
