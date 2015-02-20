@@ -20,40 +20,40 @@ INFO [input.cpp:37 print_stats] # authors             | 6301521
 INFO [input.cpp:38 print_stats] # tuples DT           | 1495505362
 INFO [input.cpp:39 print_stats] # tuples DA           | 23711332
 INFO [main.cpp:183 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
-INFO [q5_bench_omc.cpp:125 generate_tuples_q5_omc] [1] Generating terms per doc fragments...
-INFO [q5_bench_omc.cpp:149 generate_tuples_q5_omc] [2] Generating docs per term fragments...
-INFO [q5_bench_omc.cpp:174 generate_tuples_q5_omc] [3] Generate authors per doc fragments...
-INFO [q5_bench_omc.cpp:199 generate_tuples_q5_omc] [4] Generate docs per author fragments...
-INFO [q5_bench_omc.cpp:403 run_bench_q5_omc] Running with 4 threads...
-INFO [q5_bench_omc.cpp:406 run_bench_q5_omc] Running Q5 with 20 authors.
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (0)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (1)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (2)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (3)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (4)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (5)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (6)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (7)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (8)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (9)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (10)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (11)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (12)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (13)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (14)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (15)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (16)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (17)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (18)
-INFO [q5_bench_omc.cpp:412 run_bench_q5_omc] DONE (19)
+INFO [q5_bench_omc.cpp:150 generate_tuples_q5_omc] [1] Generating terms per doc fragments...
+INFO [q5_bench_omc.cpp:174 generate_tuples_q5_omc] [2] Generating docs per term fragments...
+INFO [q5_bench_omc.cpp:199 generate_tuples_q5_omc] [3] Generate authors per doc fragments...
+INFO [q5_bench_omc.cpp:224 generate_tuples_q5_omc] [4] Generate docs per author fragments...
+INFO [q5_bench_omc.cpp:433 run_bench_q5_omc] Running with 4 threads...
+INFO [q5_bench_omc.cpp:436 run_bench_q5_omc] Running Q5 with 20 authors.
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (0)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (1)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (2)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (3)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (4)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (5)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (6)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (7)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (8)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (9)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (10)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (11)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (12)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (13)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (14)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (15)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (16)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (17)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (18)
+INFO [q5_bench_omc.cpp:442 run_bench_q5_omc] DONE (19)
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/bench_q5_omc)    140.465
- U(run/bench_q5_omc)    140464570832
+  (run/bench_q5_omc)    148.821
+ U(run/bench_q5_omc)    148820991390
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)     0
  U(io-bytes/bitvector-written-uncompressed)     0
-  (run/bench_q5_omc)    140.465
- U(run/bench_q5_omc)    140464570832
+  (run/bench_q5_omc)    148.821
+ U(run/bench_q5_omc)    148820991390
 
