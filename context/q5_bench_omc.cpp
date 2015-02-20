@@ -75,11 +75,11 @@ namespace benchmark_q5_omc
                 
                 // go terms->docs
                 rle_tuple* term_rle_tuple = binary_search(t_docs_per_term_terms, 0, input::T_PM, term);
-                docs_per_term[term] = new int[term_rle_tuple->length];
-                docs_per_term_length[term] = term_rle_tuple->length;
+                docs_per_term[tid - step] = new int[term_rle_tuple->length];
+                docs_per_term_length[tid - step] = term_rle_tuple->length;
                 for (int j = 0; j < term_rle_tuple->length; ++j)
                 {
-                    docs_per_term[term][j] = t_docs_per_term[j + term_rle_tuple->row_id];
+                    docs_per_term[tid - step][j] = t_docs_per_term[j + term_rle_tuple->row_id];
                 }
             }
             
@@ -87,11 +87,11 @@ namespace benchmark_q5_omc
             {
                 int term = args->items[tid];
                 
-                for (int j = 0; j < docs_per_term_length[term]; ++j)
+                for (int j = 0; j < docs_per_term_length[tid - step]; ++j)
                 {
-                    args->target_array[docs_per_term[term][j]] += args->previous_counter_array[term];
+                    args->target_array[docs_per_term[tid - step][j]] += args->previous_counter_array[term];
                 }
-                delete[] docs_per_term[term];
+                delete[] docs_per_term[tid - step];
             }
             
             delete[] docs_per_term;
@@ -116,11 +116,11 @@ namespace benchmark_q5_omc
                 int doc = args->items[tid];
                 
                 rle_tuple* doc_rle_tuple = binary_search(t_authors_per_doc_docs, 0, input::D_PM, doc);
-                authors_per_doc[doc] = new int[doc_rle_tuple->length];
-                authors_per_doc_length[doc] = doc_rle_tuple->length;
+                authors_per_doc[tid - step] = new int[doc_rle_tuple->length];
+                authors_per_doc_length[tid - step] = doc_rle_tuple->length;
                 for (int j = 0; j < doc_rle_tuple->length; ++j)
                 {
-                    authors_per_doc[doc][j] = t_authors_per_doc[j + doc_rle_tuple->row_id];
+                    authors_per_doc[tid - step][j] = t_authors_per_doc[j + doc_rle_tuple->row_id];
                 }
             }
             
@@ -128,11 +128,11 @@ namespace benchmark_q5_omc
             {
                 int doc = args->items[tid];
                 
-                for (int j = 0; j < authors_per_doc_length[doc]; ++j)
+                for (int j = 0; j < authors_per_doc_length[tid - step]; ++j)
                 {
-                    args->target_array[authors_per_doc[doc][j]] += args->previous_counter_array[doc];
+                    args->target_array[authors_per_doc[tid - step][j]] += args->previous_counter_array[doc];
                 }
-                delete[] authors_per_doc[doc];
+                delete[] authors_per_doc[tid - step];
             }
             
             delete[] authors_per_doc;
