@@ -42,6 +42,8 @@ namespace benchmark
         int* len_arr_d;
     };
     
+    int* doc_year;
+    
     void* q1_omc_final_pthread(void* args)
     {
         thread_args_omc_p1* t_args = (thread_args_omc_p1*) args;
@@ -448,6 +450,11 @@ namespace benchmark
         
         exact_docs = input::docs_bench_items();
         
+        show_info("Generate doc year...");
+        for (int i = 0; i < input::D_PM; ++i)
+        {
+            doc_year[i] = rand() % 100 + 1915;
+        }
         show_info("DONE.");
     }
     
@@ -663,12 +670,15 @@ namespace benchmark
                 error("binary search failed in phase 2!");
             }
             
+            int* years = new int[dt2_docs[l].length];
             for (int d = dt2_docs[l].row_id; d < dt2_docs[l].row_id + dt2_docs[l].length; ++d)
             {
 			//debug(d);
                 temp_terms[t].push_back(dt2_terms[d]);
+                years[d - dt2_docs[l].row_id] = doc_year[doc_id];
                 //temp_freqs[t].push_back(dt2_freqs[d]);
             }
+            delete[] years;
         }
        //debug("ASDASD3"); 
         // aggregate
