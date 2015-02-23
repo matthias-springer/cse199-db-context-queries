@@ -57,6 +57,8 @@ namespace benchmark_q5_omc
         int* previous_counter_array;
     };
     
+    int* year_doc;
+    
 #define STEP_SIZE 1000
     
     void* pthread_step3(void* vargs)
@@ -128,11 +130,14 @@ namespace benchmark_q5_omc
             {
                 int doc = args->items[tid];
                 
+                int* year_column = new int[authors_per_doc_length[tid - step]];
                 for (int j = 0; j < authors_per_doc_length[tid - step]; ++j)
                 {
                     args->target_array[authors_per_doc[tid - step][j]] += args->previous_counter_array[doc];
+                    year_column[j] = year_doc[doc];
                 }
                 delete[] authors_per_doc[tid - step];
+                delete[] year_column;
             }
             
             delete[] authors_per_doc;
@@ -244,6 +249,13 @@ namespace benchmark_q5_omc
             t_docs_per_author_authors[author].length = pubmed::get_DA_group_by_author(author);
             t_docs_per_author_authors[author].id = author;
             index += pubmed::get_DA_group_by_author(author);
+        }
+        
+        show_info("[5] Generating years per doc...");
+        year_doc = new int[input::D_PM];
+        for (int i = 0; i < input::D_PM; ++i)
+        {
+            year_doc[i] = rand() % 100 + 1915;
         }
     }
     
