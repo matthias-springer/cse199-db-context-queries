@@ -222,6 +222,7 @@ namespace benchmark
         int** arr_d;
         int** arr_f;
         int* len_arr_d;
+        unordered_map<int, int>* result;
     };
     
     void* q2_omc_final_pthread(void* args)
@@ -268,6 +269,16 @@ namespace benchmark
                 t_args->arr_f[t][i] = dt2_freqs[i + tuple.row_id];  // should be dt1 but we don't care here for performance benchmarks
 
             }
+        }
+        
+        for (int t = 0; t < t_args->len_arr_t; ++t)
+        {
+            for (int i = 0; i < t_args->len_arr_d[t]; ++i)
+            {
+                (*t_args->result)[t_args->arr_d[t][i]] += t_args->arr_f[t][i];
+            }
+            delete[] t_args->arr_d[t];
+            delete[] t_args->arr_f[t];
         }
         
         return NULL;
@@ -317,6 +328,7 @@ namespace benchmark
             debug("Found " << tuple.length << " tuples for document " << doc);
             
             // run in parallel
+            unordered_map<int, int>* result = new unordered_map<int, int>();
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args_omc_p2** args = new thread_args_omc_p2*[NUM_THREADS];
             
@@ -328,6 +340,7 @@ namespace benchmark
                 int num_terms = tuple.length / NUM_THREADS;
                 args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
+                args[t]->result = result;
                 for (int i = 0; i < num_terms; ++i)
                 {
                     args[t]->arr_t[i] = arr_t[i + t * num_terms];
@@ -342,13 +355,13 @@ namespace benchmark
             }
             
             debug("All threads finished.");
-            unordered_map<int, int>* result = new unordered_map<int, int>();
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
                 pthread_join(*threads[t], NULL);
                 int ctr = 0;
                 
+                /*
                 for (int term = 0; term < args[t]->len_arr_t; ++term)
                 {
                     //debug("Aggregating " << args[t]->len_arr_d[term] << " documents...");
@@ -363,6 +376,7 @@ namespace benchmark
                 }
                 
                 debug("Thread aggregated " << ctr << " documents.");
+                */
                 
                 delete threads[t];
                 
