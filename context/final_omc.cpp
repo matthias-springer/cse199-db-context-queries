@@ -144,6 +144,7 @@ namespace benchmark
             debug("Found " << tuple.length << " tuples for document " << doc);
             
             // run in parallel
+            unordered_map<int, int> result;
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args_omc_p1** args = new thread_args_omc_p1*[NUM_THREADS];
             
@@ -155,6 +156,8 @@ namespace benchmark
                 int num_terms = tuple.length / NUM_THREADS;
                 args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
+                args[t]->result = &result;
+                
                 for (int i = 0; i < num_terms; ++i)
                 {
                     args[t]->arr_t[i] = arr_t[i + t * num_terms];
@@ -169,7 +172,6 @@ namespace benchmark
             }
             
             debug("All threads finished.");
-            unordered_map<int, int> result;
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
