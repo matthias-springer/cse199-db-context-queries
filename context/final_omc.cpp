@@ -79,13 +79,17 @@ namespace benchmark
             rle_tuple<short, int> tuple = dt1_terms[middle];
             debug("Found " << tuple.length << " documents for term " << t_args->arr_t[t]);
             
+            int* years = new int[tuple.length];
             t_args->arr_d[t] = new int[tuple.length];
             t_args->len_arr_d[t] = tuple.length;
             
             for (int i = 0; i < tuple.length; ++i)
             {
+                years[i] = doc_year[dt1_docs[i + tuple.row_id]];
                 t_args->arr_d[t][i] = dt1_docs[i + tuple.row_id];
             }
+            
+            delete[] years;
         }
         
         debug("Aggregating...");
@@ -336,7 +340,7 @@ namespace benchmark
             debug("Found " << tuple.length << " tuples for document " << doc);
             
             // run in parallel
-            unordered_map<int, int>* result = new unordered_map<int, int>();
+            unordered_map<int, int> result;
             pthread_t** threads = new pthread_t*[NUM_THREADS];
             thread_args_omc_p2** args = new thread_args_omc_p2*[NUM_THREADS];
             
@@ -348,7 +352,7 @@ namespace benchmark
                 int num_terms = tuple.length / NUM_THREADS;
                 args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
-                args[t]->result = result;
+                args[t]->result = new unordered_map<int, int>();
                 for (int i = 0; i < num_terms; ++i)
                 {
                     args[t]->arr_t[i] = arr_t[i + t * num_terms];
@@ -386,6 +390,11 @@ namespace benchmark
                 debug("Thread aggregated " << ctr << " documents.");
                 */
                 
+                for (auto it = args[t]->result->begin(); it != args[t]->result->end(); ++it)
+                {
+                    result[it->first] += it->second;
+                }
+                
                 delete threads[t];
                 
                 if (args[t]->len_arr_t > 0)
@@ -393,6 +402,7 @@ namespace benchmark
                     delete[] args[t]->len_arr_d;
                     delete[] args[t]->arr_d;
                     delete[] args[t]->arr_f;
+                    delete args[t]->result;
                 }
                 
                 delete[] args[t]->arr_t;
