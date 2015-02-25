@@ -89,7 +89,6 @@ namespace benchmark
         
         for (int t = 0; t < t_args->len_arr_t; ++t)
         {
-            int term = t_args->arr_t[t];
             for (int i = 0; i < t_args->len_arr_d[t]; ++i)
             {
                 (*t_args->result)[t_args->arr_d[t][i]]++;
@@ -97,6 +96,7 @@ namespace benchmark
             delete[] t_args->arr_d[t];
         }
 
+        debug("Thread finished...");
         return NULL;
     }
     
