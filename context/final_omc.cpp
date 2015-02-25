@@ -87,6 +87,7 @@ namespace benchmark
             }
         }
         
+        debug("Aggregating...");
         for (int t = 0; t < t_args->len_arr_t; ++t)
         {
             for (int i = 0; i < t_args->len_arr_d[t]; ++i)
@@ -171,7 +172,7 @@ namespace benchmark
                 }
             }
             
-            debug("All threads finished.");
+            //debug("All threads finished.");
             
             for (int t = 0; t < NUM_THREADS; ++t)
             {
