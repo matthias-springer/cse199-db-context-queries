@@ -48,6 +48,7 @@ namespace benchmark
     void* q1_omc_final_pthread(void* args)
     {
         thread_args_omc_p1* t_args = (thread_args_omc_p1*) args;
+        unordered_map<int, int>* mres = new unordered_map<int, int>();
         
         if (t_args->len_arr_t > 0)
         {
@@ -92,11 +93,12 @@ namespace benchmark
         {
             for (int i = 0; i < t_args->len_arr_d[t]; ++i)
             {
-                (*t_args->result)[t_args->arr_d[t][i]]++;
+                (*mres)[t_args->arr_d[t][i]]++;
             }
             delete[] t_args->arr_d[t];
         }
 
+        delete mres;
         debug("Thread finished...");
         return NULL;
     }
