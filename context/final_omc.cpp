@@ -48,7 +48,7 @@ namespace benchmark
     void* q1_omc_final_pthread(void* args)
     {
         thread_args_omc_p1* t_args = (thread_args_omc_p1*) args;
-        unordered_map<int, int>* mres = new unordered_map<int, int>();
+        //unordered_map<int, int>* mres = new unordered_map<int, int>();
         
         if (t_args->len_arr_t > 0)
         {
@@ -93,12 +93,11 @@ namespace benchmark
         {
             for (int i = 0; i < t_args->len_arr_d[t]; ++i)
             {
-                (*mres)[t_args->arr_d[t][i]]++;
+                (*t_args->result)[t_args->arr_d[t][i]]++;
             }
             delete[] t_args->arr_d[t];
         }
 
-        delete mres;
         debug("Thread finished...");
         return NULL;
     }
@@ -159,7 +158,7 @@ namespace benchmark
                 int num_terms = tuple.length / NUM_THREADS;
                 args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
-                args[t]->result = &result;
+                args[t]->result = new unordered_map<int, int>();
                 
                 for (int i = 0; i < num_terms; ++i)
                 {
@@ -197,12 +196,18 @@ namespace benchmark
                 debug("Thread aggregated " << ctr << " documents.");
                 */
                 
+                for (auto it = args[t]->result->begin(); it != args[t]->result->end(); ++it)
+                {
+                    result[it->first] += it->second;
+                }
+                
                 delete threads[t];
                 
                 if (args[t]->len_arr_t > 0)
                 {
                     delete[] args[t]->len_arr_d;
                     delete[] args[t]->arr_d;
+                    delete args[t]->result;
                 }
                 
                 delete[] args[t]->arr_t;
