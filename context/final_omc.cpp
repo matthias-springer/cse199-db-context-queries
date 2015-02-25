@@ -40,6 +40,7 @@ namespace benchmark
         int len_arr_t;
         int** arr_d;
         int* len_arr_d;
+        unordered_map<int, int>* result;
     };
     
     int* doc_year;
@@ -86,6 +87,16 @@ namespace benchmark
             }
         }
         
+        for (int t = 0; t < t_args->len_arr_t; ++t)
+        {
+            int term = t_args->arr_t[t];
+            for (int i = 0; i < t_args->len_arr_d[t]; ++i)
+            {
+                (*t_args->result)[t_args->arr_d[t][i]]++;
+            }
+            delete[] t_args->arr_d[t];
+        }
+
         return NULL;
     }
     
@@ -165,6 +176,7 @@ namespace benchmark
                 pthread_join(*threads[t], NULL);
                 int ctr = 0;
                 
+                /*
                 for (int term = 0; term < args[t]->len_arr_t; ++term)
                 {
                     //debug("Aggregating " << args[t]->len_arr_d[term] << " documents...");
@@ -178,6 +190,7 @@ namespace benchmark
                 }
                 
                 debug("Thread aggregated " << ctr << " documents.");
+                */
                 
                 delete threads[t];
                 
