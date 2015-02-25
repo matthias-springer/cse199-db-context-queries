@@ -477,6 +477,7 @@ namespace benchmark
         exact_docs = input::docs_bench_items();
         
         show_info("Generate doc year...");
+        doc_year = new int[input::D_PM];
         for (int i = 0; i < input::D_PM; ++i)
         {
             doc_year[i] = rand() % 100 + 1915;
