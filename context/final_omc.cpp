@@ -22,12 +22,12 @@ namespace benchmark
     
     // DT_1
     int* dt1_docs;
-    rle_tuple<int, int>* dt1_terms;
-    int** exact_terms;
+    rle_tuple<short, int>* dt1_terms;
+    short** exact_terms;
     
     // DT_2
-    rle_tuple<int, int>* dt2_docs;
-    int* dt2_terms;
+    rle_tuple<int, short>* dt2_docs;
+    short* dt2_terms;
     unsigned char* dt2_freqs;
     int** exact_docs;
     
@@ -36,7 +36,7 @@ namespace benchmark
     
     struct thread_args_omc_p1
     {
-        int* arr_t;
+        short* arr_t;
         int len_arr_t;
         int** arr_d;
         int* len_arr_d;
@@ -74,7 +74,7 @@ namespace benchmark
             }
             
             // build arr_d
-            rle_tuple<int, int> tuple = dt1_terms[middle];
+            rle_tuple<short, int> tuple = dt1_terms[middle];
             debug("Found " << tuple.length << " documents for term " << t_args->arr_t[t]);
             
             t_args->arr_d[t] = new int[tuple.length];
@@ -122,8 +122,8 @@ namespace benchmark
             }
             
             // build arr_t
-            rle_tuple<int, int> tuple = dt2_docs[middle];
-            int* arr_t = new int[tuple.length];
+            rle_tuple<int, short> tuple = dt2_docs[middle];
+            short* arr_t = new short[tuple.length];
             
             for (int i = 0; i < tuple.length; ++i)
             {
@@ -142,7 +142,7 @@ namespace benchmark
                 args[t] = new thread_args_omc_p1();
                 
                 int num_terms = tuple.length / NUM_THREADS;
-                args[t]->arr_t = new int[num_terms];
+                args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
                 for (int i = 0; i < num_terms; ++i)
                 {
@@ -202,7 +202,7 @@ namespace benchmark
 
     struct thread_args_omc_p2
     {
-        int* arr_t;
+        short* arr_t;
         int len_arr_t;
         int** arr_d;
         int** arr_f;
@@ -240,7 +240,7 @@ namespace benchmark
             }
             
             // build arr_d
-            rle_tuple<int, int> tuple = dt1_terms[middle];
+            rle_tuple<short, int> tuple = dt1_terms[middle];
             debug("Found " << tuple.length << " documents for term " << t_args->arr_t[t]);
             
             t_args->arr_d[t] = new int[tuple.length];
@@ -291,8 +291,8 @@ namespace benchmark
             }
             
             // build arr_t
-            rle_tuple<int, int> tuple = dt2_docs[middle];
-            int* arr_t = new int[tuple.length];
+            rle_tuple<int, short> tuple = dt2_docs[middle];
+            short* arr_t = new short[tuple.length];
             
             for (int i = 0; i < tuple.length; ++i)
             {
@@ -311,7 +311,7 @@ namespace benchmark
                 args[t] = new thread_args_omc_p2();
                 
                 int num_terms = tuple.length / NUM_THREADS;
-                args[t]->arr_t = new int[num_terms];
+                args[t]->arr_t = new short[num_terms];
                 args[t]->len_arr_t = num_terms;
                 for (int i = 0; i < num_terms; ++i)
                 {
@@ -378,8 +378,7 @@ namespace benchmark
         show_info("Generating random data for DT1...");
         
         // DT1
-        /*
-        dt1_terms = new rle_tuple<int, int>[input::T_PM];
+        dt1_terms = new rle_tuple<short, int>[input::T_PM];
         debug("ALLOC terms check.");
         dt1_docs = new int[input::NUM_TUPLES];
         debug("ALLOC docs check.");
@@ -411,40 +410,38 @@ namespace benchmark
         exact_terms = input::terms_bench_items();
         
         show_info("Generating random data for DT2...");
-        */
         
         // DT2
-        show_info("Query modified for Q3_2.");
-        
-        dt2_docs = new rle_tuple<int, int>[input::D_PM];
+        dt2_docs = new rle_tuple<int, short>[input::D_PM];
         debug("ALLOC docs check.");
-        dt2_terms = new int[input::NUM_TUPLES_DA];
+        dt2_freqs = new unsigned char[input::NUM_TUPLES];
+        debug("ALLOC freqs check.");
+        dt2_terms = new short[input::NUM_TUPLES];
         debug("ALLOC terms check.");
         
         show_info("Generating terms...");
-        int row_counter = 0;
-        for (int t = 0; t < input::A_PM; ++t)
+        row_counter = 0;
+        for (int t = 0; t < input::T_PM; ++t)
         {
-            for (int i = 0; i < pubmed::get_DA_group_by_author(t); ++i)
+            for (int i = 0; i < pubmed::get_group_by_term(t); ++i)
             {
                 dt2_terms[row_counter++] = t;
             }
         }
         
         show_info("Shuffle...");
-        shuffle(dt2_terms, dt2_terms + input::NUM_TUPLES_DA, default_random_engine(42));
+        shuffle(dt2_terms, dt2_terms + input::NUM_TUPLES, default_random_engine(42));
         
         row_counter = 0;
         for (int d = 0; d < input::D_PM; ++d)
         {
             dt2_docs[d].id = d;
-            dt2_docs[d].length = pubmed::get_DA_group_by_doc(d);
+            dt2_docs[d].length = pubmed::get_group_by_doc(d);
             dt2_docs[d].row_id = row_counter;
             
             for (int t = 0; t < pubmed::get_DA_group_by_doc(d); ++t)
             {
-                row_counter++;
-                //dt2_freqs[row_counter++] = rand() % 256;
+                dt2_freqs[row_counter++] = rand() % 256;
             }
         }
         
@@ -485,7 +482,7 @@ namespace benchmark
         // build columns
         for (int t = 0; t < num_terms; ++t)
         {
-            int term_id = exact_terms[p][t];
+            short term_id = exact_terms[p][t];
             int l = 0;
             int r = input::T_PM;
             
@@ -628,15 +625,14 @@ namespace benchmark
     
     void* pthread_phase2(void* args)
     {
-//debug("ASDASD");
-        int p = ((thread_args<int>*)args)->p;
-        int start = ((thread_args<int>*)args)->start;
-        int end = ((thread_args<int>*)args)->end;
-        map_aggregation* aggr = ((thread_args<int>*)args)->result.aggr;
-  //      debug("ASDASD2");
+        int p = ((thread_args<short>*)args)->p;
+        int start = ((thread_args<short>*)args)->start;
+        int end = ((thread_args<short>*)args)->end;
+        map_aggregation* aggr = ((thread_args<short>*)args)->result.aggr;
+        
         int num_docs = end - start;
         
-        vector<int>* temp_terms = new vector<int>[num_docs]();
+        vector<short>* temp_terms = new vector<short>[num_docs]();
         vector<unsigned char>* temp_freqs = new vector<unsigned char>[num_docs]();
         
         // build columns
@@ -676,7 +672,7 @@ namespace benchmark
 			//debug(d);
                 temp_terms[t].push_back(dt2_terms[d]);
                 years[d - dt2_docs[l].row_id] = doc_year[doc_id];
-                //temp_freqs[t].push_back(dt2_freqs[d]);
+                temp_freqs[t].push_back(dt2_freqs[d]);
             }
             delete[] years;
         }
@@ -686,7 +682,7 @@ namespace benchmark
         {
             for (int t = 0; t < temp_terms[d].size(); ++t)
             {
-                aggr->add(temp_terms[d].at(t), 1);
+                aggr->add(temp_terms[d].at(t), temp_freqs[d].at(t));
             }
         }
         
@@ -705,7 +701,7 @@ namespace benchmark
             int num_docs = num_docs_a[p];
             
             show_info("Running for " << num_docs << " documents using 20 repititions.");
-            output::start_timer("run/phase2_omc_final MODIFIED FOR Q3_2");
+            output::start_timer("run/phase2_omc_final");
             
             for (int r = 0; r < 20; ++r)
             {
@@ -714,13 +710,13 @@ namespace benchmark
                 vector<int>* temp_docs = new vector<int>[NUM_THREADS]();
                 
                 pthread_t** threads = new pthread_t*[NUM_THREADS];
-                thread_args<int>** args = new thread_args<int>*[NUM_THREADS];
+                thread_args<short>** args = new thread_args<short>*[NUM_THREADS];
                 
                 for (int thread = 0; thread < NUM_THREADS; ++thread)
                 {
                     debug("Spawing thread " << thread << ".");
                     
-                    args[thread] = new thread_args<int>;
+                    args[thread] = new thread_args<short>;
                     threads[thread] = new pthread_t;
                     args[thread]->p = p;
                     args[thread]->start = thread * num_docs / NUM_THREADS;
@@ -756,7 +752,7 @@ namespace benchmark
                 //debug("There are " << intersection.size() << " elements in the intersection.");
             }
             
-            output::stop_timer("run/phase2_omc_final MODIFIED FOR Q3_2");
+            output::stop_timer("run/phase2_omc_final");
             output::show_stats();
         }
     }
