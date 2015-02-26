@@ -20,21 +20,21 @@ INFO [input.cpp:37 print_stats] # authors             | 6301521
 INFO [input.cpp:38 print_stats] # tuples DT           | 1495505362
 INFO [input.cpp:39 print_stats] # tuples DA           | 23711332
 INFO [main.cpp:183 main] Using working directory: /Users/matthias/Documents/Important/uni/cse199/cse199-db-context-queries/fastbit_index/database
-INFO [final_omc.cpp:415 generate_tuples] Generating random data for DT1...
-DBG  [final_omc.cpp:419 generate_tuples] ALLOC terms check.
-DBG  [final_omc.cpp:421 generate_tuples] ALLOC docs check.
-INFO [final_omc.cpp:423 generate_tuples] Generating docs...
-INFO [final_omc.cpp:434 generate_tuples] Shuffle...
-INFO [final_omc.cpp:449 generate_tuples] Generating random data for DT2...
-DBG  [final_omc.cpp:453 generate_tuples] ALLOC docs check.
-DBG  [final_omc.cpp:455 generate_tuples] ALLOC freqs check.
-DBG  [final_omc.cpp:457 generate_tuples] ALLOC terms check.
-INFO [final_omc.cpp:459 generate_tuples] Generating terms...
-INFO [final_omc.cpp:469 generate_tuples] Shuffle...
-INFO [final_omc.cpp:487 generate_tuples] Generate doc year...
-INFO [final_omc.cpp:493 generate_tuples] DONE.
-INFO [final_omc.cpp:109 q1_omc_final_bench] Running Q1 with 10 repetitions and 1 threads...
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 170 tuples for document 5145549
+INFO [final_omc.cpp:425 generate_tuples] Generating random data for DT1...
+DBG  [final_omc.cpp:429 generate_tuples] ALLOC terms check.
+DBG  [final_omc.cpp:431 generate_tuples] ALLOC docs check.
+INFO [final_omc.cpp:433 generate_tuples] Generating docs...
+INFO [final_omc.cpp:444 generate_tuples] Shuffle...
+INFO [final_omc.cpp:459 generate_tuples] Generating random data for DT2...
+DBG  [final_omc.cpp:463 generate_tuples] ALLOC docs check.
+DBG  [final_omc.cpp:465 generate_tuples] ALLOC freqs check.
+DBG  [final_omc.cpp:467 generate_tuples] ALLOC terms check.
+INFO [final_omc.cpp:469 generate_tuples] Generating terms...
+INFO [final_omc.cpp:479 generate_tuples] Shuffle...
+INFO [final_omc.cpp:497 generate_tuples] Generate doc year...
+INFO [final_omc.cpp:503 generate_tuples] DONE.
+INFO [final_omc.cpp:113 q1_omc_final_bench] Running Q1 with 10 repetitions and 1 threads...
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 170 tuples for document 5145549
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 65545 documents for term 620
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 237466 documents for term 3227
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 892343 documents for term 292
@@ -205,13 +205,11 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 36411 documents for term 5913
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 2411620 documents for term 761
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 10835814 documents for term 61
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 287876 documents for term 3485
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
-  (run/current_rep)	103.026
- U(run/current_rep)	103026281939
+  (run/current_rep)	99.2049
+ U(run/current_rep)	99204927671
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 128 tuples for document 8722836
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 128 tuples for document 8722836
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 636478 documents for term 1433
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1200955 documents for term 3082
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 660517 documents for term 3062
@@ -340,15 +338,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 590927 documents for term 268
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1970839 documents for term 2302
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 212127 documents for term 936
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 244273 documents for term 4203
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	201.19
- U(run/current_rep)	201190277945
+  (run/current_rep)	194.03
+ U(run/current_rep)	194030254903
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 121 tuples for document 3717600
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 121 tuples for document 3717600
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 6802628 documents for term 683
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1739516 documents for term 70
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 5712551 documents for term 554
@@ -470,15 +466,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 24432 documents for term 1197
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 617292 documents for term 997
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1203561 documents for term 3454
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 11074723 documents for term 7
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	293.667
- U(run/current_rep)	293666862698
+  (run/current_rep)	283.417
+ U(run/current_rep)	283416575691
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 132 tuples for document 10745106
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 132 tuples for document 10745106
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 619581 documents for term 2016
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 57896 documents for term 5390
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 457231 documents for term 772
@@ -611,15 +605,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 223930 documents for term 231
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 4127811 documents for term 43
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 100300 documents for term 1836
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 56084 documents for term 2387
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	380.263
- U(run/current_rep)	380263056677
+  (run/current_rep)	367.174
+ U(run/current_rep)	367173763002
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 106 tuples for document 1032760
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 106 tuples for document 1032760
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 113015 documents for term 6272
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 172674 documents for term 1094
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 2644546 documents for term 95
@@ -726,15 +718,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 2160166 documents for term 17
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 247282 documents for term 1752
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 125397 documents for term 7746
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 4724212 documents for term 766
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	454.268
- U(run/current_rep)	454267526287
+  (run/current_rep)	438.822
+ U(run/current_rep)	438821957525
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 86 tuples for document 12388707
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 86 tuples for document 12388707
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1507349 documents for term 472
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 492130 documents for term 529
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 11074723 documents for term 7
@@ -821,15 +811,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 9270939 documents for term 48
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 373496 documents for term 1727
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 962622 documents for term 134
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 148402 documents for term 3706
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	520.139
- U(run/current_rep)	520138874328
+  (run/current_rep)	502.58
+ U(run/current_rep)	502580357093
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 115 tuples for document 13465630
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 115 tuples for document 13465630
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 79649 documents for term 3569
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 2430486 documents for term 557
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 8221690 documents for term 25
@@ -945,15 +933,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 5592 documents for term 8601
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 8343847 documents for term 63
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 3530841 documents for term 26
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1358822 documents for term 1174
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	605.293
- U(run/current_rep)	605293362523
+  (run/current_rep)	584.93
+ U(run/current_rep)	584930155166
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 52 tuples for document 4732282
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 52 tuples for document 4732282
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 3413528 documents for term 534
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 668162 documents for term 789
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 137315 documents for term 675
@@ -1006,15 +992,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 7401102 documents for term 10
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 124399 documents for term 2865
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 11479012 documents for term 144
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 325960 documents for term 2837
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	657.361
- U(run/current_rep)	657360820212
+  (run/current_rep)	635.398
+ U(run/current_rep)	635398373805
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 67 tuples for document 3908144
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 67 tuples for document 3908144
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 2060580 documents for term 206
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 38964 documents for term 1236
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 10616510 documents for term 171
@@ -1082,15 +1066,13 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 9270939 documents for term 48
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 452667 documents for term 2143
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1559720 documents for term 83
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 118341 documents for term 4069
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	708.019
- U(run/current_rep)	708019000462
+  (run/current_rep)	684.536
+ U(run/current_rep)	684535603426
 
-DBG  [final_omc.cpp:146 q1_omc_final_bench] Found 132 tuples for document 6156252
+DBG  [final_omc.cpp:150 q1_omc_final_bench] Found 132 tuples for document 6156252
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 224411 documents for term 2364
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 7401102 documents for term 104
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 8554451 documents for term 81
@@ -1223,28 +1205,26 @@ DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 790777 documents for term 113
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 1908451 documents for term 128
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 596784 documents for term 3061
 DBG  [final_omc.cpp:80 q1_omc_final_pthread] Found 128397 documents for term 4253
-DBG  [final_omc.cpp:91 q1_omc_final_pthread] Aggregating...
-DBG  [final_omc.cpp:101 q1_omc_final_pthread] Thread finished...
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	810.508
- U(run/current_rep)	810508070377
+  (run/current_rep)	783.601
+ U(run/current_rep)	783601206679
 
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	810.508
- U(run/current_rep)	810508070377
-  (run/q1_omc_bench)	816.201
- U(run/q1_omc_bench)	816201188534
+  (run/current_rep)	783.601
+ U(run/current_rep)	783601206679
+  (run/q1_omc_bench)	789.389
+ U(run/q1_omc_bench)	789388558762
 
 INFO [offset.cpp:61 close_offset_files] Closed all offset files.
 INFO [output.cpp:124 show_stats] Runtime statistics:
   (io-bytes/bitvector-written-uncompressed)	0
  U(io-bytes/bitvector-written-uncompressed)	0
-  (run/current_rep)	810.508
- U(run/current_rep)	810508070377
-  (run/q1_omc_bench)	816.201
- U(run/q1_omc_bench)	816201188534
+  (run/current_rep)	783.601
+ U(run/current_rep)	783601206679
+  (run/q1_omc_bench)	789.389
+ U(run/q1_omc_bench)	789388558762
 
