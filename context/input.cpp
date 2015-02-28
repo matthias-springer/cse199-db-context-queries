@@ -91,10 +91,10 @@ namespace input
     {
         srand(123);
         
-        int num_terms_a[6] = {5, 10, 100, 1000, 10000, 25000};
-        short** terms = new short*[6];
+        int num_terms_a[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        short** terms = new short*[15];
         
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 15; ++i)
         {
             terms[i] = new short[num_terms_a[i]];
             
@@ -109,7 +109,7 @@ namespace input
     
     void dealloc_terms_bench_items(short** ptr)
     {
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 15; ++i)
         {
             delete[] ptr[i];
         }
