@@ -14,10 +14,12 @@
 #include "ewah.h"
 
 #define NUM_THREADS 4
-//#define FASTBIT 1
-#define HUFFMAN 1
+#define FASTBIT 1
+//#define HUFFMAN 1
 //#define EWAH
 //#define UNCOMPRESSED 1
+
+#define MIN(a,b) (((a)<(b))?(a):(b))
 
 namespace benchmark
 {
@@ -52,9 +54,9 @@ namespace benchmark
         len_docs_per_term = new int[input::T_PM];
         exact_terms_b = input::terms_bench_items();
         
-        int num_terms[6] = {5, 10, 100, 1000, 10000, 25000};
+        int num_terms[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 15; ++i)
         {
             for (int t = 0; t < NUM_THREADS; ++t)
             {
@@ -64,7 +66,7 @@ namespace benchmark
                 if (i > 0)
                 {
                     // hardcode first intersection: 46390 docs
-                    exact_terms_b[i][num_terms[i] * t / NUM_THREADS + 1] = 7207;
+                    exact_terms_b[i][num_terms[i] * t / NUM_THREADS + 1] = rand() % input::T_PM; //7207;
                 }
             }
         }
@@ -266,13 +268,13 @@ namespace benchmark
     
     void run_phase1_bench_final()
     {
-        int num_terms[6] = {5, 10, 100, 1000, 10000, 25000};
+        int num_terms[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
         long mem_counter = 0;   // avoid optimizations
         
         pthread_t** threads = new pthread_t*[NUM_THREADS];
         thread_args** args = new thread_args*[NUM_THREADS];
         
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 15; ++i)
         {
             int cnt_terms = num_terms[i];
             
@@ -280,7 +282,7 @@ namespace benchmark
             output::start_timer("run/phase1_final");
             for (int r = 0; r < 5; ++r)
             {
-                for (int t = 0; t < NUM_THREADS; ++t)
+                for (int t = 0; t < MIN(NUM_THREADS, cnt_terms); ++t)
                 {
                     //debug("[pthread] Spawning thread " << t << "...");
                     threads[t] = new pthread_t;
@@ -319,7 +321,7 @@ namespace benchmark
 #ifdef FASTBIT
                 ibis::bitvector* base_vector = args[0]->base_vector;
                 
-                for (int a = 1; a < NUM_THREADS; ++a)
+                for (int a = 1; a < MIN(NUM_THREADS, cnt_terms); ++a)
                 {
                     *base_vector &= *args[a]->base_vector;
                     delete args[a]->base_vector;
@@ -350,7 +352,7 @@ namespace benchmark
 #ifdef EWAH
                 EWAHBoolArray<uint32_t>* base_vector = args[0]->base_vector;
                 
-                for (int a = 1; a < NUM_THREADS; ++a)
+                for (int a = 1; a < MIN(NUM_THREADS, cnt_terms); ++a)
                 {
                     EWAHBoolArray<uint32_t>* base_copy = new EWAHBoolArray<uint32_t>(*base_vector);
                     base_copy->logicaland(*args[1]->base_vector, *base_vector);
@@ -368,7 +370,7 @@ namespace benchmark
                     bool not_found = false;
                     int doc_id = args[0]->docs_result->at(i);
                     
-                    for (int l = 1; l < NUM_THREADS; ++l)
+                    for (int l = 1; l < MIN(NUM_THREADS, cnt_terms); ++l)
                     {
                         if (find(args[l]->docs_result->begin(), args[l]->docs_result->end(), doc_id) == args[l]->docs_result->end())
                         {
