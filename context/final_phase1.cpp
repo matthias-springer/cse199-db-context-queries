@@ -282,7 +282,7 @@ namespace benchmark
             output::start_timer("run/phase1_final");
             for (int r = 0; r < 5; ++r)
             {
-                for (int t = 0; t < MIN(NUM_THREADS, cnt_terms); ++t)
+                for (int t = 0; t < NUM_THREADS; ++t)
                 {
                     //debug("[pthread] Spawning thread " << t << "...");
                     threads[t] = new pthread_t;
